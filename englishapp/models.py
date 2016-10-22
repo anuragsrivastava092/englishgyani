@@ -37,6 +37,11 @@ class Article(models.Model):
     article_content=models.CharField(max_length=254)
     article_genre=models.IntegerField(choices=genre_field)
     article_level=models.IntegerField()
+    article_summary=models.CharField(max_length=254)
+    article_publication_date=models.DateField()
+    article_publication_source=models.CharField(max_length=254)
+    article_publication_source_url=models.URLField()
+
 
 class Article_Questions(models.Model):
     mcq='1'
