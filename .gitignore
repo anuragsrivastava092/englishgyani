@@ -1,0 +1,9 @@
+db.sqlite3
+englishapp/migrations/*
+englishapi/migrations/*
+.idea
+.idea/*
+*.pyc
+
+
+
