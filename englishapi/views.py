@@ -4,8 +4,11 @@ from englishapp.models import *
 from django.db.models import Q
 from django.http import HttpResponse,JsonResponse
 import exception_handler,json
+from django.views.decorators.csrf import ensure_csrf_cookie
+
 
 class Register(View):
+    @ensure_csrf_cookie
     def post(self,request):
         email=request.POST.get('email')
         user_name=request.POST.get('username')
