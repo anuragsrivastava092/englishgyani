@@ -63,5 +63,41 @@ class Display_Article_LIst(View):
 
 
 
+class On_Open_Article(View):
+    def get(self,request):
+        if 'article_id' in request.GET:
+            article_id=request.GET.get("article_id")
+            question_l=Article_Questions.objects.filter(article_id=article_id)
+            question_list=[]
+            question_number_list=[[] for i in range(len(question_l))]
+            i=0
+            for question in question_l:
+                question_data={}
+                question_data['id']=question.id
+                question_number_list[i].insert(0,question.id)
+                question_number_list[i].insert(1,question.sentence_pos)
+                question_number_list[i].insert(2,question.paragraph_pos)
+                i=i+1
+                question_data['instruction']=question.question_instruction
+                question_data['description']=question.question_description
+                question_data['type']=question.question_type
+                question_data['weight']=question.question_weight
+                if question.question_type==1:
+                    question_data['choice1']=question.choice1_description
+                    question_data['choice2']=question.choice2_description
+                    question_data['choice3']=question.choice3_description
+                    question_data['choice4']=question.choice4_description
+                if question.question_type==2:
+                    pass
+                if question.question_type==3:
+                    pass
+                if question.question_type==4:
+                    question_data['fill_blank_text']=question.fill_blank_description
+                question_list.append(question_data)
+        question_list=json.dumps(question_list,ensure_ascii=True)
+        return JsonResponse(question_list,safe=False)
+
+
+
 
 

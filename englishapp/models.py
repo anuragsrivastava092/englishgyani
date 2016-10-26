@@ -41,40 +41,44 @@ class Article(models.Model):
     article_publication_date=models.DateField()
     article_publication_source=models.CharField(max_length=254)
     article_publication_source_url=models.URLField()
+    def __unicode__(self):
+		return str("id")+str(":")+str(self.id)
 
 
 class Article_Questions(models.Model):
-    mcq='1'
-    morethanonechoice='2'
-    truefalse='3'
-    fillblank='4'
-    edittext='5'
-    matchit='6'
+    mcq=1
+    morethanonechoice=2
+    truefalse=3
+    fillblank=4
+    edittext=5
+    matchit=6
     question_type_field=(('', '---------'),(mcq,'multiple choice questions'),
         (morethanonechoice,'more than one correct choice'),
         (truefalse,'true or false'),(fillblank,'fill in the blanks'),(edittext,'edit the sentence'),(matchit,'match the following'),)
+    A=1
+    B=2
+    C=3
+    D=4
+    E=5
+    F=6
+    G=7
+    choice_field=(('', '---------'),(A,'choice1'),
+        (B,'choice2'),
+        (C,'choice3'),(D,'choice4'),(E,'fill in the blank'),(F,'True'),(G,'False'),)
     article=models.ForeignKey(Article)
+    question_instruction=models.CharField(max_length=254)
     question_description=models.CharField(max_length=254)
+    question_weight=models.IntegerField()
     question_type=models.IntegerField(choices=question_type_field)
-
-class Question_choices(models.Model):
-    question=models.ForeignKey(Article_Questions)
     choice1_description=models.CharField(max_length=254,blank=True)
     choice2_description=models.CharField(max_length=254,blank=True)
     choice3_description=models.CharField(max_length=254,blank=True)
     choice4_description=models.CharField(max_length=254,blank=True)
     fill_blank_description=models.CharField(max_length=254,blank=True)
-    A='1'
-    B='2'
-    C='3'
-    D='4'
-    E='5'
-    F='6'
-    G='7'
-    choice_field=(('', '---------'),(A,'choice1'),
-        (B,'choice2'),
-        (C,'choice3'),(D,'choice4'),(E,'fill in the blank'),(F,'True'),(G,'False'),)
+    sentence_pos=models.IntegerField()
+    paragraph_pos=models.IntegerField()
     right_choice=models.IntegerField(choices=choice_field)
+
 
 class User_Performance(models.Model):
     user=models.OneToOneField(User)
