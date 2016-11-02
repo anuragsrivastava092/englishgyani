@@ -34,7 +34,7 @@ class Article(models.Model):
         (science,'science'),(entertainment,'entertainment'),(world,'world'),(nation,'nation'),(environment,'environment'),(businessandcommerce,'businessandcommerce'),)
     article_image=models.ImageField(upload_to='englishgyani/staticfiles/images/article_images', height_field=None, width_field=None, max_length=100)
     article_title=models.CharField(max_length=254)
-    article_content=models.CharField(max_length=254)
+    article_content=models.TextField()
     article_genre=models.IntegerField(choices=genre_field)
     article_level=models.IntegerField()
     article_summary=models.CharField(max_length=254)
@@ -77,6 +77,7 @@ class Article_Questions(models.Model):
     fill_blank_description=models.CharField(max_length=254,blank=True)
     sentence_pos=models.IntegerField()
     paragraph_pos=models.IntegerField()
+    word=models.CharField(max_length=254)
     right_choice=models.IntegerField(choices=choice_field)
 
 
