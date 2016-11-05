@@ -23,9 +23,9 @@ class Register(View):
             return HttpResponse(res, status=200)
 
 class Display_Article_LIst(View):
-    def post(self,request):
+    def get(self,request):
         article_list=Article.objects.filter()
-        print request.POST
+        print request.GET
         if 'sports' in request.POST:
             try:
                 sports_id=request.POST.get('sports_id')
@@ -76,10 +76,11 @@ class Display_Article_LIst(View):
             article_list=article_list.filter(article_genre=8,id__gt=businessandcommerce_id)[10]
         else:
             try:
-                id=request.POST.get('id')
+                id=request.GET.get('id',0)
             except:
                 id=0
-            article_list=article_list.filter(id__gt=id)[10]
+            print id
+            article_list=article_list.filter(id__gt=id)[:10]
             art_list=[]
         for article in article_list:
             art_data={}
