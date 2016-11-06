@@ -13,32 +13,224 @@
   <link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/article_content.css' %}">
-	
+
+ <link rel="stylesheet" type="text/css" href="{% static 'css/article.css' %}">
+	<style>
+		#tooltip_bookmark, #tooltip_lookup{
+			background:#ABFFE3;
+			position:relative;
+			border-radius: 2px;
+			border-style:hidden;
+			display:none;
+
+		 }
+		#tooltip_lookup{
+			background:#ff751a;
+		}
+		  #tooltext_bookmark, #tooltext_lookup {
+			padding-top:10px;
+			padding-bottom:6px;
+			padding-left:10px;
+			padding-right:10px;
+			font-size: 16px;
+
+		 }
+
+		 #alert_bookmark{
+			display:none;
+		 }
+
+		 .login{
+		margin-top:120px;
+		width:300px;
+		padding-left:20px;
+		padding-right:20px;
+		text-align:center;
+		background:white;
+		margin-left:calc((100% - 300px)/2);
+		margin-right:calc((100% - 300px)/2);
+		padding-bottom:80px;
+	}
+	.card {
+	  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+	  border: 1px solid #e5e5e5;
+	  border-radius:100px;
+
+	}
+	.sign_text{
+		padding-top:20px;
+		font-size:24px;
+	}
+	.social_login_img{
+		margin-top:10px;
+		width:100%;
+
+	}
+	.social_login_img1{
+		margin-top:5px;
+		width:100%;
+	}
+	.close_modal_div{
+		margin-top:20px;
+		margin-left:80px;
+		height:auto;
+	}
+	</style>
+	<style>
+
+		.me{
+			display:none;
+			background:white;
+			width:450px;
+			height:400px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 4px;
+		}
+		.me_body{
+			height:340px;
+
+			border-bottom-style: solid;
+			border-width:1px;
+			border-color:#e5e5e5;
+		}
+		.me_foot{
+			height:60px;
+
+		}
+		.me_body_le{
+			margin-left:0px;
+			width:400px;
+			float:left;
+			position:relative;
+			height:340px;
+
+		}
+
+		.me_body_ri{
+			margin-right:0px;
+			width:50px;
+			float:right;
+			position:relative;
+			height:340px;
+
+		}
+		.me_body_ri{
+			text-align:center;
+			font-size:20px;
+
+		}
+		.close_icon{
+			padding:15px;
+			font-weight:50%;
+
+		}
+		.me_body_le_to{
+			height:60px;
+
+
+
+		}
+		.word_meaning_parent{
+			 padding-left:50px;
+
+			 margin-top:0px;
+			 padding-top:14px;
+			 font-weight:bold;
+			 font-size:22px;
+			 margin-left:0%;
+
+			 }
+		.me_body_le_bo{
+			height:260px;
+
+			overflow-y:scroll;
+			overflow-x:hidden;
+
+
+		}
+		.word_meaning_ans{
+			padding-left:50px;
+			margin-top:0px;
+			padding-top:14px;
+			font-size:16px;
+			margin-left:0%;
+
+
+		}
+
+	.me_foot_basic{
+		margin-left:50px;
+		width:280px;
+		background:red;
+		height:40px;
+		margin-top:10px;
+		margin-bottom:10px;
+	}
+	.me_foot_basic_le{
+			margin-left:0px;
+			width:50%;
+			float:left;
+			position:relative;
+			height:100%;
+			background-color: #e2461d;
+			color: white;
+	}
+	.me_foot_basic_ri{
+			margin-right:0px;
+			width:50%;
+			float:right;
+			position:relative;
+			height:100%;
+			background:white;
+			color:#e2461d;
+			font-family: 'Raleway', sans-serif;
+	}
+
+	.lan_ele {
+
+		border:solid;
+		border-color:#e2461d;
+		border-width:1px;
+
+		padding-top:5px;
+		padding-bottom:5px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 20px;
+
+		cursor: pointer;
+
+}
+	#hindi_content, #audio_div{
+		display:none;
+}
+  </style>
 </head>
 <body>
-	
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span> 
+        <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><img src="col_lo.png" class="brand_logo" ><h3 class="brand_name2">Englishgyani</h3></a>
+      <a class="navbar-brand" href="#"><img src="{% static 'images/col_lo.png' %}" alt=" brand logo" class="brand_logo" ><h3 class="brand_name2">Englishgyani</h3></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
 		<li class="active kkk"><a href="#"><i class="fa fa-newspaper-o nav_icon_active" aria-hidden="true"></i> <span class="nav_icon_w_active"> News</span> </a></li>
-      
+
       <li><a href="#"><i class="fa fa-bookmark nav_icon" aria-hidden="true"></i><span class="nav_icon_w"> Bookmark</span> </a></li>
-	  <li><a href="#"><i class="fa fa-question nav_icon" aria-hidden="true"></i><span class="nav_icon_w"> Practice</span> </a></li> 
-	  
+	  <li><a href="#"><i class="fa fa-question nav_icon" aria-hidden="true"></i><span class="nav_icon_w"> Practice</span> </a></li>
+
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li ><a href="#"><span class="glyphicon glyphicon-user nav_icon"></span><span class="nav_icon_w profile_nav_icon"> Kamal</span> </a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in nav_icon"></span><span class="nav_icon_w log_nav_icon"> Logout</span> </a></li>
+         <li ><a href="#" id="egregister"><span class="glyphicon glyphicon-user nav_icon"></span><span class="nav_icon_w profile_nav_icon"> Register</span> </a></li>
+        <li><a href="#" id="eglogin"><span class="glyphicon glyphicon-log-in nav_icon"></span><span class="nav_icon_w log_nav_icon"> Login</span> </a></li>
       </ul>
     </div>
   </div>
@@ -69,9 +261,9 @@
 			</div>
 	</div>
 	<div class="article_head_title">
-			<h2 class="article_head_text"> 
-			
-			</h2>
+			<h1 class="article_head_text">
+					Article Heading
+			</h1>
 	</div>
 	<div class="article_head_image_content">
 				<div class="article_head_image_content_li">
@@ -81,23 +273,23 @@
 					<div class="toogle_div">
 						<span class="switch_text">Integrated Exercise </span>
 						<label class="switch">
-						  <input type="checkbox" checked>
-						  <div class="slider"></div>
+						  <input type="checkbox" id="int_checkbox" name="int_checkbox" value ="Exercise" checked>
+						  <span class="slider"></span>
 						</label>
 					</div>
 					<div class="toogle_div">
 						<span class="switch_text">Highlight Phrases </span>
 						<label class="switch">
-						  <input type="checkbox" checked>
-						  <div class="slider"></div>
+						  <input type="checkbox"  id="int_phrases" name="int_phrases" value ="Phrases" checked>
+						  <span class="slider"></span>
 						</label>
 					</div>
 				</div>
-				
+
 	</div>
 	<div class="main_article">
 			<div class="article-content_main-content" id="js-article">
-					
+				<h2 id="article_head_second_head"> Article Second Heading</h2>
 			</div>
 	</div>
 	<div class="article_footer">
@@ -106,8 +298,8 @@
 			<div class="article_footer_tags tags">
 				<span class="tag_icon">
 					<i class="fa fa-tag" aria-hidden="true"></i>
-					<span class="article_tag"> 
-					
+					<span class="article_tag">
+
 					</span>
 				</span>
 			</div>
@@ -116,24 +308,180 @@
 <div class="footer last" >
 		<div class="footer_ele foot_head">
 			<h3> Connect with EnglishGyani</h3>
-			
+
 		</div>
-		
+
 		<div class="footer_ele">
 			<a href="https://web.facebook.com/" class="fb bounceIn" data-delay="1400"><i class="fa fa-facebook"></i></a>
 			&nbsp;
 			<a href="https://www.instagram.com/" class="li bounceIn" data-delay="1400"><i class="fa fa-instagram"></i></a>
-			
+
 		</div>
-	
-		
-		
+
+
+
 		<div class="footer_ele foot_bottom">
 			© Copyright 2016, EnglishGyani Inc.
-			
+
 		</div>
 		<br>
-</div><script> question_list={{ question_list|safe }}</script>
-<script src="{% static 'js/article_content.js' %}"></script>
+</div>
+
+
+
+
+
+<div class="modal fade" id="myphrase" role="dialog">
+	<div class="card">
+			<p class="phrase_text"><strong>Phrase : </strong><span id="phrase_text_id"></span></p>
+
+			<p class="phrase_meaning"><strong>Meaning : </strong><span id="phrase_meaning_id"></span> </p>
+			<p class="phrase_example"><strong>Example : </strong><span id="phrase_example_id"></span></p>
+			<div class="close_modal_div">
+				<button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">Remove</button>
+
+			</div>
+	</div>
+
+</div>
+
+
+<div id="tooltip_bookmark" >
+	<div id = "tooltext_bookmark">
+		<span class="glyphicon glyphicon-th"> </span>
+		<span>Bookmark</span>
+	</div>
+</div>
+<div id="tooltip_lookup" >
+	<div id="tooltext_lookup">
+		<span class="glyphicon glyphicon-th"> </span>
+		<span>Lookup </span>
+	</div>
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+	<div class="login card">
+			<p class="sign_text"> Login to Englishgyani</p>
+			<a href="/accounts/google/login/?process=login">
+				<img alt= "google login image" class="social_login_img" src="https://englishbucket.s3.amazonaws.com/static/img/a.png">
+			</a>
+			<a href="/accounts/facebook/login/?process=login">
+				<img alt= "facebook login image" class="social_login_img1" src="https://englishbucket.s3.amazonaws.com/static/img/fb.png">
+			</a>
+			<div class="close_modal_div">
+				<button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+
+			</div>
+	</div>
+
+ </div>
+<div class="me" id="popup2">
+			<div class="me_body">
+				<div class="me_body_le">
+					<div class="me_body_le_to">
+							<div class="word_meaning_parent">
+								<span id="word_meaning">untidy </span>
+								<i class="fa fa-volume-down" id="word_pronunciation" aria-hidden="true"></i>
+							</div>
+					</div>
+
+					<div class="me_body_le_bo" id="english_content">
+						<h3 class="word_meaning_ans">
+						If something is free, you can have it or use it without paying for it.
+
+						</h3>
+						<h3 class="word_meaning_ans">
+							Someone or something that is free is not restricted, controlled, or limited, for example, by rules, customs, or other people.
+
+						</h3>
+						<h3 class="word_meaning_ans">
+							If someone or something is free of or free from an unpleasant thing, they do not have it or they are not affected by it.
+
+						</h3>
+						<h3 class="word_meaning_ans">
+							A sum of money or type of goods that is free of tax or duty is one that you do not have to pay tax on.
+
+						</h3>
+						<h3 class="word_meaning_ans">
+							If you have a free period of time or are free at a particular time, you are not working or occupied then.
+
+						</h3>
+						<h3 class="word_meaning_ans">
+							When someone is using one hand or arm to hold or move something, their other hand or arm is referred to as their free one.
+
+						</h3>
+						<h3 class="word_meaning_ans">
+							If something such as a table or seat is free, it is not being used or occupied by anyone, or is not reserved for anyone to use.
+						</h3>
+						<h3 class="word_meaning_ans">
+							If you get something free or if it gets free, it is no longer trapped by anything or attached to anything.
+						</h3>
+
+
+					</div>
+					<div class="me_body_le_bo" id="hindi_content">
+						<h3 class="word_meaning_ans">
+							असावधान
+						</h3>
+						<h3 class="word_meaning_ans">
+							 गन्दा
+						</h3>
+						<h3 class="word_meaning_ans">
+							ढीला
+						</h3>
+						<h3 class="word_meaning_ans">
+							 बेतरतीब
+						</h3>
+						<h3 class="word_meaning_ans">
+							 मैला
+						</h3>
+						<h3 class="word_meaning_ans">
+							लापरवाह
+						</h3>
+						<h3 class="word_meaning_ans">
+							 अव्यस्थित
+						</h3>
+						<h3 class="word_meaning_ans">
+							मैला कुचैला
+						</h3>
+
+					</div>
+
+				</div>
+				<div class="me_body_ri">
+					<i class="fa fa-times close_icon word_close popup_close_butt_cl" aria-hidden="true"></i>
+				</div>
+
+			</div>
+
+			<div class="me_foot">
+				<div class="me_foot_basic">
+					<div class="me_foot_basic_le lan_ele" id="english_ele">
+						<span>English</span>
+					</div>
+					<div class="me_foot_basic_ri lan_ele" id="hindi_ele">
+						<span>Hindi</span>
+					</div>
+				</div>
+			</div>
+</div>
+<div class="audio_play" id="audio_div">
+		<audio  controls="controls" id="taskaudio">
+			<source src="https://englishbucket.s3.amazonaws.com/static/audios/cartons.mp3" type="audio/mpeg">
+		</audio>
+</div>
+
+<script src="{% static 'js/article_one.js' %}"></script>
+<script src="{% static 'js/article_boomark.js' %}"></script>
+ <script>
+     content= '{{ content |safe }}';
+    article_json={{ question_list |safe }};
+	$(".audio_play").hide();
+	var vid = document.getElementById("taskaudio");
+	$("#word_pronunciation").on("click", function(){
+		vid.play();
+	});
+//	$("input:radio").change(function () {$(".ques_sub_but").prop("disabled", false);});
+
+ </script>
 </body>
 </html>

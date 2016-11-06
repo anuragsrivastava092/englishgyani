@@ -183,17 +183,12 @@ $( ".filt_sub2" ).click(function() {
 $( ".eg_clear_filter_button" ).click(function() {
 		clearfilter();
 });
-$( ".eg_filter_button" ).click(function() {
-		//fil_active3
-		cat_text = $(".fil_active1").text().toLowerCase();
-		//cat_level = $(".fil_active2").map(function() { return $(this).text(); });
-		//cat_content = $(".fil_active3").map(function() { return $(this).text(); });
-		console.log(cat_text);
-    formdata=new FormData();
-    formdata.append(cat_text.toString(),cat_text.toString())
-    formdata.append("anurag","anurag")
-    console.log(formdata)
-    console.log("hi i am here")
+    $( ".see_all_art" ).click(function() {
+		clearfilter();
+        formdata=new FormData();
+    //formdata.append(cat_text.toString(),cat_text.toString())
+    formdata.append("all","all")
+
 
 			$.ajax({
                  beforeSend: function (xhr, settings) {
@@ -206,11 +201,48 @@ $( ".eg_filter_button" ).click(function() {
                 contentType:false,
                 processData: false,
 				success: function(response) {
-                    //console.log(response);
                     article_json = jQuery.parseJSON( response );
-                    console.log(article_json);
-                    console.log(22222);
 					$(".list_container").remove();
+                    $("#no_article").css({"display":"none"});
+				if(article_json.length===0){
+					$("#no_article").css({"display":"block"});
+				}
+				else{
+					addarticle();
+				}
+				},
+				error: function(xhr) {
+                     console.log(88);
+				}
+			});
+
+});
+$( ".eg_filter_button" ).click(function() {
+		//fil_active3
+		cat_text = $(".fil_active1").text().toLowerCase();
+		//cat_level = $(".fil_active2").map(function() { return $(this).text(); });
+		//cat_content = $(".fil_active3").map(function() { return $(this).text(); });
+		//console.log(cat_text);
+    formdata=new FormData();
+    formdata.append(cat_text.toString(),cat_text.toString());
+    //formdata.append("anurag","anurag")
+
+
+			$.ajax({
+                 beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+                },
+				url: "/api/article-filter/",
+				data:formdata,
+                cache: false,
+				type: "POST",
+                contentType:false,
+                processData: false,
+				success: function(response) {
+                    console.log(response);
+                    article_json = jQuery.parseJSON( response );
+					$(".list_container").remove();
+                    $("#no_article").css({"display":"none"});
 				if(article_json.length===0){
 					$("#no_article").css({"display":"block"});
 				}
@@ -227,12 +259,13 @@ $( ".eg_filter_button" ).click(function() {
 });
 </script>
 <script>
-var article_json = [{"image":"https://d34yfym6wfrgx6.cloudfront.net/uploads/article/custom_image/139851/super_large_Instagram-for-money.jpg","level":2,"summary":"A new generation of investors with a conscience can help you make money while putting your dollars to good use.","date":"10/19/2016","source":"Desitomato","source_url":"http://Desitomato.com","content":"text","article_id":2323,"head":"Get Rich While Doing Good"},
+var article_json1 = [{"image":"https://d34yfym6wfrgx6.cloudfront.net/uploads/article/custom_image/139851/super_large_Instagram-for-money.jpg","level":2,"summary":"A new generation of investors with a conscience can help you make money while putting your dollars to good use.","date":"10/19/2016","source":"Desitomato","source_url":"http://Desitomato.com","content":"text","article_id":2323,"head":"Get Rich While Doing Good"},
 {"image":"https://d34yfym6wfrgx6.cloudfront.net/uploads/article/custom_image/140597/super_large_factory.jpg","level":4,"summary":"As factory floors become more automated and data-driven, manufacturing companies are in need of computer engineers. But they often find themselves outgunned by Silicon Valley tech firms.","date":"10/20/2016","source":"The Hindu","source_url":"http://thehindu.com","content":"text","article_id":2393,"head":"Manufacturers Lose Out on Tech Talent"}
 ];
 
-    article_json1={{ article_list |safe }}
-console.log(article_json)
+    article_json={{ article_list |safe }};
+var last_d;
+console.log(article_json);
 	if(article_json.length===0){
 		$("#no_article").css({"display":"block"});
 	}
@@ -251,20 +284,39 @@ $(".main_right").on("click",".redirect_page",function(){
  
  });
  //load_button
- $(".main_right").on("click",".load_button",function(){ 
-		addarticle();
-		/*$.ajax({
-				url: "ajax.aspx?ajaxid=4",
-				data: { 
-					"VarA": VarA, 
-					"VarB": VarB, 
-					"VarC": VarC
-				},
-				cache: false,
+ $(".main_right").on("click",".load_button",function(){
+        //last_d
+        //clearfilter();
+        formdata=new FormData();
+     if(cat_text.toString()==="all") {
+
+         formdata.append('id',last_d);
+     }
+     else{
+         formdata.append(cat_text.toString(),cat_text.toString());
+         formdata.append(cat_text.toString()+'_id',last_d);
+
+     }
+      //formdata.append(cat_text.toString(),cat_text.toString());
+    //formdata.append('id',last_id);
+    formdata.append("all","all")
+
+
+			$.ajax({
+                 beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+                },
+				url: "/api/article-filter/",
+				data:formdata,
+                cache: false,
 				type: "POST",
+                contentType:false,
+                processData: false,
 				success: function(response) {
-					var obj = jQuery.parseJSON( response );
-					$(".list_container").remove();
+                    article_json = jQuery.parseJSON( response );
+                    console.log(response);
+					//$(".list_container").remove();
+                    $("#no_article").css({"display":"none"});
 				if(article_json.length===0){
 					$("#no_article").css({"display":"block"});
 				}
@@ -273,10 +325,10 @@ $(".main_right").on("click",".redirect_page",function(){
 				}
 				},
 				error: function(xhr) {
-
+                     console.log(88);
 				}
 			});
-		*/
+
  });
  
  function clearfilter(){ 
@@ -284,11 +336,16 @@ $(".main_right").on("click",".redirect_page",function(){
 			$("#eg_by_sub_cat1").attr("class", "filter_button filt_sub2 fil_active1");
 			
 };
- function addarticle(){ 
+ function addarticle(){
+     article_json.reverse();
 	for (i=0;i<article_json.length;i++){
+        if( i===0){
+            last_d = article_json[i].id;
+        }
 		var first_div = document.createElement("div"); 
 			$(first_div).addClass("list_container");
-			$(first_div).attr("id", article_json[i].article_id);
+			$(first_div).attr("id", article_json[i].id);
+
 		var first_div_fi_child = document.createElement("div"); 
 			$(first_div_fi_child).addClass("main_right_left boxshadow");
 			first_div.appendChild(first_div_fi_child);
@@ -323,6 +380,7 @@ $(".main_right").on("click",".redirect_page",function(){
 		var art_head = document.createElement("h2");
 			$(art_head).addClass("redirect_page");
 			$(art_head).text(article_json[i].head);
+            console.log(article_json[i].head);
 			$(art_head).attr("id", "hed"+article_json[i].article_id);
 			sec2_div.appendChild(art_head);
 			//<p>As factory floor

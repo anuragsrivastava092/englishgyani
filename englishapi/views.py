@@ -23,65 +23,86 @@ class Register(View):
             return HttpResponse(res, status=200)
 
 class Display_Article_LIst(View):
-    def get(self,request):
+    def post(self,request):
         article_list=Article.objects.filter()
-        print request.GET
+        print request.POST
         if 'sports' in request.POST:
-            try:
-                sports_id=request.POST.get('sports_id')
-            except:
-                sports_id=0
-            article_list=article_list.filter(article_genre=2,id__gt=sports_id)[10]
-        if 'politics' in request.POST:
-            try:
-                politics_id=request.POST.get('politics_id')
-            except:
-                politics_id=0
-            article_list=article_list.filter(article_genre=1,id__gt=politics_id)[10]
-        if 'science' in request.POST:
-            try:
-                science_id=request.POST.get('science_id')
-            except:
-                science_id=0
-            article_list=article_list.filter(article_genre=3,id__gt=science_id)[10]
-        if 'entertainment' in request.POST:
-            try:
-                entertainment_id=request.POST.get('entertainment_id')
-            except:
-                entertainment_id=0
-            article_list=article_list.filter(article_genre=4,id__gt=entertainment_id)[10]
-        if 'international' in request.POST:
-            try:
-                international_id=request.POST.get('international_id')
-            except:
-                international_id=0
-            article_list=article_list.filter(article_genre=5,id__gt=international_id)[10]
-        if 'nation' in request.POST:
-            try:
-                nation_id=request.POST.get('nation_id')
-            except:
-                nation_id=0
-            article_list=article_list.filter(article_genre=6,id__gt=nation_id)[10]
-        if 'environment' in request.POST:
-            try:
-                environment_id=request.POST.get('environment_id')
-            except:
-                environment_id=0
-            article_list=article_list.filter(article_genre=7,id__gt=environment_id)[10]
-        if 'businessandcommerce' in request.POST:
-            try:
-                businessandcommerce_id=request.POST.get('businessandcommerce_id')
-            except:
-                businessandcommerce_id=0
-            article_list=article_list.filter(article_genre=8,id__gt=businessandcommerce_id)[10]
+            sports_id=request.POST.get('sports_id')
+            if sports_id!=None:
+                article_list=article_list.filter(article_genre=2,id__lt=sports_id).order_by('-id')
+            else:
+                article_list=article_list.filter(article_genre=2).order_by('-id')[:10]
+        elif 'politics' in request.POST:
+            politics_id=request.POST.get('politics_id')
+            if politics_id!=None:
+                article_list=article_list.filter(article_genre=1,id__lt=politics_id).order_by('-id')
+            else:
+                article_list=article_list.filter(article_genre=1).order_by('-id')
+        elif 'science' in request.POST:
+            science_id=request.POST.get('science_id')
+            if science_id!=None:
+                article_list=article_list.filter(article_genre=3,id__lt=science_id).order_by('-id')
+            else:
+                article_list=article_list.filter(article_genre=3).order_by('-id')
+        elif 'entertainment' in request.POST:
+            entertainment_id=request.POST.get('entertainment_id')
+            if entertainment_id!=None:
+                article_list=article_list.filter(article_genre=4,id__lt=entertainment_id).order_by('-id')
+            else:
+                article_list=article_list.filter(article_genre=4).order_by('-id')
+        elif 'international' in request.POST:
+            international_id=request.POST.get('international_id')
+            if international_id!=None:
+                article_list=article_list.filter(article_genre=5,id__lt=international_id).order_by('-id')
+            else:
+                article_list=article_list.filter(article_genre=5).order_by('-id')
+        elif 'nation' in request.POST:
+            nation_id=request.POST.get('nation_id')
+            if nation_id!=None:
+                article_list=article_list.filter(article_genre=6,id__lt=nation_id).order_by('-id')
+            else:
+                article_list=article_list.filter(article_genre=6).order_by('-id')
+        elif 'environment' in request.POST:
+            environment_id=request.POST.get('environment_id')
+            if environment_id!=None:
+                article_list=article_list.filter(article_genre=7,id__lt=environment_id).order_by('-id')
+            else:
+                article_list=article_list.filter(article_genre=7).order_by('-id')
+        elif 'business' in request.POST:
+            business_id=request.POST.get('business_id')
+            if business_id!=None:
+                article_list=article_list.filter(article_genre=8,id__lt=business_id).order_by('-id')
+            else:
+                article_list=article_list.filter(article_genre=8).order_by('-id')
         else:
-            try:
-                id=request.GET.get('id',0)
-            except:
-                id=0
+            id=request.POST.get('id')
             print id
-            article_list=article_list.filter(id__gt=id)[:10]
-            art_list=[]
+            if id!=None:
+                article_list=article_list.filter(id__lt=id).order_by('-id')[:10]
+            else:
+                article_list=article_list.all().order_by('-id')[:10]
+        art_list=[]
+        for article in article_list:
+            print "i entered in here"
+            art_data={}
+            art_data['head']=article.article_title
+            # art_data['image']=article.article_image
+            art_data['genre']=article.article_genre
+            art_data['level']=article.article_level
+            art_data['content']=article.article_content
+            art_data['summary']=article.article_summary
+            art_data['id']=article.id
+            art_data['date']=str(article.article_publication_date)
+            art_data['source_url']=article.article_publication_source_url
+            art_data['source']=article.article_publication_source
+            art_list.append(art_data)
+            print "kmal",art_list
+        art_list=json.dumps(art_list,ensure_ascii=True)
+        return JsonResponse(art_list,safe=False)
+
+    def get(self,request):
+        article_list=Article.objects.all().order_by('-id')[:10]
+        art_list=[]
         for article in article_list:
             art_data={}
             art_data['head']=article.article_title
@@ -101,9 +122,11 @@ class Display_Article_LIst(View):
 
 
 
+
 class On_Open_Article(View):
     def get(self,request):
         if 'article_id' in request.GET:
+            data={}
             article_id=request.GET.get("article_id")
             question_l=Article_Questions.objects.filter(article_id=article_id)
             content=question_l[0].article.article_content
@@ -135,18 +158,20 @@ class On_Open_Article(View):
                     question_data['fill_blank_text']=question.fill_blank_description
                 question_list.append(question_data)
             question_list=json.dumps(question_list,ensure_ascii=True)
+            parag=[]
             content=app_methods.final(question_number_list,content)
             for i in range(len(content)):
                 tet=""
-                for j in range(len(para[i])):
-                    tet+=" " + para[i][j]
+                for j in range(len(content[i])):
+                    tet+=" " + content[i][j]
                 tet = "<p>"+tet+"</p>"
                 parag.append(tet)
             front_content=""
             for i in range(len(parag)):
 				front_content += parag[i]
-            print front_content
-            return JsonResponse(question_list,safe=False)
+            data['question_list']=question_list
+            data['content']=front_content
+            return JsonResponse(data,safe=False)
 
 class Check_Question(View):
     def post(self,request):

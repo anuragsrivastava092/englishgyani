@@ -32,10 +32,17 @@ class Article(models.Model):
     genre_field=(('', '---------'),(politics,'politics'),
         (sports,'sports'),
         (science,'science'),(entertainment,'entertainment'),(world,'world'),(nation,'nation'),(environment,'environment'),(businessandcommerce,'businessandcommerce'),)
+    text=1
+    play=2
+    video=3
+    type_field=(('','---------'),(text,'text type article'),
+                (play,'play exercise article'),(video,'video type article'),)
     article_image=models.ImageField(upload_to='englishgyani/staticfiles/images/article_images', height_field=None, width_field=None, max_length=100)
     article_title=models.CharField(max_length=254)
-    article_content=models.TextField()
+    article_content=models.TextField(blank=True)
+    article_video_url=models.URLField(blank=True)
     article_genre=models.IntegerField(choices=genre_field)
+    article_type=models.IntegerField(choices=type_field)
     article_level=models.IntegerField()
     article_summary=models.CharField(max_length=254)
     article_publication_date=models.DateField()
