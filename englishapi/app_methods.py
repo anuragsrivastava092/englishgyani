@@ -3,32 +3,23 @@ def anurag():
         article=open("englishapi/article.txt","r")
         return article
 def final(question,content):
-
-    #article=content
-    #print question,content
     article=open("englishapi/article.txt","r")
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
     par =[]
     for i in article:
             par.append(i)
     para =[]
-    print 1
-    print par
-    print 2
     test=[]
     count =0
     for i in range(len(par)):
-        if par[i]!="\r\n":
-            if par[i][-2:] ==  "\r\n" :
-                param=par[i][:-2]
+        if par[i]!="\n":
+            if par[i][-1:] ==  "\n" :
+                param=par[i][:-1]
                 sent_token = tokenizer.tokenize(param)
                 para.append(sent_token)
             else :
-                #print 99
-                #print par[i]
                 sent_tokenm = tokenizer.tokenize(par[i])
                 para.append(sent_tokenm)
-    #print "para",para
     for i in range(len(question)):
         if len(question[i])>3:
             sent = para[question[i][1]][question[i][2]]

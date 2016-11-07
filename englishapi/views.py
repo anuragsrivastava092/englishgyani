@@ -91,7 +91,7 @@ class Display_Article_LIst(View):
             art_data['level']=article.article_level
             art_data['content']=article.article_content
             art_data['summary']=article.article_summary
-            art_data['id']=article.id
+            art_data['article_id']=article.id
             art_data['date']=str(article.article_publication_date)
             art_data['source_url']=article.article_publication_source_url
             art_data['source']=article.article_publication_source
@@ -106,12 +106,13 @@ class Display_Article_LIst(View):
         for article in article_list:
             art_data={}
             art_data['head']=article.article_title
-            # art_data['image']=article.article_image
+            #art_data['image']=article.article_image
             art_data['genre']=article.article_genre
             art_data['level']=article.article_level
             art_data['content']=article.article_content
             art_data['summary']=article.article_summary
             art_data['id']=article.id
+            art_data['type']=article.article_type
             art_data['date']=str(article.article_publication_date)
             art_data['source_url']=article.article_publication_source_url
             art_data['source']=article.article_publication_source
@@ -170,7 +171,9 @@ class On_Open_Article(View):
             for i in range(len(parag)):
 				front_content += parag[i]
             data['question_list']=question_list
+            #data['question_list']=question_number_list
             data['content']=front_content
+            #data['content']=11
             return JsonResponse(data,safe=False)
 
 class Check_Question(View):
