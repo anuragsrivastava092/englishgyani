@@ -131,6 +131,9 @@ class On_Open_Article(View):
             article_id=request.GET.get("article_id")
             question_l=Article_Questions.objects.filter(article_id=article_id)
             content=question_l[0].article.article_content
+            article=open("englishapi/article.txt","r")
+            article.write(content)
+            article.close()
             question_list=[]
             question_number_list=[[] for i in question_l]
             i=0
