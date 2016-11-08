@@ -4,7 +4,6 @@ var article_json1 = [{"image":"https://d34yfym6wfrgx6.cloudfront.net/uploads/art
 
     
 var last_d;
-console.log(article_json);
 	if(article_json.length===0){
 		$("#no_article").css({"display":"block"});
 	}
@@ -18,7 +17,7 @@ $(".main_right").on("click",".redirect_page",function(){
 	present_id = present_class.slice(3);
 
 	console.log(present_id);
- //window.location.assign("http://google.com/"+present_id);
+ //window.location.assign("http://localhost:8000/article-content/"+present_id);
  
  
  });
@@ -53,7 +52,7 @@ $(".main_right").on("click",".redirect_page",function(){
                 processData: false,
 				success: function(response) {
                     article_json = jQuery.parseJSON( response );
-                    connsole.log(response);
+                    console.log(response);
 					//$(".list_container").remove();
                     $("#no_article").css({"display":"none"});
 				if(article_json.length===0){
@@ -73,6 +72,9 @@ $(".main_right").on("click",".redirect_page",function(){
  function clearfilter(){ 
 			$(".fil_active1").attr("class", "filter_button filt_sub2");
 			$("#eg_by_sub_cat1").attr("class", "filter_button filt_sub2 fil_active1");
+			$(".filt_sub3").attr("class", "filter_button filt_sub3");
+			$(".filt_sub4").attr("class", "filter_button filt_sub4");
+
 			
 };
  function addarticle(){
@@ -96,7 +98,7 @@ $(".main_right").on("click",".redirect_page",function(){
 			$(first_image).attr("alt", "article image");
 //{#			$(first_image).attr("onlick", "javascript:location.href='{% url 'article_url' article_id ="+lit[i].id+" }'");#}
 			$(first_image).attr("class", "image_article redirect_page");
-			$(first_image).attr("id", "img"+article_json[i].article_id);
+			$(first_image).attr("id", "img"+article_json[i].id);
 			first_div_fi_child.appendChild(first_image);
 		var sec1_div = document.createElement("div"); 
 			$(sec1_div).addClass("news_sum_top");
@@ -119,8 +121,8 @@ $(".main_right").on("click",".redirect_page",function(){
 		var art_head = document.createElement("h2");
 			$(art_head).addClass("redirect_page");
 			$(art_head).text(article_json[i].head);
-            console.log(article_json[i].head);
-			$(art_head).attr("id", "hed"+article_json[i].article_id);
+            
+			$(art_head).attr("id", "hed"+article_json[i].id);
 			sec2_div.appendChild(art_head);
 			//<p>As factory floor
 		var art_summ = document.createElement("p");
@@ -152,7 +154,7 @@ $(".main_right").on("click",".redirect_page",function(){
 			$(font_cont).addClass("fa fa-file-text");
 		}
 		else if (article_json[i].type===2) {
-			$(font_cont).addClass("fa fa-file-text");
+			$(font_cont).addClass("fa fa-google");
 		}
 		else if (article_json[i].type===3) {
 			$(font_cont).addClass("fa fa-video-camera");

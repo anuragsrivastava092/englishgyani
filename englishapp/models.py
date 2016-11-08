@@ -72,6 +72,12 @@ class Article_Questions(models.Model):
     choice_field=(('', '---------'),(A,'choice1'),
         (B,'choice2'),
         (C,'choice3'),(D,'choice4'),(E,'fill in the blank'),(F,'True'),(G,'False'),)
+    vocabulary=1
+    grammar=2
+    comprehension=3
+    type_field=((vocabulary,'vocabulary'),
+                (grammar,'grammar'),(comprehension,'comprehension'),)
+    
     article=models.ForeignKey(Article)
     question_instruction=models.CharField(max_length=254)
     question_description=models.CharField(max_length=254)
@@ -86,7 +92,16 @@ class Article_Questions(models.Model):
     paragraph_pos=models.IntegerField()
     word=models.CharField(max_length=254)
     right_choice=models.IntegerField(choices=choice_field)
+    question_category=models.IntegerField(choices=type_field)
 
+class Article_Phrase(models.Model):
+    article=models.ForeignKey(Article)
+    phrase=models.CharField(max_length=254)
+    meaning=models.CharField(max_length=254)
+    example=models.CharField(max_length=254)
+    sentence_pos=models.IntegerField()
+    paragraph_pos=models.IntegerField()
+    word=models.CharField(max_length=254)
 
 class User_Performance(models.Model):
     user=models.OneToOneField(User)

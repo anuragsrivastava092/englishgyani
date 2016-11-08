@@ -89,9 +89,10 @@ class Display_Article_LIst(View):
             # art_data['image']=article.article_image
             art_data['genre']=article.article_genre
             art_data['level']=article.article_level
-            art_data['content']=article.article_content
+            #art_data['content']=article.article_content
             art_data['summary']=article.article_summary
-            art_data['article_id']=article.id
+            art_data['id']=article.id
+            art_data['type']=article.article_type
             art_data['date']=str(article.article_publication_date)
             art_data['source_url']=article.article_publication_source_url
             art_data['source']=article.article_publication_source
@@ -103,13 +104,14 @@ class Display_Article_LIst(View):
     def get(self,request):
         article_list=Article.objects.all().order_by('-id')[:10]
         art_list=[]
+        print 77777
         for article in article_list:
             art_data={}
             art_data['head']=article.article_title
             #art_data['image']=article.article_image
             art_data['genre']=article.article_genre
             art_data['level']=article.article_level
-            art_data['content']=article.article_content
+            #art_data['content']=article.article_content
             art_data['summary']=article.article_summary
             art_data['id']=article.id
             art_data['type']=article.article_type
@@ -129,23 +131,31 @@ class On_Open_Article(View):
         if 'article_id' in request.GET:
             data={}
             article_id=request.GET.get("article_id")
+            listing=list(Article.objects.filter(id=article_id).values('article_title','article_summary'))
+            print listing
             question_l=Article_Questions.objects.filter(article_id=article_id)
+            phrase_l=Article_Phrase.objects.filter(article_id=article_id)
             content=question_l[0].article.article_content
+            article=open("englishapi/article.txt","w")
+            article.write(content)
+            article.close()
             question_list=[]
             question_number_list=[[] for i in question_l]
+            phrase_number_list=[[] for j in phrase_l]
             i=0
             for question in question_l:
                 question_data={}
                 question_data['id']=question.id
                 question_number_list[i].insert(0,question.id)
                 question_number_list[i].insert(1,question.paragraph_pos)
-                question_number_list[i].insert(1,question.sentence_pos)
+                question_number_list[i].insert(2,question.sentence_pos)
                 question_number_list[i].insert(3,question.word)
+                question_number_list[i].insert(4,question.question_category)
                 i=i+1
-                question_data['instruction']=question.question_instruction
-                question_data['description']=question.question_description
+                question_data['question_instruction']=question.question_instruction
+                question_data['question_text']=question.question_description
                 question_data['type']=question.question_type
-                question_data['weight']=question.question_weight
+                question_data['point']=question.question_weight
                 if question.question_type==1:
                     question_data['choice1']=question.choice1_description
                     question_data['choice2']=question.choice2_description
@@ -158,9 +168,18 @@ class On_Open_Article(View):
                 if question.question_type==4:
                     question_data['fill_blank_text']=question.fill_blank_description
                 question_list.append(question_data)
+            j=0
+            for phrase in phrase_l:
+                phrase_number_list[j].insert(0,phrase.id)
+                phrase_number_list[j].insert(1,phrase.paragraph_pos)
+                phrase_number_list[j].insert(2,phrase.sentence_pos)
+                phrase_number_list[j].insert(3,phrase.word)
+                j=j+1
+            print len(phrase_l)
+            print phrase_number_list
             question_list=json.dumps(question_list,ensure_ascii=True)
             parag=[]
-            content=app_methods.final(question_number_list,content)
+            content=app_methods.final(question_number_list,phrase_number_list,content)
             for i in range(len(content)):
                 tet=""
                 for j in range(len(content[i])):
@@ -170,10 +189,14 @@ class On_Open_Article(View):
             front_content=""
             for i in range(len(parag)):
 				front_content += parag[i]
+            article_content = []
+            article_content_obj={}
+            article_content_obj["article"]= front_content
+            article_content.append(article_content_obj)
+            article_content=json.dumps(article_content,ensure_ascii=True)
             data['question_list']=question_list
-            #data['question_list']=question_number_list
-            data['content']=front_content
-            #data['content']=11
+            #data['content']=front_content
+            data['content']=article_content
             return JsonResponse(data,safe=False)
 
 class Check_Question(View):

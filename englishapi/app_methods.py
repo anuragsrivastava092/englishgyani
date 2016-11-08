@@ -1,8 +1,9 @@
 import nltk.data
-def anurag():
-        article=open("englishapi/article.txt","r")
-        return article
-def final(question,content):
+def ensure_str(s):
+    if isinstance(s, unicode):
+        s = s.encode('utf-8')
+    return s
+def final(question,phrase,content):
     article=open("englishapi/article.txt","r")
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
     par =[]
@@ -12,9 +13,10 @@ def final(question,content):
     test=[]
     count =0
     for i in range(len(par)):
-        if par[i]!="\n":
-            if par[i][-1:] ==  "\n" :
-                param=par[i][:-1]
+        print par
+        if par[i]!="\r\n":
+            if par[i][-2:] ==  "\r\n" :
+                param=par[i][:-2]
                 sent_token = tokenizer.tokenize(param)
                 para.append(sent_token)
             else :
@@ -25,41 +27,29 @@ def final(question,content):
             sent = para[question[i][1]][question[i][2]]
             ques_word = question[i][3]
             le = len(ques_word)
-            #print sent
-            #print ques_word
             try:
                 loc = sent.index(ques_word)
-                para[question[i][1]][question[i][2]]  = sent[:loc] +  "<span " + "class=" + "grammar" + " "+"id="+str(question[i][0])+ ">"+ ques_word +"</span>" + sent[(loc+le):]
-                #print para[question[i][1]][question[i][2]]
+                if (question[i][2] ==1):
+                    para[question[i][1]][question[i][2]]  = sent[:loc] +  "<span " + "class=" + "exercise-link comprehension" + " "+"id="+str(question[i][0])+ ">"+ ques_word +"</span>" + sent[(loc+le):]
+                elif (question[i][2] ==2):
+                    para[question[i][1]][question[i][2]]  = sent[:loc] +  "<span " + "class=" + "exercise-link grammar" + " "+"id="+str(question[i][0])+ ">"+ ques_word +"</span>" + sent[(loc+le):]
+                elif (question[i][2] ==3):
+                    para[question[i][1]][question[i][2]]  = sent[:loc] +  "<span " + "class=" + "exercise-link vocabulary" + " "+"id="+str(question[i][0])+ ">"+ ques_word +"</span>" + sent[(loc+le):]
+                
+            except ValueError:
+                d =0
+    for j in range(len(phrase)):
+        if len(phrase[j])>3:
+            sent = para[phrase[j][1]][phrase[j][2]]
+            para_word = phrase[j][3]
+            le = len(ques_word)
+            try:
+                loc = sent.index(para_word)
+                para[phrase[j][1]][phrase[j][2]]  = sent[:loc] +  "<span " + "class=" + "phrase-link" + " "+"id="+str(phrase[j][0])+ ">"+ ques_word +"</span>" + sent[(loc+le):]
+                
             except ValueError:
                 d =0
 
-        elif len(question[i])==3:
-
-            para[question[i][1]][question[i][2]] = "<span " + "class=" + "grammar" + " " + "id="+str(question[i][0])+ ">"+ para[question[i][1]][question[i][2]]+"</span>"
-            #print para[question[i][1]][question[i][2]]
-        else:
-            print 1
-            ques_word = question[i][1].strip()
-            print ques_word
-            le = len(ques_word)
-            #print le
-            a=0
-            for l in range(len(para)):
-                print para[l]
-                for u in range(len(para[l])):
-                    try:
-                        print 775
-                        loc = para[l][u].index(ques_word)
-                        para[l][u]  = para[l][u][:loc] +  "<span " + "class=" + "vocab" + " "+"id="+str(question[i][0])+ ">"+ ques_word +"</span>" + para[l][u][(loc+le):]
-                        print para[l]
-                        a=1
-                        break
-                    except ValueError:
-                        d =0
-                if a==1:
-                    break
-
-
+        
 
     return para

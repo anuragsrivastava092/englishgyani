@@ -1,4 +1,5 @@
 var filter_count = 0; //0=down
+cat_text = $(".fil_active1").text().toLowerCase();
 	$( "#eg_main_filter_button" ).click(function() {
 	if (filter_count%2===0){
 		$("#arrow_icon").attr("class", "fa fa-angle-up");
@@ -26,6 +27,32 @@ $( ".filt_sub2" ).click(function() {
 		$("#"+main_sub_cat_ele_id).attr("class", "filter_button filt_sub2 fil_active1");
 	
 	}
+});
+$( ".filt_sub3" ).click(function() {
+		var  main_lev_sel_id = $(this).attr('id');
+		var  main_lev_sel_class = $(this).attr('class');
+		if(main_lev_sel_class !="filter_button filt_sub3 fil_active2") {
+			
+			$("#"+main_lev_sel_id).attr("class", "filter_button filt_sub3 fil_active2");
+			
+		}
+		else{
+			$("#"+main_lev_sel_id).attr("class", "filter_button filt_sub3");
+		}
+			
+});
+$( ".filt_sub4" ).click(function() {
+		var  main_lev_sel_id = $(this).attr('id');
+		var  main_lev_sel_class = $(this).attr('class');
+		if(main_lev_sel_class !="filter_button filt_sub4 fil_active3") {
+			
+			$("#"+main_lev_sel_id).attr("class", "filter_button filt_sub4 fil_active3");
+		
+		}
+		else{
+			$("#"+main_lev_sel_id).attr("class", "filter_button filt_sub4");
+		}
+			
 });
         window.getCookie = function(name){
 	    var cookieValue = null;
@@ -67,6 +94,7 @@ $( ".eg_clear_filter_button" ).click(function() {
 				success: function(response) {
                     article_json = jQuery.parseJSON( response );
 					$(".list_container").remove();
+					$("br").remove();
                     $("#no_article").css({"display":"none"});
 				if(article_json.length===0){
 					$("#no_article").css({"display":"block"});
@@ -106,6 +134,7 @@ $( ".eg_filter_button" ).click(function() {
                     console.log(response);
                     article_json = jQuery.parseJSON( response );
 					$(".list_container").remove();
+					$("br").remove();
                     $("#no_article").css({"display":"none"});
 				if(article_json.length===0){
 					$("#no_article").css({"display":"block"});
