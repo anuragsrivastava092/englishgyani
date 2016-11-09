@@ -413,7 +413,7 @@
 							If something such as a table or seat is free, it is not being used or occupied by anyone, or is not reserved for anyone to use.
 						</h3>
 						<h3 class="word_meaning_ans">
-							If you get something free or if it gets free, it is no longer trapped by anything or attached to anything.
+							If you get something free or if it gets free, it is no longer trapped by anything or attached to anything.[u'\u091c\u0928\u0924\u0928\u094d\u0924\u094d\u0930']
 						</h3>
 
 
@@ -473,15 +473,23 @@
 <script src="{% static 'js/article_one.js' %}"></script>
 <script src="{% static 'js/article_boomark.js' %}"></script>
  <script>
-     content= '{{ content |safe }}';
-    article_json={{ question_list |safe }};
+     article_content= {{ content |safe }};
+    article_question={{ question_list |safe }};
 	$(".audio_play").hide();
 	var vid = document.getElementById("taskaudio");
 	$("#word_pronunciation").on("click", function(){
 		vid.play();
 	});
 //	$("input:radio").change(function () {$(".ques_sub_but").prop("disabled", false);});
-
+	function findindex(q_json, id){ 
+		for (i=0;i<q_json.length;i++){
+				if (q_json[i].id.toString() === id.toString()){ 
+					return i
+				}
+		}
+		return -1
+		
+	};
  </script>
 </body>
 </html>

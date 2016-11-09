@@ -12,7 +12,7 @@ $(document).ready(function () {
 		selected_text = selected_area.toString();
 		oRange = selected_area.getRangeAt(0); 
 		oRect = oRange.getBoundingClientRect();
-		console.log(2223);
+		//console.log(2223);
 		if (selected_text.length>1){ //bases on device
 			x = oRect.right +  window.pageXOffset+ 'px';
 			y = oRect.top -10 + window.pageYOffset+ 'px';

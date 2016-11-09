@@ -46,6 +46,7 @@ class Article(models.Model):
     article_level=models.IntegerField()
     article_summary=models.CharField(max_length=254)
     article_publication_date=models.DateField()
+    article_tag=models.CharField(max_length=254)
     article_publication_source=models.CharField(max_length=254)
     article_publication_source_url=models.URLField()
     def __unicode__(self):
@@ -91,6 +92,7 @@ class Article_Questions(models.Model):
     sentence_pos=models.IntegerField()
     paragraph_pos=models.IntegerField()
     word=models.CharField(max_length=254)
+    feedback=models.CharField(max_length=254)
     right_choice=models.IntegerField(choices=choice_field)
     question_category=models.IntegerField(choices=type_field)
 

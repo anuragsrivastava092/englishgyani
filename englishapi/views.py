@@ -131,14 +131,12 @@ class On_Open_Article(View):
         if 'article_id' in request.GET:
             data={}
             article_id=request.GET.get("article_id")
-            listing=list(Article.objects.filter(id=article_id).values('article_title','article_summary'))
+            listing=list(Article.objects.filter(id=article_id).values('article_title','article_summary','article_tag'))
             print listing
             question_l=Article_Questions.objects.filter(article_id=article_id)
             phrase_l=Article_Phrase.objects.filter(article_id=article_id)
             content=question_l[0].article.article_content
-            article=open("englishapi/article.txt","w")
-            article.write(content)
-            article.close()
+            
             question_list=[]
             question_number_list=[[] for i in question_l]
             phrase_number_list=[[] for j in phrase_l]
@@ -157,10 +155,10 @@ class On_Open_Article(View):
                 question_data['type']=question.question_type
                 question_data['point']=question.question_weight
                 if question.question_type==1:
-                    question_data['choice1']=question.choice1_description
-                    question_data['choice2']=question.choice2_description
-                    question_data['choice3']=question.choice3_description
-                    question_data['choice4']=question.choice4_description
+                    question_data['option1']=question.choice1_description
+                    question_data['option2']=question.choice2_description
+                    question_data['option3']=question.choice3_description
+                    question_data['option4']=question.choice4_description
                 if question.question_type==2:
                     pass
                 if question.question_type==3:
@@ -175,8 +173,6 @@ class On_Open_Article(View):
                 phrase_number_list[j].insert(2,phrase.sentence_pos)
                 phrase_number_list[j].insert(3,phrase.word)
                 j=j+1
-            print len(phrase_l)
-            print phrase_number_list
             question_list=json.dumps(question_list,ensure_ascii=True)
             parag=[]
             content=app_methods.final(question_number_list,phrase_number_list,content)
@@ -184,7 +180,8 @@ class On_Open_Article(View):
                 tet=""
                 for j in range(len(content[i])):
                     tet+=" " + content[i][j]
-                tet = "<p>"+tet+"</p>"
+                    new_id= "par"+str(j+1)
+                tet = "<p id="+(new_id) +">"+tet+"</p>"
                 parag.append(tet)
             front_content=""
             for i in range(len(parag)):

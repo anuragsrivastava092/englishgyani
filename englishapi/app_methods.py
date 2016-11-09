@@ -13,7 +13,6 @@ def final(question,phrase,content):
     test=[]
     count =0
     for i in range(len(par)):
-        print par
         if par[i]!="\r\n":
             if par[i][-2:] ==  "\r\n" :
                 param=par[i][:-2]
@@ -29,15 +28,19 @@ def final(question,phrase,content):
             le = len(ques_word)
             try:
                 loc = sent.index(ques_word)
-                if (question[i][2] ==1):
-                    para[question[i][1]][question[i][2]]  = sent[:loc] +  "<span " + "class=" + "exercise-link comprehension" + " "+"id="+str(question[i][0])+ ">"+ ques_word +"</span>" + sent[(loc+le):]
-                elif (question[i][2] ==2):
-                    para[question[i][1]][question[i][2]]  = sent[:loc] +  "<span " + "class=" + "exercise-link grammar" + " "+"id="+str(question[i][0])+ ">"+ ques_word +"</span>" + sent[(loc+le):]
-                elif (question[i][2] ==3):
-                    para[question[i][1]][question[i][2]]  = sent[:loc] +  "<span " + "class=" + "exercise-link vocabulary" + " "+"id="+str(question[i][0])+ ">"+ ques_word +"</span>" + sent[(loc+le):]
+                print question[1][2]
+                if (question[i][4] ==1):
+                    para[question[i][1]][question[i][2]]  = sent[:loc] +  "<span class="+"'exercise-link comprehension'" + " "+"id="+str(question[i][0])+ ">"+ ques_word +"</span>" + sent[(loc+le):]
+                elif (question[i][4] ==2):
+                    print 0000000000000000000
+                    para[question[i][1]][question[i][2]]  = sent[:loc] +  "<span class=" + "' exercise-link grammar'" + " "+"id="+str(question[i][0])+ ">"+ ques_word +"</span>" + sent[(loc+le):]
+                elif (question[i][4] ==3): 
+                    para[question[i][1]][question[i][2]]  = sent[:loc] +  "<span class=" + "'exercise-link vocabulary'" + " "+"id="+str(question[i][0])+ ">"+ ques_word +"</span>" + sent[(loc+le):]
                 
             except ValueError:
                 d =0
+                print ques_word
+                print para[question[i][1]][question[i][2]]
     for j in range(len(phrase)):
         if len(phrase[j])>3:
             sent = para[phrase[j][1]][phrase[j][2]]
@@ -50,6 +53,5 @@ def final(question,phrase,content):
             except ValueError:
                 d =0
 
-        
 
     return para

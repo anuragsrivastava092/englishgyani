@@ -1,14 +1,15 @@
 $(document).ready(function(){
-	article_content = [{"title":"Morgan Stanley Makes $100-Million Move on Fintech Startup Affirm",
+	article_content1 = [{"title":"Morgan Stanley Makes $100-Million Move on Fintech Startup Affirm",
 		"publish_detail":"Published:<strong> Friedrich Geiger</strong> on 92 September 2016",
 		"article_tag":"Startup",
 		"date":"13 October 2016",
 		"article_image":"https://d34yfym6wfrgx6.cloudfront.net/uploads/article/custom_image/139469/super_large_GettyImages-82875339__1_.jpg",
-		"question":' <div class="question"> <div class="question_head"> <div class="question_head_le"> <span class="point_span"></span> <span class= "type_inst"></span> </div> <div class="question_head_ri"> <i aria-hidden="true" class="fa fa-times question_close"></i> </div> </div> <div class="question_body"> <h4 class="question_body_text"><span id= "question_text_int"></span><br> <br> <span id="question_text_main"></span> </h4> <div class="question_answer"> <div class="answer"> <label class="label_class" id="label_id0"><input id="answer-0" name= "answer" type="radio" value="0"><label for= "answer-0"></label> <span class="label_option" id= "label0_text"></span></label><br> <label class="label_class" id="label_id1"><input id="answer-1" name= "answer" type="radio" value="1"><label for= "answer-1"></label> <span class="label_option" id= "label1_text"></span></label><br> <label class="label_class" id="label_id2"><input id="answer-2" name= "answer" type="radio" value="2"><label for= "answer-2"></label> <span class="label_option" id= "label2_text"></span></label><br> <label class="label_class" id="label_id3"><input id="answer-3" name= "answer" type="radio" value="3"> <label for= "answer-3"></label> <span class="label_option" id= "label3_text"></span></label> </div> <div class="answer_ri"> <div class="ans_div"> <p class="answer_feeback"></p> </div> </div> </div> <div class="answer-footer"> <span class="button check_buttton" id="cont_check">Check</span><span class= "button question_close" id="cont_red">Continue Reading</span><span class= "button" id="next_exe">or Go to Next Exercise</span> </div> </div> </div>',
-		"article":'<p id="p1">Startup lender <span class="phrase-link" id="phr_2">Affirm</span> Inc. <span class="exercise-link vocabulary" id="q1">investment bank</span>is adding debt from</p> <p id="p2">Some borrowers <span class="exercise-link grammar" id="q2">pay off</span> credit cards monthly</p><p id="p3">Startup lender Affirm Inc. <span class="exercise-link comprehension" id="q3">investjnjment bank</span>is adding debt from</p>',
+		"article":'<p id="p1">Startup lender <span class="phrase-link" id="phr_2">Affirm</span> Inc. "<span class=exercise-link vocabulary" id="q1">investment bank</span>is adding debt from</p> <p id="p2">Some borrowers <span class="exercise-link grammar" id="q2">pay off</span> credit cards monthly</p><p id="p3">Startup lender Affirm Inc. <span class="exercise-link comprehension" id="q3">investjnjment bank</span>is adding debt from</p>',
 	
 	}];
-	article_question =[
+	question_data=' <div class="question"> <div class="question_head"> <div class="question_head_le"> <span class="point_span"></span> <span class= "type_inst"></span> </div> <div class="question_head_ri"> <i aria-hidden="true" class="fa fa-times question_close"></i> </div> </div> <div class="question_body"> <h4 class="question_body_text"><span id= "question_text_int"></span><br> <br> <span id="question_text_main"></span> </h4> <div class="question_answer"> <div class="answer"> <label class="label_class" id="label_id0"><input id="answer-0" name= "answer" type="radio" value="0"><label for= "answer-0"></label> <span class="label_option" id= "label0_text"></span></label><br> <label class="label_class" id="label_id1"><input id="answer-1" name= "answer" type="radio" value="1"><label for= "answer-1"></label> <span class="label_option" id= "label1_text"></span></label><br> <label class="label_class" id="label_id2"><input id="answer-2" name= "answer" type="radio" value="2"><label for= "answer-2"></label> <span class="label_option" id= "label2_text"></span></label><br> <label class="label_class" id="label_id3"><input id="answer-3" name= "answer" type="radio" value="3"> <label for= "answer-3"></label> <span class="label_option" id= "label3_text"></span></label> </div> <div class="answer_ri"> <div class="ans_div"> <p class="answer_feeback"></p> </div> </div> </div> <div class="answer-footer"> <span class="button check_buttton" id="cont_check">Check</span><span class= "button question_close" id="cont_red">Continue Reading</span><span class= "button" id="next_exe">or Go to Next Exercise</span> </div> </div> </div>';
+
+	article_question1 =[
 		{
 		id:"q1", point:200,question_instruction:"hjjjjjjjComplete this sentence in the most logical way:",
 		question_text:"0000000We bought the car five years ago for $20,000, but as a result of depreciation, its now worth ___.",
@@ -83,7 +84,7 @@ $(document).ready(function(){
 		$("body").on("click",".exercise-link",function(){ 
 			present = this;
 			question_id= $(present).attr("id");
-			
+			console.log(question_id +"id");
 			//same_question
 			
 			if (previous_question_id === question_id && same_question===1){
@@ -93,7 +94,7 @@ $(document).ready(function(){
 			else{
 				$(".question").remove();
 				present_p_id= $(present).parent().attr("id");
-				$("#"+present_p_id).after(article_content[0].question);
+				$("#"+present_p_id).after(question_data);
 				question_index = findindex(article_question, question_id);
 				console.log(question_index);
 				// question
@@ -208,14 +209,6 @@ $(document).ready(function(){
 		}
     });
 
-	function findindex(q_json, id){ 
-		for (i=0;i<q_json.length;i++){
-				if (q_json[i].id === id){ 
-					return i
-				}
-		}
-		return -1
 		
-	};	
 	
 });
