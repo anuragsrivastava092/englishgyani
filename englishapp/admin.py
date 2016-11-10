@@ -5,3 +5,4 @@ from englishapp.models import *
 admin.site.register(Article)
 admin.site.register(Article_Questions)
 admin.site.register(Article_Phrase)
+admin.site.register(Word_meaning_hindi)

@@ -47,6 +47,7 @@ class Article(models.Model):
     article_summary=models.CharField(max_length=254)
     article_publication_date=models.DateField()
     article_tag=models.CharField(max_length=254)
+    article_publish_detail=models.CharField(max_length=254)
     article_publication_source=models.CharField(max_length=254)
     article_publication_source_url=models.URLField()
     def __unicode__(self):
@@ -110,6 +111,9 @@ class User_Performance(models.Model):
     question=models.ForeignKey(Article_Questions)
     response=models.CharField(max_length=254)
 
+class Word_meaning_hindi(models.Model):
+    word_name=models.CharField(max_length=99)
+    word_meaning=models.CharField(max_length=254)
 
 
 

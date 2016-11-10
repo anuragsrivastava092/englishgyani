@@ -77,6 +77,29 @@ $(document).ready(function(){
 	$("body").on("click",".submit_response",function(){ 
 		console.log(111);
 		response_ans = $('input[name="answer"]:checked').val();
+		present = this 
+		print present
+	/*	formdata=new FormData();
+    	formdata.append("question_id",present_p_id)
+			$.ajax({
+                 beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+                },
+				url: "/api/article_question_response/",
+				data:formdata,
+                cache: false,
+				type: "POST",
+                contentType:false,
+                processData: false,
+				success: function(response) { 
+					article_json = response;
+                   
+				},
+				error: function(xhr) {
+                     console.log(88);
+				}
+			});
+		*/
 		if (response_ans===correct_answer){
 			$("#label_id"+response_ans).css({"background":"green"});
 		}
@@ -98,6 +121,21 @@ function findindex(q_json, id){
 		}
 		return -1
 		
-	};	
+	};
+window.getCookie = function(name){
+	    var cookieValue = null;
+	    if (document.cookie && document.cookie != '') {
+	        var cookies = document.cookie.split(';');
+	        for (var i = 0; i < cookies.length; i++) {
+	            var cookie = jQuery.trim(cookies[i]);
+	            // Does this cookie string begin with the name we want?
+	            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+	                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+	                break;
+	            }
+	        }
+	    }
+	    return cookieValue;
+	}
 	
 });

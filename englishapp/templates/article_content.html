@@ -469,12 +469,15 @@
 			<source src="https://englishbucket.s3.amazonaws.com/static/audios/cartons.mp3" type="audio/mpeg">
 		</audio>
 </div>
-
+<form action="" method="post">{% csrf_token %}</form>
 <script src="{% static 'js/article_one.js' %}"></script>
 <script src="{% static 'js/article_boomark.js' %}"></script>
  <script>
-     article_content= {{ content |safe }};
-    article_question={{ question_list |safe }};
+ 	 article_phrase = {{ phrase_li | safe }};
+     article_content = {{ content | safe }};
+    article_question ={{ question_list |safe }};
+   
+    
 	$(".audio_play").hide();
 	var vid = document.getElementById("taskaudio");
 	$("#word_pronunciation").on("click", function(){
@@ -490,6 +493,21 @@
 		return -1
 		
 	};
+	window.getCookie = function(name){
+	    var cookieValue = null;
+	    if (document.cookie && document.cookie != '') {
+	        var cookies = document.cookie.split(';');
+	        for (var i = 0; i < cookies.length; i++) {
+	            var cookie = jQuery.trim(cookies[i]);
+	            // Does this cookie string begin with the name we want?
+	            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+	                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+	                break;
+	            }
+	        }
+	    }
+	    return cookieValue;
+	}
  </script>
 </body>
 </html>

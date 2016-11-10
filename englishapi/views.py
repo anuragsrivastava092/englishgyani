@@ -25,7 +25,6 @@ class Register(View):
 class Display_Article_LIst(View):
     def post(self,request):
         article_list=Article.objects.filter()
-        print request.POST
         if 'sports' in request.POST:
             sports_id=request.POST.get('sports_id')
             if sports_id!=None:
@@ -127,24 +126,29 @@ class Display_Article_LIst(View):
 
 
 class On_Open_Article(View):
+    #@ensure_csrf_cookie
     def get(self,request):
+        print request.user
         if 'article_id' in request.GET:
             data={}
             article_id=request.GET.get("article_id")
-            listing=list(Article.objects.filter(id=article_id).values('article_title','article_summary','article_tag'))
-            print listing
+            listing=list(Article.objects.filter(id=article_id).values('article_title','article_summary','article_tag','article_publish_detail','article_publication_date'))
+            #print listing[0]["article_title"]
             question_l=Article_Questions.objects.filter(article_id=article_id)
             phrase_l=Article_Phrase.objects.filter(article_id=article_id)
             content=question_l[0].article.article_content
-            
+            article=open("englishapi/article.txt","w")
+            article.write(content)
+            article.close()
             question_list=[]
+            phrase_list=[]
             question_number_list=[[] for i in question_l]
             phrase_number_list=[[] for j in phrase_l]
             i=0
             for question in question_l:
                 question_data={}
-                question_data['id']=question.id
-                question_number_list[i].insert(0,question.id)
+                question_data['id']="que"+str(question.id)
+                question_number_list[i].insert(0,"que"+str(question.id))
                 question_number_list[i].insert(1,question.paragraph_pos)
                 question_number_list[i].insert(2,question.sentence_pos)
                 question_number_list[i].insert(3,question.word)
@@ -168,12 +172,19 @@ class On_Open_Article(View):
                 question_list.append(question_data)
             j=0
             for phrase in phrase_l:
+                phrase_data={}
+                phrase_data['id']="phr"+str(phrase.id)
                 phrase_number_list[j].insert(0,phrase.id)
                 phrase_number_list[j].insert(1,phrase.paragraph_pos)
                 phrase_number_list[j].insert(2,phrase.sentence_pos)
                 phrase_number_list[j].insert(3,phrase.word)
                 j=j+1
+                phrase_data['phrase']=phrase.phrase
+                phrase_data['meaning']=phrase.meaning
+                phrase_data['example']=phrase.example
+                phrase_list.append(phrase_data)
             question_list=json.dumps(question_list,ensure_ascii=True)
+            phrase_li=json.dumps(phrase_list,ensure_ascii=True)
             parag=[]
             content=app_methods.final(question_number_list,phrase_number_list,content)
             for i in range(len(content)):
@@ -189,12 +200,18 @@ class On_Open_Article(View):
             article_content = []
             article_content_obj={}
             article_content_obj["article"]= front_content
+            article_content_obj["article_tag"]= listing[0]["article_tag"]
+            article_content_obj["title"]= listing[0]["article_title"]
+            article_content_obj["publish_detail"]= listing[0]["article_publish_detail"]
+            article_content_obj["date"]= str(listing[0]["article_publication_date"])
             article_content.append(article_content_obj)
             article_content=json.dumps(article_content,ensure_ascii=True)
             data['question_list']=question_list
-            #data['content']=front_content
+            data['phrase_li']=phrase_li
             data['content']=article_content
-            return JsonResponse(data,safe=False)
+            #print data['question_list']
+            #print data['phrase_li']
+            return JsonResponse(data,safe=True)
 
 class Check_Question(View):
     def post(self,request):
@@ -209,7 +226,14 @@ class Check_Question(View):
             return HttpResponse(res, status=400)
 
 
+def bookmarks(request):
+    if request.method=='GET':
+        print "jnjnj"
 
 
-
-
+def article_question_response(request):
+    question_id=int(request.POST["question_id"][3:])
+    listing=list(Article_Questions.objects.filter(id=question_id).values('feedback','right_choice'))
+    print listing
+    print 11111
+    return JsonResponse([{'right_choice':listing[0]['right_choice'],'feedback':listing[0]['feedback']}],safe=False)

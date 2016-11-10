@@ -30,7 +30,7 @@ $(document).ready(function(){
 		}
 		
 ];
-	article_phrase = [
+	article_phrase1 = [
 	{
 		id:"phr_1", phrase:"A bunch of fives", meaning:"Someone who is basically good hearted but lacking social graces and respect for the law.",
 		example:"She is very honest, and will be as hard to cut as a rough diamond"
@@ -147,30 +147,52 @@ $(document).ready(function(){
 		same_question=0;
 	
 	});	
+		
 	$("body").on("click",".submit_response",function(){ 
 		present = this;
 		console.log(present);
 		response_ans = $('input[name="answer"]:checked').val();
-		correct_answer = "3";
-		answer_feeback ='answer_feeback answer_feeback answer_feeback answer_feebackSorry, its the other way around. We add the prefix "un-" to mean "not" or "the opposite of" something.';
-	
-		if (response_ans===correct_answer){
-			$("#label_id"+response_ans).css({"background":"green"});
-		}
-		else{
-			$("#label_id"+response_ans).css({"background":"red"});
-			$("#label_id"+correct_answer).css({"background":"green"});
-		}
-			$(".answer_ri").css({"display":"block"});
-			$(".answer_feeback").text(answer_feeback);
-			$("#cont_check").css({"display":"none"});
-			$("#cont_red").css({"display":"block"});
-			var attempt_json={};
-				attempt_json.id=question_id;
-				attempt_json.answer_feeback=answer_feeback;
-				attempt_json.correct_answer=correct_answer;
-				attempt_json.attempted_answer=response_ans;
-				question_attempt.push(attempt_json);
+		formdata=new FormData();
+    		formdata.append("question_id",previous_question_id);
+			$.ajax({
+                 beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+                },
+				url: "/api/article_question_response/",
+				data:formdata,
+                cache: false,
+				type: "POST",
+                contentType:false,
+                processData: false,
+				success: function(response) { 
+					que_response = response;
+                   correct_answer=que_response[0].right_choice;
+                   answer_feeback=que_response[0].feedback;
+                   console.log(99);
+	                if (response_ans===correct_answer){
+						$("#label_id"+response_ans).css({"background":"green"});
+						}
+					else{
+						$("#label_id"+response_ans).css({"background":"red"});
+						$("#label_id"+correct_answer).css({"background":"green"});
+					}
+					$(".answer_ri").css({"display":"block"});
+					$(".answer_feeback").text(answer_feeback);
+					$("#cont_check").css({"display":"none"});
+					$("#cont_red").css({"display":"block"});
+					var attempt_json={};
+						attempt_json.id=question_id;
+						attempt_json.answer_feeback=answer_feeback;
+						attempt_json.correct_answer=correct_answer;
+						attempt_json.attempted_answer=response_ans;
+						question_attempt.push(attempt_json);
+						},
+				error: function(xhr) {
+                     console.log(88);
+				}
+			});
+		
+		
 	});
 	
 	$("body").on("click",".phrase-link",function(){

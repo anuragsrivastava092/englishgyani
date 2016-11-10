@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^', include("englishapp.urls")),
     url(r'^api/', include("englishapi.urls")),
     url(r'^accounts/', include('allauth.urls')),
+    
 ]

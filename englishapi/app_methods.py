@@ -28,27 +28,26 @@ def final(question,phrase,content):
             le = len(ques_word)
             try:
                 loc = sent.index(ques_word)
-                print question[1][2]
                 if (question[i][4] ==1):
                     para[question[i][1]][question[i][2]]  = sent[:loc] +  "<span class="+"'exercise-link comprehension'" + " "+"id="+str(question[i][0])+ ">"+ ques_word +"</span>" + sent[(loc+le):]
                 elif (question[i][4] ==2):
-                    print 0000000000000000000
+                    #print 0000000000000000000
                     para[question[i][1]][question[i][2]]  = sent[:loc] +  "<span class=" + "' exercise-link grammar'" + " "+"id="+str(question[i][0])+ ">"+ ques_word +"</span>" + sent[(loc+le):]
                 elif (question[i][4] ==3): 
                     para[question[i][1]][question[i][2]]  = sent[:loc] +  "<span class=" + "'exercise-link vocabulary'" + " "+"id="+str(question[i][0])+ ">"+ ques_word +"</span>" + sent[(loc+le):]
                 
             except ValueError:
                 d =0
-                print ques_word
-                print para[question[i][1]][question[i][2]]
+                #print ques_word
+                #print para[question[i][1]][question[i][2]]
     for j in range(len(phrase)):
         if len(phrase[j])>3:
             sent = para[phrase[j][1]][phrase[j][2]]
             para_word = phrase[j][3]
-            le = len(ques_word)
+            le = len(para_word)
             try:
                 loc = sent.index(para_word)
-                para[phrase[j][1]][phrase[j][2]]  = sent[:loc] +  "<span " + "class=" + "phrase-link" + " "+"id="+str(phrase[j][0])+ ">"+ ques_word +"</span>" + sent[(loc+le):]
+                para[phrase[j][1]][phrase[j][2]]  = sent[:loc] +  "<span " + "class=" + "phrase-link" + " "+"id=phr"+str(phrase[j][0])+ ">"+ para_word +"</span>" + sent[(loc+le):]
                 
             except ValueError:
                 d =0
