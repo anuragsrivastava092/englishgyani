@@ -1,4 +1,6 @@
 import nltk.data
+from bs4 import BeautifulSoup 
+import urllib
 def ensure_str(s):
     if isinstance(s, unicode):
         s = s.encode('utf-8')
@@ -54,3 +56,49 @@ def final(question,phrase,content):
 
 
     return para
+def article_to_words():
+    article_here=open("englishapi/article_meaning.txt","r")
+    tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+    word =[]
+    for i in article_here:
+            word_li = map(str, i.strip().split())
+            for j in word_li:
+                if j[-1] not in [",",".","?","1","2","3","4","5","6","7","8","9"]:
+                    word.append(j.lower())
+    return word
+def hindi_meaning(word):
+    li = []
+    try:
+        r = urllib.urlopen("http://www.shabdkosh.com/hi/translate?e="+word+"&l=hi")
+        soup = BeautifulSoup(r,"lxml")
+        a= soup.findAll(attrs={'class' : 'in l'})
+        for hit in a:
+            if (64<ord(hit.get_text()[0])<123):
+                b = 11
+            else:
+                #print 3 
+                print hit.get_text()
+                #print hit.get_text().encode('utf16')
+                li.append(hit.get_text())
+                #print 4
+        return li 
+    except IOError:
+        return li
+
+def english_meaning(word):
+    li = []
+    try:
+        r = urllib.urlopen("http://dictionary.cambridge.org/dictionary/english/"+word)
+        soup = BeautifulSoup(r,"lxml")
+        a= soup.findAll(attrs={'class' : 'def'})
+        for i in a:
+            mean= i.get_text()
+            if mean[-1]==" " and (mean[-2]==":" ):
+                mean = mean[:-2]
+                #print mean
+            else:
+                print mean
+            li.append(mean)
+        return li 
+    except IOError:
+        return li

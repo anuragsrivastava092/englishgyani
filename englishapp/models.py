@@ -115,6 +115,9 @@ class Word_meaning_hindi(models.Model):
     word_name=models.CharField(max_length=99)
     word_meaning=models.CharField(max_length=254)
 
+class Word_meaning_English(models.Model):
+    word_name=models.CharField(max_length=99)
+    word_meaning=models.CharField(max_length=254)
 
 
 

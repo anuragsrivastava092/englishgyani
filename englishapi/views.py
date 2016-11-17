@@ -225,6 +225,39 @@ class Check_Question(View):
             res = exception_handler.set_server_response(400, "answer is wrong")
             return HttpResponse(res, status=400)
 
+class article_meaning(View):
+    #@ensure_csrf_cookie
+    def get(self,request,article_id):
+        article_id=int(article_id)
+        if article_id>0 :
+            question_l=Article_Questions.objects.filter(article_id=article_id)
+            content=question_l[0].article.article_content
+            article=open("englishapi/article_meaning.txt","w")
+            article.write(content)
+            article.close()
+            word_li = app_methods.article_to_words()
+            word_hindi_actual_li=[]
+            word_english_actual_li=[]
+            for word in word_li:
+                word_hindi_meaning = Word_meaning_hindi.objects.filter(word_name=word)
+                word_english_meaning = Word_meaning_English.objects.filter(word_name=word)
+                if len(word_hindi_meaning) ==0:
+                    word_hindi_actual_li.append(word)
+                if len(word_english_meaning) ==0:
+                    word_english_actual_li.append(word)
+
+            #print word_actual_li
+            for term in word_hindi_actual_li:
+                hindi_meaning = app_methods.hindi_meaning(term)
+                for mean in hindi_meaning:
+                    b = Word_meaning_hindi(word_name=term, word_meaning=mean)
+                    b.save()
+            for term in word_english_actual_li:
+                english_meaning = app_methods.english_meaning(term)
+                for mean in english_meaning:
+                    b = Word_meaning_English(word_name=term, word_meaning=mean)
+                    b.save()
+        return HttpResponse("<p>Done</p>")
 
 def bookmarks(request):
     if request.method=='GET':
@@ -237,3 +270,12 @@ def article_question_response(request):
     print listing
     print 11111
     return JsonResponse([{'right_choice':listing[0]['right_choice'],'feedback':listing[0]['feedback']}],safe=False)
+
+def article_word_meaning(request):
+    word=str(request.POST["word"])
+    listing_hindi=list(Word_meaning_hindi.objects.filter(word_name=word).values('word_meaning'))
+    listing_english=list(Word_meaning_English.objects.filter(word_name=word).values('word_meaning'))
+    print listing_hindi
+    print listing_english
+    return JsonResponse([listing_hindi,listing_english],safe=False)
+    #return JsonResponse([{'right_choice':listing[0]['right_choice'],'feedback':listing[0]['feedback']}],safe=False)
