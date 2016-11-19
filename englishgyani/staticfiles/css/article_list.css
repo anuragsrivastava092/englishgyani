@@ -512,16 +512,17 @@ body, html {
 			bottom: 0;
 		}
 		.article_src{
+
 			color:black;
-			color:white;
-			background:#e74c3c;
+			color:#777777;
 			padding:5px;
 			
 		
 			
 		}
 		.article_src:hover{
-			color:white;
+			
+			color: #e74c3c;
 		}
 		.icon_space{
 			padding-right:7px;
@@ -650,3 +651,64 @@ body, html {
 		margin-left:80px;
 		height:auto;
 	}
+.last{
+			width:72%;
+			padding-top:40px;
+			background:#e5e5e5;
+			background:white;
+		
+		}
+		.footer_ele{
+			text-align:center;
+		
+		}
+		.bounceIn > i{
+			padding: 5px 10px;
+			display: inline-block;
+			-moz-border-radius: 100px;
+			-webkit-border-radius: 100px;
+			border-radius: 100px;
+			-moz-box-shadow: 0px 0px 2px #888;
+			-webkit-box-shadow: 0px 0px 2px #888;
+			box-shadow: 0px 0px 2px #888;
+			background:#323232;
+			color:white;
+	}
+	.bounceIn > 	i:hover { 
+		background-color: #3b5998;
+	}
+	.bounceIn{
+		font-size:24px;
+	
+	}
+	.foot_head > h3{
+		padding-top:20px;
+		font-size:24px;
+		font-weight:bold;
+	
+	}
+	.foot_bottom{
+		padding-top:10px;
+	}
+	@media only screen and (max-width: 991px) {
+	.last{
+			width:100%;
+
+		
+		}
+	
+}
+@media only screen and (max-width: 766px) {
+	.foot_head > h3{
+		font-size:22px;
+
+	}
+	
+}
+@media only screen and (max-width: 450px) {
+	.foot_head > h3{
+		font-size:19px;
+
+	}
+	
+}

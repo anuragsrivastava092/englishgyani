@@ -83,6 +83,7 @@ $(".main_right").on("click",".redirect_page",function(){
         if( i===0){
             last_d = article_json[i].id;
         }
+        //data-toggle="tooltip" title="Hooray!"
 		var first_div = document.createElement("div"); 
 			$(first_div).addClass("list_container");
 			$(first_div).attr("id", article_json[i].id);
@@ -115,6 +116,8 @@ $(".main_right").on("click",".redirect_page",function(){
 			//<p class="news_level_icon">5</p>
 		var level_span = document.createElement("span");
 			$(level_span).addClass("news_level_icon");
+			$(level_span).attr("data-toggle","tooltip");
+			$(level_span).attr("title","Exercise Difficulty Level");
 			$(level_span).text(article_json[i].level);
 			sec1_div.appendChild(level_span);
 			//<h2>Manufacturers Lose Out on Tech Talent</h2>
@@ -148,16 +151,21 @@ $(".main_right").on("click",".redirect_page",function(){
 			//<span class="news_level_icon2 star_icon2" ><i class="fa fa-file-text" aria-hidden="true"></i></span>
 		var content_span = document.createElement("span");
 		$(content_span).addClass("news_level_icon2 star_icon2");
+		$(content_span).attr("data-toggle","tooltip");
+
 		var font_cont = document.createElement("i");
 			
 		if (article_json[i].type===1){
 			$(font_cont).addClass("fa fa-file-text");
+			$(content_span).attr("title","Article Type Exercise");
 		}
 		else if (article_json[i].type===2) {
 			$(font_cont).addClass("fa fa-google");
+			$(content_span).attr("title","Grammar Type Exercise");
 		}
 		else if (article_json[i].type===3) {
 			$(font_cont).addClass("fa fa-video-camera");
+			$(content_span).attr("title","Video Type Exercise");
 		}
 			$(font_cont).attr("aria-hidden", "true");
 			content_span.appendChild(font_cont);
