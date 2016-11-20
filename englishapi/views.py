@@ -223,7 +223,8 @@ class Check_Question(View):
             return HttpResponse(res, status=200)
         else:
             res = exception_handler.set_server_response(400, "answer is wrong")
-            return HttpResponse(res, status=400)
+        User_Performance.objects.create(user_id=request.user.id,question_id=question_id,response=response)
+        return HttpResponse(res, status=400)
 
 class article_meaning(View):
     #@ensure_csrf_cookie
