@@ -107,8 +107,10 @@ class Article_Phrase(models.Model):
     word=models.CharField(max_length=254)
 
 class User_Performance(models.Model):
-    user=models.OneToOneField(User)
+    user=models.IntegerField(User)
     question=models.ForeignKey(Article_Questions)
+    article_id=models.IntegerField()
+    question_feedback=models.CharField(max_length=254)
     response=models.CharField(max_length=254)
 
 class Word_meaning_hindi(models.Model):

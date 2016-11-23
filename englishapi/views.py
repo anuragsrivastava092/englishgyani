@@ -129,11 +129,15 @@ class On_Open_Article(View):
     #@ensure_csrf_cookie
     def get(self,request):
         print request.user
+        print request.user.id
         if 'article_id' in request.GET:
             data={}
             article_id=request.GET.get("article_id")
             listing=list(Article.objects.filter(id=article_id).values('article_title','article_summary','article_tag','article_publish_detail','article_publication_date'))
             #print listing[0]["article_title"]
+            if(request.user.id!=None):
+                ques_attempt=list(User_Performance.objects.filter(id=int(request.user.id)).values('response'))
+                print ques_attempt
             question_l=Article_Questions.objects.filter(article_id=article_id)
             phrase_l=Article_Phrase.objects.filter(article_id=article_id)
             content=question_l[0].article.article_content
@@ -204,6 +208,7 @@ class On_Open_Article(View):
             article_content_obj["title"]= listing[0]["article_title"]
             article_content_obj["publish_detail"]= listing[0]["article_publish_detail"]
             article_content_obj["date"]= str(listing[0]["article_publication_date"])
+            article_content_obj["id"]= str(article_id)
             article_content.append(article_content_obj)
             article_content=json.dumps(article_content,ensure_ascii=True)
             data['question_list']=question_list
@@ -267,9 +272,11 @@ def bookmarks(request):
 
 def article_question_response(request):
     question_id=int(request.POST["question_id"][3:])
+    response=int(request.POST["response"])
     listing=list(Article_Questions.objects.filter(id=question_id).values('feedback','right_choice'))
-    print listing
-    print 11111
+    print request.user.id, question_id, response
+    if (request.user.id!=None):
+        User_Performance.objects.create(user=int(request.user.id),question_id=question_id,response=response)
     return JsonResponse([{'right_choice':listing[0]['right_choice'],'feedback':listing[0]['feedback']}],safe=False)
 
 def article_word_meaning(request):
