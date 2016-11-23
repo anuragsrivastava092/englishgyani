@@ -85,7 +85,7 @@ class Display_Article_LIst(View):
             print "i entered in here"
             art_data={}
             art_data['head']=article.article_title
-            # art_data['image']=article.article_image
+            art_data['image']=article.article_image.url.split('/')[4]
             art_data['genre']=article.article_genre
             art_data['level']=article.article_level
             #art_data['content']=article.article_content
@@ -107,7 +107,7 @@ class Display_Article_LIst(View):
         for article in article_list:
             art_data={}
             art_data['head']=article.article_title
-            #art_data['image']=article.article_image
+            art_data['image']=article.article_image.url.split('/')[4]
             art_data['genre']=article.article_genre
             art_data['level']=article.article_level
             #art_data['content']=article.article_content

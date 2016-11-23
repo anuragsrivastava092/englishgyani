@@ -95,7 +95,7 @@ $(".main_right").on("click",".redirect_page",function(){
 			$(first_div_se_child).addClass("main_right_right");
 			first_div.appendChild(first_div_se_child);
 		var first_image = document.createElement("img");
-			$(first_image).attr("src",article_json[i].image);
+			$(first_image).attr("src","/static/images/article_images/"+article_json[i].image+'/');
 			$(first_image).attr("alt", "article image");
 //{#			$(first_image).attr("onlick", "javascript:location.href='{% url 'article_url' article_id ="+lit[i].id+" }'");#}
 			$(first_image).attr("class", "image_article redirect_page");
