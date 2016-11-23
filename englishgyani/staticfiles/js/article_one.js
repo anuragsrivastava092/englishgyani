@@ -46,6 +46,7 @@ $(document).ready(function(){
 	
 ];
 	question_attempt=[{id:"q2",correct_answer:"2",attempted_answer:"3",answer_feeback:"attempt kar diya" }];
+	
 	user_name ="";
 		if(user_name.length!=0){
 			$(".profile_nav_icon").text(" "+user_name.slice(0,5));
@@ -58,7 +59,7 @@ $(document).ready(function(){
 		$('title').text("Englishgyani - "+ article_content[0].title);
 		$("#article_date").text(article_content[0].date);
 		$(".article_head_text").text(article_content[0].title);
-		$("#article_image").attr("src",article_content[0].article_image);
+		$("#article_image").attr("src","/static/images/article_images/"+article_content[0].article_image+"/");
 		$("#article_head_second_head").text(article_content[0].title);//
 		$("#js-article").append(article_content[0].article);
 		$(".article_footer_time").append(article_content[0].publish_detail);
@@ -154,6 +155,7 @@ $(document).ready(function(){
 		response_ans = $('input[name="answer"]:checked').val();
 		formdata=new FormData();
     		formdata.append("question_id",previous_question_id);
+    		formdata.append("response",response_ans);
 			$.ajax({
                  beforeSend: function (xhr, settings) {
                     xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
@@ -166,7 +168,7 @@ $(document).ready(function(){
                 processData: false,
 				success: function(response) { 
 					que_response = response;
-                   correct_answer=que_response[0].right_choice;
+                   correct_answer=(que_response[0].right_choice-1).toString();
                    answer_feeback=que_response[0].feedback;
                    console.log(99);
 	                if (response_ans===correct_answer){
@@ -180,7 +182,7 @@ $(document).ready(function(){
 					$(".answer_feeback").text(answer_feeback);
 					$("#cont_check").css({"display":"none"});
 					$("#cont_red").css({"display":"block"});
-					var attempt_json={};
+					attempt_json={};
 						attempt_json.id=question_id;
 						attempt_json.answer_feeback=answer_feeback;
 						attempt_json.correct_answer=correct_answer;
