@@ -133,8 +133,8 @@ class On_Open_Article(View):
         if 'article_id' in request.GET:
             data={}
             article_id=request.GET.get("article_id")
-            listing=list(Article.objects.filter(id=article_id).values('article_title','article_summary','article_tag','article_publish_detail','article_publication_date'))
-            #print listing[0]["article_title"]
+            listing=list(Article.objects.filter(id=article_id).values('article_title','article_summary','article_tag','article_publish_detail','article_publication_date','article_image'))
+            #print listing[0]["article_title"].url.split('/')[4]
             if(request.user.id!=None):
                 ques_attempt=list(User_Performance.objects.filter(id=int(request.user.id)).values('response'))
                 print ques_attempt
@@ -209,6 +209,8 @@ class On_Open_Article(View):
             article_content_obj["publish_detail"]= listing[0]["article_publish_detail"]
             article_content_obj["date"]= str(listing[0]["article_publication_date"])
             article_content_obj["id"]= str(article_id)
+            article_content_obj["article_image"]= str(listing[0]["article_image"].split('/')[4])
+            #.url.split('/')[4]
             article_content.append(article_content_obj)
             article_content=json.dumps(article_content,ensure_ascii=True)
             data['question_list']=question_list
