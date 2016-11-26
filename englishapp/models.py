@@ -108,7 +108,7 @@ class Article_Phrase(models.Model):
 
 class User_Performance(models.Model):
     user=models.IntegerField(User)
-    question=models.ForeignKey(Article_Questions)
+    question_id=models.IntegerField()
     article_id=models.IntegerField()
     question_feedback=models.CharField(max_length=254)
     response=models.CharField(max_length=254)

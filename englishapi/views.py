@@ -275,10 +275,11 @@ def bookmarks(request):
 def article_question_response(request):
     question_id=int(request.POST["question_id"][3:])
     response=int(request.POST["response"])
-    listing=list(Article_Questions.objects.filter(id=question_id).values('feedback','right_choice'))
+    listing=list(Article_Questions.objects.filter(id=question_id).values('feedback','right_choice','article'))
     print request.user.id, question_id, response
     if (request.user.id!=None):
-        User_Performance.objects.create(user=int(request.user.id),question_id=question_id,response=response)
+        print 1
+        User_Performance.objects.create(user=int(request.user.id),question_id=question_id, article_id=listing[0]['article'], response=response,question_feedback=listing[0]['feedback'])
     return JsonResponse([{'right_choice':listing[0]['right_choice'],'feedback':listing[0]['feedback']}],safe=False)
 
 def article_word_meaning(request):

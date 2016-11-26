@@ -17,7 +17,7 @@ $(".main_right").on("click",".redirect_page",function(){
 	present_id = present_class.slice(3);
 
 	console.log(present_id);
- //window.location.assign("http://localhost:8000/article-content/"+present_id);
+ window.location.assign("http://54.169.232.1:8000/article-content/"+present_id);
  
  
  });
