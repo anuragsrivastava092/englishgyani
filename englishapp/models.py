@@ -112,6 +112,7 @@ class User_Performance(models.Model):
     article_id=models.IntegerField()
     question_feedback=models.CharField(max_length=254)
     response=models.CharField(max_length=254)
+    correct_answer=models.CharField(max_length=254)
 
 class Word_meaning_hindi(models.Model):
     word_name=models.CharField(max_length=99)

@@ -134,13 +134,14 @@ class On_Open_Article(View):
             data={}
             article_id=request.GET.get("article_id")
             listing=list(Article.objects.filter(id=article_id).values('article_title','article_summary','article_tag','article_publish_detail','article_publication_date','article_image'))
-            attempted_l=User_Performance.objects.filter(user_id=request.user.id)
+            attempted_l=User_Performance.objects.filter(user=request.user.id)
             attempted_list=[]
             for attempted in attempted_l:
                 attempted_data={}
-                attempted_data['id']=attempted.question_id.id
-                attempted_data['response']=attempted.response
-                attempted_data['feedback']=attempted.question_feedback
+                attempted_data['id']="que"+str(attempted.question_id)
+                attempted_data['attempted_answer']=attempted.response
+                attempted_data['answer_feeback']=attempted.question_feedback
+                attempted_data['correct_answer']=attempted.correct_answer
                 attempted_list.append(attempted_data)
             attempted_list=json.dumps(attempted_list,ensure_ascii=True)
             question_l=Article_Questions.objects.filter(article_id=article_id)
@@ -234,7 +235,7 @@ class Check_Question(View):
             return HttpResponse(res, status=200)
         else:
             res = exception_handler.set_server_response(400, "answer is wrong")
-        User_Performance.objects.create(user_id=request.user.id,question_id=question_id,response=response)
+        User_Performance.objects.create(user=request.user.id,question_id=question_id,response=response)
         return HttpResponse(res, status=400)
 
 class article_meaning(View):
@@ -287,7 +288,7 @@ def article_question_response(request):
         if len(list(User_Performance.objects.filter(question_id=question_id,user=int(request.user.id))))>0:
             print 7777
         else:
-            User_Performance.objects.create(user=int(request.user.id),question_id=question_id, article_id=listing[0]['article'], response=response,question_feedback=listing[0]['feedback'])
+            User_Performance.objects.create(user=int(request.user.id),question_id=question_id, article_id=listing[0]['article'],correct_answer=listing[0]['right_choice'], response=response,question_feedback=listing[0]['feedback'])
     return JsonResponse([{'right_choice':listing[0]['right_choice'],'feedback':listing[0]['feedback']}],safe=False)
 
 def article_word_meaning(request):

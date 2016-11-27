@@ -19,5 +19,5 @@ class Open_Article(View):
         request.GET._mutable = mutable
         question_list=englishapi_view.On_Open_Article.as_view()(self.request).content
         question_list=json.loads(question_list)
-        return render(request,"article_content.html",{"question_list":question_list['question_list'],'content':question_list['content'],'phrase_li':question_list['phrase_li']})
+        return render(request,"article_content.html",{"question_list":question_list['question_list'],'content':question_list['content'],'phrase_li':question_list['phrase_li'],'attempted_questions':question_list['attempted_questions']})
 

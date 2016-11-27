@@ -46,7 +46,7 @@ $(document).ready(function(){
 	
 ];
 	question_attempt1=[{id:"q2",correct_answer:"2",attempted_answer:"3",answer_feeback:"attempt kar diya" }];
-	question_attempt=[];
+	question_attempt2=[];
 	user_name ="";
 		if(user_name.length!=0){
 			$(".profile_nav_icon").text(" "+user_name.slice(0,5));
