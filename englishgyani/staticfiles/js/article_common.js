@@ -10,6 +10,14 @@ $(document).ready(function(){
         $("#myModal").modal();
 		$(".sign_text").text("Register to Englishgyani");
     });
+   // user_name ="kk";
+		if(user_name.length!=0){
+			$(".profile_nav_icon").text(" "+user_name.slice(0,5));
+			$(".log_nav_icon").text(" Logout");
+			$("#egregister").attr("id", "eguser");
+			$("#eglogin").attr("id", "egsignout");
+			$("#egsignout").attr("href", "/logout/");
+	}
     window.getCookie = function(name){
 	    var cookieValue = null;
 	    if (document.cookie && document.cookie != '') {

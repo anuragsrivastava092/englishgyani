@@ -8,7 +8,11 @@ class List_Article(View):
     def get(self,request):
         article_list=englishapi_view.Display_Article_LIst.as_view()(self.request).content
         article_list=json.loads(article_list)
-        return render(request,"article_list.html",{"article_list":article_list})
+        if request.user.id!=None:
+            user=str(request.user)
+        else:
+            user=""
+        return render(request,"article_list.html",{"article_list":article_list,"user":user})
 
 class Open_Article(View):
     def get(self,request,article_id):
@@ -19,5 +23,5 @@ class Open_Article(View):
         request.GET._mutable = mutable
         question_list=englishapi_view.On_Open_Article.as_view()(self.request).content
         question_list=json.loads(question_list)
-        return render(request,"article_content.html",{"question_list":question_list['question_list'],'content':question_list['content'],'phrase_li':question_list['phrase_li'],'attempted_questions':question_list['attempted_questions']})
+        return render(request,"article_content.html",{"question_list":question_list['question_list'],'content':question_list['content'],'user':question_list['user'],'phrase_li':question_list['phrase_li'],'attempted_questions':question_list['attempted_questions']})
 

@@ -120,6 +120,8 @@ class Display_Article_LIst(View):
 
             art_list.append(art_data)
         art_list=json.dumps(art_list,ensure_ascii=True)
+        print art_list
+        
         return JsonResponse(art_list,safe=False)
 
 
@@ -129,6 +131,7 @@ class On_Open_Article(View):
     #@ensure_csrf_cookie
     def get(self,request):
         print request.user
+        print 9999
         print request.user.id
         if 'article_id' in request.GET:
             data={}
@@ -223,6 +226,10 @@ class On_Open_Article(View):
             data['phrase_li']=phrase_li
             data['content']=article_content
             data['attempted_questions']=attempted_list
+            if request.user.id!=None:
+                data['user']=str(request.user)
+            else:
+                data['user']=""
             return JsonResponse(data,safe=True)
 
 class Check_Question(View):
@@ -288,7 +295,9 @@ def article_question_response(request):
         if len(list(User_Performance.objects.filter(question_id=question_id,user=int(request.user.id))))>0:
             print 7777
         else:
-            User_Performance.objects.create(user=int(request.user.id),question_id=question_id, article_id=listing[0]['article'],correct_answer=listing[0]['right_choice'], response=response,question_feedback=listing[0]['feedback'])
+            aa = str(int(listing[0]['right_choice'])-1)
+            print aa
+            User_Performance.objects.create(user=int(request.user.id),question_id=question_id, article_id=listing[0]['article'],correct_answer=aa, response=response,question_feedback=listing[0]['feedback'])
     return JsonResponse([{'right_choice':listing[0]['right_choice'],'feedback':listing[0]['feedback']}],safe=False)
 
 def article_word_meaning(request):

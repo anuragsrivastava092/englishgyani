@@ -47,14 +47,7 @@ $(document).ready(function(){
 ];
 	question_attempt1=[{id:"q2",correct_answer:"2",attempted_answer:"3",answer_feeback:"attempt kar diya" }];
 	question_attempt2=[];
-	user_name ="";
-		if(user_name.length!=0){
-			$(".profile_nav_icon").text(" "+user_name.slice(0,5));
-			$(".log_nav_icon").text(" Logout");
-			$("#egregister").attr("id", "eguser");
-			$("#eglogin").attr("id", "egsignout");
-			$("#egsignout").attr("href", "/logout/");
-	}
+	
 
 		$('title').text("Englishgyani - "+ article_content[0].title);
 		$("#article_date").text(article_content[0].date);
