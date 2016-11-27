@@ -135,6 +135,9 @@ class On_Open_Article(View):
             article_id=request.GET.get("article_id")
             listing=list(Article.objects.filter(id=article_id).values('article_title','article_summary','article_tag','article_publish_detail','article_publication_date','article_image'))
             #print listing[0]["article_title"].url.split('/')[4]
+            question_attempt=list(User_Performance.objects.filter(article_id=article_id,user=request.user.id).values('question_id','article_id','question_feedback','response'))
+            print question_attempt
+            print 999
             if(request.user.id!=None):
                 ques_attempt=list(User_Performance.objects.filter(id=int(request.user.id)).values('response'))
                 print ques_attempt
@@ -216,8 +219,12 @@ class On_Open_Article(View):
             data['question_list']=question_list
             data['phrase_li']=phrase_li
             data['content']=article_content
-            #print data['question_list']
-            #print data['phrase_li']
+            question_attempt=json.dumps([{"a":"2"}],ensure_ascii=True)
+            data['question_at']= question_attempt
+            print data['question_list']
+            print data['question_at']
+            #rint article_content
+            print data
             return JsonResponse(data,safe=True)
 
 class Check_Question(View):
@@ -279,7 +286,11 @@ def article_question_response(request):
     print request.user.id, question_id, response
     if (request.user.id!=None):
         print 1
-        User_Performance.objects.create(user=int(request.user.id),question_id=question_id, article_id=listing[0]['article'], response=response,question_feedback=listing[0]['feedback'])
+        print len(list(User_Performance.objects.filter(question_id=question_id,user=int(request.user.id))))
+        if len(list(User_Performance.objects.filter(question_id=question_id,user=int(request.user.id))))>0:
+            print 7777
+        else:
+            User_Performance.objects.create(user=int(request.user.id),question_id=question_id, article_id=listing[0]['article'], response=response,question_feedback=listing[0]['feedback'])
     return JsonResponse([{'right_choice':listing[0]['right_choice'],'feedback':listing[0]['feedback']}],safe=False)
 
 def article_word_meaning(request):

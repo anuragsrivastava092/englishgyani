@@ -421,6 +421,11 @@ body, html {
 		}
 		.redirect_page{
 			cursor: pointer;
+
+		}
+		.redirect_page:hover {
+		    text-decoration: underline;
+		    color: red;
 		}
 		.news_sum_top{
 			margin-bottom:0px;
@@ -462,6 +467,8 @@ body, html {
 			color:#000000;
 			font-family: 'Roboto', sans-serif;
 		}
+
+
 		.news_sum_body > p{
 			font-size:15px;
 			line-height:21px;

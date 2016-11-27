@@ -45,8 +45,8 @@ $(document).ready(function(){
 	}
 	
 ];
-	question_attempt=[{id:"q2",correct_answer:"2",attempted_answer:"3",answer_feeback:"attempt kar diya" }];
-	
+	question_attempt1=[{id:"q2",correct_answer:"2",attempted_answer:"3",answer_feeback:"attempt kar diya" }];
+	question_attempt=[];
 	user_name ="";
 		if(user_name.length!=0){
 			$(".profile_nav_icon").text(" "+user_name.slice(0,5));
