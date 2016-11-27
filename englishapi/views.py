@@ -134,13 +134,15 @@ class On_Open_Article(View):
             data={}
             article_id=request.GET.get("article_id")
             listing=list(Article.objects.filter(id=article_id).values('article_title','article_summary','article_tag','article_publish_detail','article_publication_date','article_image'))
-            #print listing[0]["article_title"].url.split('/')[4]
-            question_attempt=list(User_Performance.objects.filter(article_id=article_id,user=request.user.id).values('question_id','article_id','question_feedback','response'))
-            print question_attempt
-            print 999
-            if(request.user.id!=None):
-                ques_attempt=list(User_Performance.objects.filter(id=int(request.user.id)).values('response'))
-                print ques_attempt
+            attempted_list=User_Performance.objects.filter(user_id=request.user.id)
+            attempted_list=[]
+            for attempted in attempted_list:
+                attempted_data={}
+                attempted_data['id']=attempted.question_id.id
+                attempted_data['response']=attempted.response
+                attempted_data['feedback']=attempted.question_feedback
+                attempted_list.append(attempted_data)
+            attempted_list=json.dumps(attempted_list,ensure_ascii=True)
             question_l=Article_Questions.objects.filter(article_id=article_id)
             phrase_l=Article_Phrase.objects.filter(article_id=article_id)
             content=question_l[0].article.article_content
@@ -219,12 +221,7 @@ class On_Open_Article(View):
             data['question_list']=question_list
             data['phrase_li']=phrase_li
             data['content']=article_content
-            question_attempt=json.dumps([{"a":"2"}],ensure_ascii=True)
-            data['question_at']= question_attempt
-            print data['question_list']
-            print data['question_at']
-            #rint article_content
-            print data
+            data['attempted_questions']=attempted_list
             return JsonResponse(data,safe=True)
 
 class Check_Question(View):
