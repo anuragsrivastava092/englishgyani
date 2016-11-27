@@ -134,9 +134,9 @@ class On_Open_Article(View):
             data={}
             article_id=request.GET.get("article_id")
             listing=list(Article.objects.filter(id=article_id).values('article_title','article_summary','article_tag','article_publish_detail','article_publication_date','article_image'))
-            attempted_list=User_Performance.objects.filter(user_id=request.user.id)
+            attempted_l=User_Performance.objects.filter(user_id=request.user.id)
             attempted_list=[]
-            for attempted in attempted_list:
+            for attempted in attempted_l:
                 attempted_data={}
                 attempted_data['id']=attempted.question_id.id
                 attempted_data['response']=attempted.response
