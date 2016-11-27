@@ -220,7 +220,7 @@ class On_Open_Article(View):
             data['phrase_li']=phrase_li
             data['content']=article_content
             question_attempt=json.dumps([{"a":"2"}],ensure_ascii=True)
-            data['question_at']= question_attempt
+            data['question_at']= "dfdf" #question_attempt
             print data['question_list']
             print data['question_at']
             #rint article_content
