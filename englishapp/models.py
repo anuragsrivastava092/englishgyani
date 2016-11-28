@@ -119,6 +119,13 @@ class User_Bookmark(models.Model):
     bookmark_word=models.CharField(max_length=254)
     bookmark_word_meaning=models.CharField(max_length=254)
     bookmark_word_example=models.CharField(max_length=254)
+    source=models.CharField(max_length=254)
+
+class Vocab_List(models.Model):
+    vocab=models.CharField(max_length=254)
+    vocab_meaning=models.CharField(max_length=254)
+    vocab_example=models.CharField(max_length=254)
+    vocab_category=models.CharField(max_length=254)
 
 class Word_meaning_hindi(models.Model):
     word_name=models.CharField(max_length=99)

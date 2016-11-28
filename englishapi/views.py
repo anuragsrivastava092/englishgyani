@@ -279,10 +279,22 @@ class article_meaning(View):
                     b.save()
         return HttpResponse("<p>Done</p>")
 
-def bookmarks(request):
-    if request.method=='GET':
-        print "jnjnj"
-
+class Bookmark_Word(View):
+    #@ensure_csrf_cookie
+    def get(self,request):
+        bookmark_li=User_Bookmark.objects.filter(user=request.user.id)
+        bookmark_list=[]
+        for obj in bookmark_li:
+            book_data={}
+            book_data['id']=obj.id
+            book_data['word']=obj.bookmark_word
+            book_data['meaning']=obj.bookmark_word_meaning
+            book_data['sentence']=obj.bookmark_word_example
+            bookmark_list.append(book_data)
+        bookmark_list=json.dumps(bookmark_list,ensure_ascii=True)
+        print bookmark_list
+        
+        return JsonResponse(bookmark_list,safe=False)
 
 def article_question_response(request):
     question_id=int(request.POST["question_id"][3:])
@@ -319,26 +331,15 @@ def article_bookmark(request):
 	        if len(li)==0:
 	            return JsonResponse("-1",safe=False)
 	        else:
-	            User_Bookmark.objects.create(user=request.user.id,bookmark_word=word,bookmark_word_meaning=li[0],bookmark_word_example=li[1])
+	            User_Bookmark.objects.create(user=request.user.id,bookmark_word=word,bookmark_word_meaning=li[0],bookmark_word_example=li[1],source="article")
 	            return JsonResponse("1",safe=False)
 	   	return JsonResponse("0",safe=False)
 	else:
 		return JsonResponse("-2",safe=False)
 
-class Bookmark_Word(View):
-    #@ensure_csrf_cookie
-    def get(self,request):
-        bookmark_li=User_Bookmark.objects.filter(user=request.user.id)
-        bookmark_list=[]
-        for obj in bookmark_li:
-            book_data={}
-            book_data['id']=obj.id
-            book_data['word']=obj.bookmark_word
-            book_data['meaning']=obj.bookmark_word_meaning
-            book_data['sentence']=obj.bookmark_word_example
-            bookmark_list.append(book_data)
-        bookmark_list=json.dumps(bookmark_list,ensure_ascii=True)
-        print bookmark_list
-        
-        return JsonResponse(bookmark_list,safe=False)
-
+def delete_bookmark(request):
+    if request.method=='POST':
+        print 999
+        word = str(request.POST["word"])
+        User_Bookmark.objects.filter(user=request.user.id,bookmark_word=word).delete()
+        return JsonResponse("deleted",safe=False)

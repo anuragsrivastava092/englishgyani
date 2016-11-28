@@ -43,6 +43,7 @@ $(document).ready(function(){
 					first_div_fi_child.appendChild(word_name_div);
 				//<h2 >Clarity</h2>
 				var word_h2 = document.createElement("h2");
+					$(word_h2).attr("id", "word"+bookmark_list[i].id);
 					$(word_h2).text(bookmark_list[i].word);
 					word_name_div.appendChild(word_h2);
 					//<h3 class="word_meaning">infinitely or immeasurably small</h3>
@@ -72,6 +73,9 @@ $(document).ready(function(){
 $(document).on('click', ".button", function() {
 	
 			del_id = $(this).attr('id');
+			obj = $("#word"+del_id);
+			bookmark_word=$(obj).text()
+			delete_bookmark(bookmark_word);
 			$("#div"+del_id).remove();
 			delete_word+=1;
 			var child_list = $(".no_span")
@@ -82,4 +86,31 @@ $(document).on('click', ".button", function() {
 				$("#no_article").css({"display":"block"});
 			}
 });
+function delete_bookmark(word){
+		formdata=new FormData();
+		formdata.append("word",word);
+
+
+			$.ajax({
+                 beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+                },
+				url: "/api/delete-bookmark/",
+				data:formdata,
+                cache: false,
+				type: "POST",
+                contentType:false,
+                processData: false,
+				success: function(response) {
+                    //article_json = jQuery.parseJSON( response );
+        
+					
+				},
+				error: function(xhr) {
+
+                   
+				}
+			});
+			
+	}
 });
