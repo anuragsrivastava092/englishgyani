@@ -28,6 +28,10 @@ class Open_Article(View):
 class Bookmark_Words(View):
     def get(self,request):
         if request.user.id!=None:
-            
+            user=str(request.user)
+            bookmark_list=englishapi_view.Bookmark_Word.as_view()(self.request).content
+            bookmark_list=json.loads(bookmark_list)
         else:
             user=""
+            bookmark_list=[]
+        return render(request,"bookmark.html",{"bookmark_list":bookmark_list,"user":user})

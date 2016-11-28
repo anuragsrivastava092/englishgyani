@@ -142,11 +142,11 @@ $(document).ready(function () {
                 contentType:false,
                 processData: false,
 				success: function(response) {
-					aaa= 1;
+					aaa= parseInt(response);
                    //return 1;
 				},
 				error: function(xhr) {
-					aaa=-1;
+					aaa=-3;
                     //return -1;
 				}
 			});
@@ -174,17 +174,35 @@ $(document).ready(function () {
 			else{
 				word_bookmark_api(selected_text);
 				//console.log(book_response);
-				 wait(2000);
+				 wait(3000);
 				if(aaa===1){
 					$("#alert_bookmark").attr("class", "alert alert-success fade in");
 					$("#bookmark_result").text("Success!");
 					$("#bookmark_result_message").text("Word Bookmarked");
 				}
+				else if(aaa===0) {
+	
+					$("#alert_bookmark").attr("class", "alert alert-danger fade in");
+					$("#bookmark_result").text("Failed!");
+					$("#bookmark_result_message").text("Word already bookmarked");
+				}
+				else if(aaa===-1) {
+	
+					$("#alert_bookmark").attr("class", "alert alert-danger fade in");
+					$("#bookmark_result").text("Failed!");
+					$("#bookmark_result_message").text("Word meaning is not found");
+				}
+				else if(aaa===-2) {
+	
+					$("#alert_bookmark").attr("class", "alert alert-danger fade in");
+					$("#bookmark_result").text("Failed!");
+					$("#bookmark_result_message").text("Login to bookmark word");
+				}
 				else{
 	
 					$("#alert_bookmark").attr("class", "alert alert-danger fade in");
 					$("#bookmark_result").text("Failed!");
-					$("#bookmark_result_message").text("Not Bookmarked");
+					$("#bookmark_result_message").text("Bookmarked failed");
 				}
 			
 			}

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <title>EnglishGyani - Learn English with News</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="{% static 'images/col_lo.png' %}" type="image/png" >
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://use.fontawesome.com/578e02aff5.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+ 	<link rel="stylesheet" type="text/css" href="{% static 'css/bookmark.css' %}">
+ 	<style>
+		#tooltip_bookmark, #tooltip_lookup{
+			background:#ABFFE3;
+			position:relative;
+			border-radius: 2px;
+			border-style:hidden;
+			display:none;
+
+		 }
+		#tooltip_lookup{
+			background:#ff751a;
+		}
+		  #tooltext_bookmark, #tooltext_lookup {
+			padding-top:10px;
+			padding-bottom:6px;
+			padding-left:10px;
+			padding-right:10px;
+			font-size: 16px;
+
+		 }
+
+		 #alert_bookmark{
+			display:none;
+		 }
+
+		 .login{
+		margin-top:120px;
+		width:300px;
+		padding-left:20px;
+		padding-right:20px;
+		text-align:center;
+		background:white;
+		margin-left:calc((100% - 300px)/2);
+		margin-right:calc((100% - 300px)/2);
+		padding-bottom:80px;
+	}
+	.card {
+	  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+	  border: 1px solid #e5e5e5;
+	  border-radius:100px;
+
+	}
+	.sign_text{
+		padding-top:20px;
+		font-size:24px;
+	}
+	.social_login_img{
+		margin-top:10px;
+		width:100%;
+
+	}
+	.social_login_img1{
+		margin-top:5px;
+		width:100%;
+	}
+	.close_modal_div{
+		margin-top:20px;
+		margin-left:80px;
+		height:auto;
+	}
+	</style>
+</head>
+<body>
+	
+	
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand" href="#"><img src="{% static 'images/col_lo.png' %}" class="brand_logo" ><h3 class="brand_name2">EnglishGyani</h3></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+		<li ><a href="#"><i class="fa fa-newspaper-o nav_icon" aria-hidden="true"></i> <span class="nav_icon_w"> News</span> </a></li>
+      
+      <li class="active kkk"><a href="#"><i class="fa fa-bookmark nav_icon_active" aria-hidden="true"></i><span class="nav_icon_w_active"> Bookmark</span> </a></li>
+	  <li><a href="#"><i class="fa fa-question nav_icon" aria-hidden="true"></i><span class="nav_icon_w"> Practice</span> </a></li> 
+	  
+      </ul>
+     <ul class="nav navbar-nav navbar-right">
+        <li ><a href="#" id="egregister"><span class="glyphicon glyphicon-user nav_icon"></span><span class="nav_icon_w profile_nav_icon"> Register</span> </a></li>
+        <li><a href="#" id="eglogin"><span class="glyphicon glyphicon-log-in nav_icon"></span><span class="nav_icon_w log_nav_icon"> Login</span> </a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main_body">
+	<div class="main_left">
+		<div class="main_left_body">
+			<div class="main_left_height">
+				<i class="fa fa-lightbulb-o idea_icon" aria-hidden="true"></i>
+				<span class="idea_text"> Set your goals. Think about how many words you want to read each week. The number could increase as your reading speed gets faster!
+				</span>
+			</div>
+			
+		</div>
+		
+	</div>
+	<div class="main_right">
+		<h1 class="book_head"> Bookmark list </h1>
+		<div class="list_bookmark_word">
+			<div class="no_article" id="no_article">
+						<p> There are no bookmark words. </p>
+						<div class="see_all_art_div">
+							<span class="see_all_art">Add our 50 important words</span>
+						</div>
+			</div>
+		
+		
+			
+			
+		</div>
+	</div>
+
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+	<div class="login card">
+			<p class="sign_text"> Login to Englishgyani</p>
+			<a href="/accounts/google/login/?process=login">
+				<img class="social_login_img" src="https://englishbucket.s3.amazonaws.com/static/img/a.png">
+			</a>
+			<a href="/accounts/facebook/login/?process=login">
+				<img class="social_login_img1" src="https://englishbucket.s3.amazonaws.com/static/img/fb.png">
+			</a>
+			<div class="close_modal_div">
+				<button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+          
+			</div>
+	</div>
+
+ </div>
+<script src="{% static 'js/bookmark.js' %}"></script>
+<script src="{% static 'js/article_common.js' %}"></script>
+<script type="text/javascript">
+	bookmark_list = {{ bookmark_list |safe }};
+      user_name ="{{ user | safe }}";
+</script>
+</body>
+</html>
+  

@@ -311,16 +311,34 @@ def article_word_meaning(request):
 
 def article_bookmark(request):
 	if request.user.id!=None:
-    	word=str(request.POST["word"])
-    	li_bookmark=User_Performance.objects.filter(user=request.user.id,bookmark_word=word)
-    	if len(li_bookmark)!=0:
+		word = str(request.POST["word"])
+		li_bookmark=User_Bookmark.objects.filter(user=request.user.id,bookmark_word=word)
+		print li_bookmark
+    	if len(li_bookmark)==0:
 	    	li=app_methods.bookmark(word)
 	        if len(li)==0:
 	            return JsonResponse("-1",safe=False)
 	        else:
 	            User_Bookmark.objects.create(user=request.user.id,bookmark_word=word,bookmark_word_meaning=li[0],bookmark_word_example=li[1])
 	            return JsonResponse("1",safe=False)
-	    else:
-	    	return JsonResponse("0",safe=False)
-    else:
-        return JsonResponse("1",safe=False)
+	   	return JsonResponse("0",safe=False)
+	else:
+		return JsonResponse("-2",safe=False)
+
+class Bookmark_Word(View):
+    #@ensure_csrf_cookie
+    def get(self,request):
+        bookmark_li=User_Bookmark.objects.filter(user=request.user.id)
+        bookmark_list=[]
+        for obj in bookmark_li:
+            book_data={}
+            book_data['id']=obj.id
+            book_data['word']=obj.bookmark_word
+            book_data['meaning']=obj.bookmark_word_meaning
+            book_data['sentence']=obj.bookmark_word_example
+            bookmark_list.append(book_data)
+        bookmark_list=json.dumps(bookmark_list,ensure_ascii=True)
+        print bookmark_list
+        
+        return JsonResponse(bookmark_list,safe=False)
+
