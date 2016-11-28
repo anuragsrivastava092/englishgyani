@@ -114,6 +114,12 @@ class User_Performance(models.Model):
     response=models.CharField(max_length=254)
     correct_answer=models.CharField(max_length=254)
 
+class User_Bookmark(models.Model):
+    user=models.IntegerField(User)
+    bookmark_word=models.CharField(max_length=254)
+    bookmark_word_meaning=models.CharField(max_length=254)
+    bookmark_word_example=models.CharField(max_length=254)
+
 class Word_meaning_hindi(models.Model):
     word_name=models.CharField(max_length=99)
     word_meaning=models.CharField(max_length=254)

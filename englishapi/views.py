@@ -308,3 +308,19 @@ def article_word_meaning(request):
     print listing_english
     return JsonResponse([listing_hindi,listing_english],safe=False)
     #return JsonResponse([{'right_choice':listing[0]['right_choice'],'feedback':listing[0]['feedback']}],safe=False)
+
+def article_bookmark(request):
+	if request.user.id!=None:
+    	word=str(request.POST["word"])
+    	li_bookmark=User_Performance.objects.filter(user=request.user.id,bookmark_word=word)
+    	if len(li_bookmark)!=0:
+	    	li=app_methods.bookmark(word)
+	        if len(li)==0:
+	            return JsonResponse("-1",safe=False)
+	        else:
+	            User_Bookmark.objects.create(user=request.user.id,bookmark_word=word,bookmark_word_meaning=li[0],bookmark_word_example=li[1])
+	            return JsonResponse("1",safe=False)
+	    else:
+	    	return JsonResponse("0",safe=False)
+    else:
+        return JsonResponse("1",safe=False)

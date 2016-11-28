@@ -102,3 +102,22 @@ def english_meaning(word):
         return li 
     except IOError:
         return li
+
+def bookmark(word):
+    li = []
+    try:
+        r = urllib.urlopen("https://en.oxforddictionaries.com/definition/"+word)
+        soup = BeautifulSoup(r,"lxml")
+        a= soup.findAll(attrs={'class' : 'ind'})
+        b= soup.findAll(attrs={'class' : 'ex'})
+        if len(a)>0 and len(b)>0:
+            mean=a[0].get_text()
+            if (mean[-1]==":" ):
+                mean = mean[:-1]
+            else:
+                dfdf =0
+            li.append(mean)
+            li.append(b[0].get_text())
+            return li
+    except IOError:
+        return li

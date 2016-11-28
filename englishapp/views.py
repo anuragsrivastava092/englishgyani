@@ -25,3 +25,9 @@ class Open_Article(View):
         question_list=json.loads(question_list)
         return render(request,"article_content.html",{"question_list":question_list['question_list'],'content':question_list['content'],'user':question_list['user'],'phrase_li':question_list['phrase_li'],'attempted_questions':question_list['attempted_questions']})
 
+class Bookmark_Words(View):
+    def get(self,request):
+        if request.user.id!=None:
+            
+        else:
+            user=""

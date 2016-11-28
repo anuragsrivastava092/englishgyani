@@ -128,6 +128,30 @@ $(document).ready(function () {
 			});
 			
 	}
+	function word_bookmark_api(word){
+		formdata=new FormData();
+		formdata.append("word",word);
+			$.ajax({
+                 beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+                },
+				url: "/api/article_bookmark/",
+				data:formdata,
+                cache: false,
+				type: "POST",
+                contentType:false,
+                processData: false,
+				success: function(response) {
+					aaa= 1;
+                   //return 1;
+				},
+				error: function(xhr) {
+					aaa=-1;
+                    //return -1;
+				}
+			});
+			
+	}
 	function wait(ms){
 	   var start = new Date().getTime();
 	   var end = start;
@@ -136,20 +160,33 @@ $(document).ready(function () {
 	  }
 }
 	 	$("#tooltip_bookmark").click(function(){
-			fail = 1;
+			//fail = 1;
 			$("body").append(bookmark_alert_div);
-			console.log(11);
+			//console.log(selected_text);
 			$("#alert_bookmark").show();
 			placeAlert(lef, y);
-			if(fail===1){
+			if(user_name.length ===0){
 				$("#alert_bookmark").attr("class", "alert alert-danger fade in");
 				$("#bookmark_result").text("Failed!");
-				$("#bookmark_result_message").text("Not Bookmarked");
+				$("#bookmark_result_message").text("Login to bookmark word");
+
 			}
 			else{
-				$("#alert_bookmark").attr("class", "alert alert-success fade in");
-				$("#bookmark_result").text("Success!");
-				$("#bookmark_result_message").text("Word Bookmarked");
+				word_bookmark_api(selected_text);
+				//console.log(book_response);
+				 wait(2000);
+				if(aaa===1){
+					$("#alert_bookmark").attr("class", "alert alert-success fade in");
+					$("#bookmark_result").text("Success!");
+					$("#bookmark_result_message").text("Word Bookmarked");
+				}
+				else{
+	
+					$("#alert_bookmark").attr("class", "alert alert-danger fade in");
+					$("#bookmark_result").text("Failed!");
+					$("#bookmark_result_message").text("Not Bookmarked");
+				}
+			
 			}
 			$("#tooltip_bookmark").hide();
 			$("#tooltip_lookup").hide();

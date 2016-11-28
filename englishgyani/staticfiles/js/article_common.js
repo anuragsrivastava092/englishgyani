@@ -6,10 +6,16 @@ $(document).ready(function(){
         $("#myModal").modal();
 		$(".sign_text").text("Login to Englishgyani");
     });
-	$("#egregister").click(function(){
+/*	$("#egregister").click(function(){
+		console.log("register");
         $("#myModal").modal();
 		$(".sign_text").text("Register to Englishgyani");
-    });
+    }); */
+    $("body").on("click","#egregister",function(){ 
+    	console.log("register");
+        $("#myModal").modal();
+		$(".sign_text").text("Register to Englishgyani");
+    	});
    // user_name ="kk";
 		if(user_name.length!=0){
 			$(".profile_nav_icon").text(" "+user_name.slice(0,5));
