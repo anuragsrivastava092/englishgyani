@@ -34,7 +34,7 @@
       <ul class="nav navbar-nav">
 		<li class="active kkk"><a href="#"><i class="fa fa-source-o nav_icon_active" aria-hidden="true"></i> <span class="nav_icon_w_active"> News</span> </a></li>
       
-      <li><a href="#"><i class="fa fa-bookmark nav_icon" aria-hidden="true"></i><span class="nav_icon_w"> Bookmark</span> </a></li>
+      <li><a href="bookmark.html"><i class="fa fa-bookmark nav_icon" aria-hidden="true"></i><span class="nav_icon_w"> Bookmark</span> </a></li>
 	  <li><a href="#"><i class="fa fa-question nav_icon" aria-hidden="true"></i><span class="nav_icon_w"> Practice</span> </a></li> 
 	  
       </ul>
@@ -146,6 +146,7 @@
 <script>
 	article_json={{ article_list |safe }};
       user_name ="{{ user | safe }}";
+     // quote ="{{ quote | safe }}";
 	
 </script>
 <script src="{% static 'js/article_common.js' %}"></script>

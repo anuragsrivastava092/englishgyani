@@ -44,6 +44,8 @@ class Article(models.Model):
     article_genre=models.IntegerField(choices=genre_field)
     article_type=models.IntegerField(choices=type_field)
     article_level=models.IntegerField()
+    article_level_detail=models.CharField(max_length=254)
+    article_objective=models.CharField(max_length=254)# 2points seperated by pipe
     article_summary=models.CharField(max_length=254)
     article_publication_date=models.DateField()
     article_tag=models.CharField(max_length=254)
@@ -135,5 +137,7 @@ class Word_meaning_English(models.Model):
     word_name=models.CharField(max_length=99)
     word_meaning=models.CharField(max_length=254)
 
-
+class Motivation_quote(models.Model):
+    quote=models.CharField(max_length=254)
+    quote_type=models.CharField(max_length=254)
 

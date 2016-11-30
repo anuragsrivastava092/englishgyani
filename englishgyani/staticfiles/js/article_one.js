@@ -57,7 +57,10 @@ $(document).ready(function(){
 		$("#js-article").append(article_content[0].article);
 		$(".article_footer_time").append(article_content[0].publish_detail);
 		$(".article_tag").text(article_content[0].article_tag);
-
+		$(".article_level_detail").text(article_content[0].article_level_detail);
+		$(".article_level_no").text(article_content[0].article_level);
+		$(".list_obj1").text(article_content[0].article_objective1);
+		$(".list_obj2").text(article_content[0].article_objective2);
 //initialiaze the page fields		
 		$(".navbar-nav li a").click(function(event) {
 			$(".navbar-collapse").collapse('hide');

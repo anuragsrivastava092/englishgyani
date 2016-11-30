@@ -11,6 +11,9 @@ $(document).ready(function(){
 ]
 	var delete_word=0;
 	//var bookmark_list= [];
+	function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 			if(bookmark_list.length===0){
 					$("#no_article").css({"display":"block"});
 				}
@@ -44,7 +47,7 @@ $(document).ready(function(){
 				//<h2 >Clarity</h2>
 				var word_h2 = document.createElement("h2");
 					$(word_h2).attr("id", "word"+bookmark_list[i].id);
-					$(word_h2).text(bookmark_list[i].word);
+					$(word_h2).text(capitalizeFirstLetter(bookmark_list[i].word));
 					word_name_div.appendChild(word_h2);
 					//<h3 class="word_meaning">infinitely or immeasurably small</h3>
 				var meaning_h3 = document.createElement("h3");
@@ -113,4 +116,5 @@ function delete_bookmark(word){
 			});
 			
 	}
+
 });

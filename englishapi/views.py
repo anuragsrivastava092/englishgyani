@@ -136,7 +136,7 @@ class On_Open_Article(View):
         if 'article_id' in request.GET:
             data={}
             article_id=request.GET.get("article_id")
-            listing=list(Article.objects.filter(id=article_id).values('article_title','article_summary','article_tag','article_publish_detail','article_publication_date','article_image'))
+            listing=list(Article.objects.filter(id=article_id).values('article_objective','article_level_detail','article_level','article_title','article_summary','article_tag','article_publish_detail','article_publication_date','article_image'))
             attempted_l=User_Performance.objects.filter(user=request.user.id)
             attempted_list=[]
             for attempted in attempted_l:
@@ -211,6 +211,7 @@ class On_Open_Article(View):
             for i in range(len(parag)):
 				front_content += parag[i]
             article_content = []
+            objective_li=listing[0]["article_objective"].split("|")
             article_content_obj={}
             article_content_obj["article"]= front_content
             article_content_obj["article_tag"]= listing[0]["article_tag"]
@@ -218,6 +219,10 @@ class On_Open_Article(View):
             article_content_obj["publish_detail"]= listing[0]["article_publish_detail"]
             article_content_obj["date"]= str(listing[0]["article_publication_date"])
             article_content_obj["id"]= str(article_id)
+            article_content_obj["article_level"]= listing[0]["article_level"]
+            article_content_obj["article_level_detail"]= listing[0]["article_level_detail"]
+            article_content_obj["article_objective1"]= objective_li[0]
+            article_content_obj["article_objective2"]= objective_li[1]
             article_content_obj["article_image"]= str(listing[0]["article_image"].split('/')[4])
             #.url.split('/')[4]
             article_content.append(article_content_obj)

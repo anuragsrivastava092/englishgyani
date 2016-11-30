@@ -284,6 +284,18 @@
 						  <span class="slider"></span>
 						</label>
 					</div>
+					<div class="learning_objective">
+						<h3 class="lerning_text">Learning Objectives</h3>
+						<h5 class="list_obj">In this Article, you will</h5>
+						<ul>
+							<li class="list_obj list_obj1"></li>
+							<li class="list_obj list_obj2"></li>
+						</ul>
+						<b class="list_obj">
+							Englishgyani Level <span class="article_level_no"></span>
+							(<span class="article_level_detail"> </span>)
+						</b>
+					</div>
 				</div>
 
 	</div>
@@ -480,6 +492,7 @@
      question_attempt =  {{ attempted_questions | safe}};
     article_question ={{ question_list | safe }};
     user_name ="{{ user | safe }}";
+    
     //article_question_attemp ={{ question_attempt |safe }};
     
 	$(".audio_play").hide();

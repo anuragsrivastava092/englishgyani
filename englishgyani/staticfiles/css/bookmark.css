@@ -276,12 +276,16 @@
 	
 	.word_name > h2{
 		color:#a0d1ef;
+		font-size: 16px;
+	}
+	.word_name > h3{
+		font-size:20px;
 	}
 	.word_no > span{
 		float:right;
 		font-size:20px;
 		padding-right:20%;
-		padding-top:22px;
+		padding-top:15px;
 	}
 	.word_remove_button{
 		margin-top:10%;
@@ -322,6 +326,12 @@
     font-size: 14px;
 
 }
+.word_name > h2{
+		font-size: 16px;
+	}
+	.word_name > h3{
+		font-size:18px;
+	}
 }
 	.no_article{
 		background:#bdc3c7;

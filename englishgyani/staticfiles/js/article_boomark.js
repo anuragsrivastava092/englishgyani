@@ -159,6 +159,9 @@ $(document).ready(function () {
 	     end = new Date().getTime();
 	  }
 }
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 	 	$("#tooltip_bookmark").click(function(){
 			//fail = 1;
 			$("body").append(bookmark_alert_div);
