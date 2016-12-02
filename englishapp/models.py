@@ -85,6 +85,7 @@ class Article_Questions(models.Model):
     article=models.ForeignKey(Article)
     question_instruction=models.CharField(max_length=254)
     question_description=models.CharField(max_length=254)
+    question_description_main=models.CharField(max_length=254)
     question_weight=models.IntegerField()
     question_type=models.IntegerField(choices=question_type_field)
     choice1_description=models.CharField(max_length=254,blank=True)

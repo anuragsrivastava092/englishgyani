@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <title>EnglishGyani - Learn English with News</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">	
+  <link rel="icon" href="{% static 'images/col_lo.png' %}" type="image/png" >
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://use.fontawesome.com/578e02aff5.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/video.css' %}">     
+  
+</head>
+<body>
+	
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand" href="#"><img src="{% static 'images/col_lo.png' %}" alt=" brand logo" class="brand_logo" ><h3 class="brand_name2">Englishgyani</h3></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+		<li class="active kkk"><a href="#"><i class="fa fa-newspaper-o nav_icon_active" aria-hidden="true"></i> <span class="nav_icon_w_active"> News</span> </a></li>
+      
+      <li><a href="#"><i class="fa fa-bookmark nav_icon" aria-hidden="true"></i><span class="nav_icon_w"> Bookmark</span> </a></li>
+	  <li><a href="#"><i class="fa fa-question nav_icon" aria-hidden="true"></i><span class="nav_icon_w"> Practice</span> </a></li> 
+	  
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+         <li ><a href="#" id="egregister"><span class="glyphicon glyphicon-user nav_icon"></span><span class="nav_icon_w profile_nav_icon"> Register</span> </a></li>
+        <li><a href="#" id="eglogin"><span class="glyphicon glyphicon-log-in nav_icon"></span><span class="nav_icon_w log_nav_icon"> Login</span> </a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="article">
+	<div class="article_head_top">
+			<div class="article_head_top_left">
+					<a class="article_top_back_feed back_to_feed_link" href="http://google.com">
+						<span class="back_feed_link_arrow">
+						  <i class="fa fa-angle-left head_icon head_icon_left" aria-hidden="true"></i>
+						 </span>
+						<span class="back_text -first">Back</span>
+						<span class="back_text -second">to feed</span>
+					</a>
+			</div>
+			<div class="article_head_top_center">
+					<span class="article_icon_align">
+						<i class="fa fa-calendar head_icon" aria-hidden="true"></i>
+						<span id="article_date">13 Oct 2016</span>
+					</span>
+			</div>
+			<div class="article_head_top_right">
+					<span class="article_icon_align">
+						<i class="fa fa-star-o save_icon head_icon" aria-hidden="true"></i>
+						<i class="fa fa-share-alt share_icon head_icon" aria-hidden="true"></i>
+					</span>
+			</div>
+	</div>
+	<div class="article_head_title">
+			<h1 class="article_head_text"> 
+				Last tango in America
+			</h1>
+	</div>
+	<div class="article_head_image_content">
+				<div class="article_head_video_content_li">
+					<iframe id="video" src="" frameborder="0" allowfullscreen></iframe>
+				</div>
+				<div class="article_head_image_content_ri">
+					<div class="learning_objective">
+						<h3 class="lerning_text">Learning Objectives</h3>
+						<h5 class="list_obj">In this video, you will</h5>
+						<ul>
+							<li class="list_obj list_obj1"></li>
+							<li class="list_obj list_obj2"></li>
+						</ul>
+						<b class="list_obj">
+							Englishgyani Level <span class="article_level_no"></span>
+							(<span class="article_level_detail"> </span>)
+						</b>
+					</div>
+				</div>
+				
+	</div>
+	<div class="question_list">
+		<div class="row">
+			<div class="col-md-3 fac_col" >
+				<div class="panel panel-default ques_div ques1" id="tab0">
+					<div class="panel-body">
+						<span class="text-wrapper">
+							<span class="ex-name">
+								<strong id="question_category0">Vocabulary</strong>
+							</span>
+							<span class="timeline" id="timeline1">00:04-00:06</span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="panel panel-default ques_div" id="tab1">
+					<div class="panel-body">
+						<span class="text-wrapper">
+							<span class="ex-name">
+								<strong id="question_category2">Vocabulary</strong>
+							</span>
+							<span class="timeline" id="timeline2">00:04-00:06</span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="panel panel-default ques_div" id="tab2">
+					<div class="panel-body">
+						<span class="text-wrapper">
+							<span class="ex-name">
+								<strong id="question_category3">Vocabulary</strong>
+							</span>
+							<span class="timeline" id="timeline3">00:04-00:06</span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="panel panel-default ques_div" id="tab3">
+					<div class="panel-body">
+						<span class="text-wrapper">
+							<span class="ex-name">
+								<strong id="question_category4">Vocabulary</strong>
+							</span>
+							<span class="timeline" id="timeline4">00:04-00:06</span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="question">
+						<div class="question_head">
+								<div class="question_head_le">
+									<span class="point_span"> 2 Points </span>
+									<span class="type_inst"> Choose the correct answer.</span>
+								</div>
+								<div class="question_head_ri">
+									<i class="fa fa-times question_close" aria-hidden="true"></i>
+								</div>
+						</div>
+						<div class="question_body">
+							<h4 class="question_body_text">
+							<span id="question_text_int"> Complete this sentence in the most logical way:</span> <br>
+							<br>
+							<span id="question_text_main">"We bought the car five years ago for $20,000, but as a result of depreciation, it's now worth ___."</span>
+							</h4>
+							<div class="question_answer">
+								<div class="answer">
+								  <label class="label_class" id="label_id0">
+									<input id="answer-0" name="answer" type="radio" value="0" >
+									<label for="answer-0"></label>
+									<span class="label_option" id="label0_text"> money you give to a company </span>
+								  </label>
+								  <br>
+								
+								  <label class="label_class" id="label_id1">
+									<input id="answer-1" name="answer" type="radio" value="1" >
+									<label for="answer-1"></label>
+									 <span class="label_option" id="label1_text"> money you loan to a person </span>
+									 
+								  </label>
+								  <br>
+							
+								  <label class="label_class" id="label_id2">
+									<input id="answer-2" name="answer" type="radio" value="2" >
+									<label for="answer-2"></label>
+										 <span class="label_option" id="label2_text"> money you make from a project </span>
+											
+									</label>
+									
+									<label class="label_class" id="label_id3">
+										<input id="answer-3" name="answer" type="radio" value="3" >
+										<label for="answer-3"></label>
+											 <span class="label_option" id="label3_text"> money you make from a project </span>
+											
+									</label>
+								</div>
+								<div class="answer_ri">
+								  <p class="answer_feeback"> Sorry, it's the other way around. We add the prefix "un-" to mean "not" or "the opposite of" something.</p>
+								</div>
+							</div>
+							
+							<div class="answer-footer">
+							 <span class="button check_buttton" id="cont_check">Check</span>
+							<span class="button next_question" id="next_que">Next Question</span>
+							 
+							 </div>
+						</div>
+						
+	</div>
+	
+	
+</div>
+<div class="footer last" >
+		<div class="footer_ele foot_head">
+			<h3> Connect with EnglishGyani</h3>
+			
+		</div>
+		
+		<div class="footer_ele">
+			<a href="https://web.facebook.com/" class="fb bounceIn" data-delay="1400"><i class="fa fa-facebook"></i></a>
+			&nbsp;
+			<a href="https://www.instagram.com/" class="li bounceIn" data-delay="1400"><i class="fa fa-instagram"></i></a>
+			
+		</div>
+	
+		
+		
+		<div class="footer_ele foot_bottom">
+			© Copyright 2016, EnglishGyani Inc.
+			
+		</div>
+		<br>
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+	<div class="login card">
+			<p class="sign_text"> Login to Englishgyani</p>
+			<a href="/accounts/google/login/?process=login">
+				<img alt="google login image" class="social_login_img" src="https://englishbucket.s3.amazonaws.com/static/img/a.png">
+			</a>
+			<a href="/accounts/facebook/login/?process=login">
+				<img alt="facebook login image" class="social_login_img1" src="https://englishbucket.s3.amazonaws.com/static/img/fb.png">
+			</a>
+			<div class="close_modal_div">
+				<button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+
+			</div>
+	</div>
+
+ </div>
+ <form action="" method="post">{% csrf_token %}</form>
+<script type="text/javascript" >
+	article_content1 = [{"title": "Taxing Times for the Market\u2019s Global Elite","article_objective1": "find out some details surrounding Samsung's problems with its Note 7", "date": "2016-11-26", "article_objective2": " practice some key business vocabulary", "id": "1", "article_level": 3, "article_level_detail": "B2, TOEIC 551\u2013668, TOEFL iBT 53\u201364, IELTS 5\u20136","article_video":"https://www.youtube.com/embed/M8dqnfMAq7E?showinfo=0&iv_load_policy=3"}];
+		question_attempt1 =  [];
+	    article_question =[{"question_text": "1", "point": 3, "option2": "1", "question_description_main": "fdssf", "question_instruction": "s.", "option3": "a watch", "option4": "a phone", "type": 1, "id": "que1", "option1": "a","question_type":"Vocabulary","question_timing":"00:04-00:06"},
+	    {"question_text": "2", "point": 2, "option2": "1", "question_description_main": "", "question_instruction": "s.", "option3": "a watch", "option4": "a phone", "type": 2, "id": "que2", "option1": "a","question_type":"Vocabulary","question_timing":"00:06-00:10"},
+	     {"question_text": "3", "point": 3, "option2": "1", "question_description_main": "", "question_instruction": "s.", "option3": "a watch", "option4": "a phone", "type": 3, "id": "que3", "option1": "a","question_type":"Vocabulary","question_timing":"00:10-00:16"},
+	     {"question_text": "4", "point": 4, "option2": "1", "question_description_main": "", "question_instruction": "s.", "option3": "a watch", "option4": "a phone", "type": 3, "id": "que4", "option1": "a","question_type":"Grammar","question_timing":"00:04-00:06"},
+	     ];
+     
+	user_name1="k";
+
+
+	///
+     article_content = {{ content | safe }};
+     question_attempt =  {{ attempted_questions | safe}};
+    article_question ={{ question_list | safe }};
+    user_name ="{{ user | safe }}";
+</script>
+<script type="text/javascript" src="{% static 'js/one_video.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/article_common.js' %}"></script>
+
+
+
+
+
+</body>
+</html>

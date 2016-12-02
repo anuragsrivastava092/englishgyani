@@ -136,106 +136,181 @@ class On_Open_Article(View):
         if 'article_id' in request.GET:
             data={}
             article_id=request.GET.get("article_id")
-            listing=list(Article.objects.filter(id=article_id).values('article_objective','article_level_detail','article_level','article_title','article_summary','article_tag','article_publish_detail','article_publication_date','article_image'))
-            attempted_l=User_Performance.objects.filter(user=request.user.id)
-            attempted_list=[]
-            for attempted in attempted_l:
-                attempted_data={}
-                attempted_data['id']="que"+str(attempted.question_id)
-                attempted_data['attempted_answer']=attempted.response
-                attempted_data['answer_feeback']=attempted.question_feedback
-                attempted_data['correct_answer']=attempted.correct_answer
-                attempted_list.append(attempted_data)
-            attempted_list=json.dumps(attempted_list,ensure_ascii=True)
-            question_l=Article_Questions.objects.filter(article_id=article_id)
-            phrase_l=Article_Phrase.objects.filter(article_id=article_id)
-            content=question_l[0].article.article_content
-            article=open("englishapi/article.txt","w")
-            article.write(content)
-            article.close()
-            question_list=[]
-            phrase_list=[]
-            question_number_list=[[] for i in question_l]
-            phrase_number_list=[[] for j in phrase_l]
-            i=0
-            for question in question_l:
-                question_data={}
-                question_data['id']="que"+str(question.id)
-                question_number_list[i].insert(0,"que"+str(question.id))
-                question_number_list[i].insert(1,question.paragraph_pos)
-                question_number_list[i].insert(2,question.sentence_pos)
-                question_number_list[i].insert(3,question.word)
-                question_number_list[i].insert(4,question.question_category)
-                i=i+1
-                question_data['question_instruction']=question.question_instruction
-                question_data['question_text']=question.question_description
-                question_data['type']=question.question_type
-                question_data['point']=question.question_weight
-                if question.question_type==1:
-                    question_data['option1']=question.choice1_description
-                    question_data['option2']=question.choice2_description
-                    question_data['option3']=question.choice3_description
-                    question_data['option4']=question.choice4_description
-                if question.question_type==2:
-                    pass
-                if question.question_type==3:
-                    pass
-                if question.question_type==4:
-                    question_data['fill_blank_text']=question.fill_blank_description
-                question_list.append(question_data)
-            j=0
-            for phrase in phrase_l:
-                phrase_data={}
-                phrase_data['id']="phr"+str(phrase.id)
-                phrase_number_list[j].insert(0,phrase.id)
-                phrase_number_list[j].insert(1,phrase.paragraph_pos)
-                phrase_number_list[j].insert(2,phrase.sentence_pos)
-                phrase_number_list[j].insert(3,phrase.word)
-                j=j+1
-                phrase_data['phrase']=phrase.phrase
-                phrase_data['meaning']=phrase.meaning
-                phrase_data['example']=phrase.example
-                phrase_list.append(phrase_data)
-            question_list=json.dumps(question_list,ensure_ascii=True)
-            phrase_li=json.dumps(phrase_list,ensure_ascii=True)
-            parag=[]
-            content=app_methods.final(question_number_list,phrase_number_list,content)
-            for i in range(len(content)):
-                tet=""
-                for j in range(len(content[i])):
-                    tet+=" " + content[i][j]
-                    new_id= "par"+str(j+1)
-                tet = "<p id="+(new_id) +">"+tet+"</p>"
-                parag.append(tet)
-            front_content=""
-            for i in range(len(parag)):
-				front_content += parag[i]
-            article_content = []
-            objective_li=listing[0]["article_objective"].split("|")
-            article_content_obj={}
-            article_content_obj["article"]= front_content
-            article_content_obj["article_tag"]= listing[0]["article_tag"]
-            article_content_obj["title"]= listing[0]["article_title"]
-            article_content_obj["publish_detail"]= listing[0]["article_publish_detail"]
-            article_content_obj["date"]= str(listing[0]["article_publication_date"])
-            article_content_obj["id"]= str(article_id)
-            article_content_obj["article_level"]= listing[0]["article_level"]
-            article_content_obj["article_level_detail"]= listing[0]["article_level_detail"]
-            article_content_obj["article_objective1"]= objective_li[0]
-            article_content_obj["article_objective2"]= objective_li[1]
-            article_content_obj["article_image"]= str(listing[0]["article_image"].split('/')[4])
-            #.url.split('/')[4]
-            article_content.append(article_content_obj)
-            article_content=json.dumps(article_content,ensure_ascii=True)
-            data['question_list']=question_list
-            data['phrase_li']=phrase_li
-            data['content']=article_content
-            data['attempted_questions']=attempted_list
-            if request.user.id!=None:
-                data['user']=str(request.user)
+            listing=list(Article.objects.filter(id=article_id).values('article_video_url','article_objective','article_level_detail','article_level','article_title','article_summary','article_tag','article_publish_detail','article_publication_date','article_image'))
+            print len(listing[0]["article_video_url"])
+            if len(listing[0]["article_video_url"])==0:
+                attempted_l=User_Performance.objects.filter(user=request.user.id)
+                attempted_list=[]
+                for attempted in attempted_l:
+                    attempted_data={}
+                    attempted_data['id']="que"+str(attempted.question_id)
+                    attempted_data['attempted_answer']=attempted.response
+                    attempted_data['answer_feeback']=attempted.question_feedback
+                    attempted_data['correct_answer']=attempted.correct_answer
+                    attempted_list.append(attempted_data)
+                attempted_list=json.dumps(attempted_list,ensure_ascii=True)
+                question_l=Article_Questions.objects.filter(article_id=article_id)
+                phrase_l=Article_Phrase.objects.filter(article_id=article_id)
+                content=question_l[0].article.article_content
+                article=open("englishapi/article.txt","w")
+                article.write(content)
+                article.close()
+                question_list=[]
+                phrase_list=[]
+                question_number_list=[[] for i in question_l]
+                phrase_number_list=[[] for j in phrase_l]
+                i=0
+                for question in question_l:
+                    question_data={}
+                    question_data['id']="que"+str(question.id)
+                    question_number_list[i].insert(0,"que"+str(question.id))
+                    question_number_list[i].insert(1,question.paragraph_pos)
+                    question_number_list[i].insert(2,question.sentence_pos)
+                    question_number_list[i].insert(3,question.word)
+                    question_number_list[i].insert(4,question.question_category)
+                    i=i+1
+                    question_data['question_instruction']=question.question_instruction
+                    question_data['question_text']=question.question_description
+                    question_data['type']=question.question_type
+                    question_data['point']=question.question_weight
+                    question_data['question_description_main']=question.question_description_main
+                    
+                    if question.question_type==1:
+                        question_data['option1']=question.choice1_description
+                        question_data['option2']=question.choice2_description
+                        question_data['option3']=question.choice3_description
+                        question_data['option4']=question.choice4_description
+                    if question.question_type==2:
+                        pass
+                    if question.question_type==3:
+                        pass
+                    if question.question_type==4:
+                        question_data['fill_blank_text']=question.fill_blank_description
+                    question_list.append(question_data)
+                j=0
+                for phrase in phrase_l:
+                    phrase_data={}
+                    phrase_data['id']="phr"+str(phrase.id)
+                    phrase_number_list[j].insert(0,phrase.id)
+                    phrase_number_list[j].insert(1,phrase.paragraph_pos)
+                    phrase_number_list[j].insert(2,phrase.sentence_pos)
+                    phrase_number_list[j].insert(3,phrase.word)
+                    j=j+1
+                    phrase_data['phrase']=phrase.phrase
+                    phrase_data['meaning']=phrase.meaning
+                    phrase_data['example']=phrase.example
+                    phrase_list.append(phrase_data)
+                question_list=json.dumps(question_list,ensure_ascii=True)
+                phrase_li=json.dumps(phrase_list,ensure_ascii=True)
+                parag=[]
+                content=app_methods.final(question_number_list,phrase_number_list,content)
+                for i in range(len(content)):
+                    tet=""
+                    for j in range(len(content[i])):
+                        tet+=" " + content[i][j]
+                        new_id= "par"+str(j+1)
+                    tet = "<p id="+(new_id) +">"+tet+"</p>"
+                    parag.append(tet)
+                front_content=""
+                for i in range(len(parag)):
+    				front_content += parag[i]
+                article_content = []
+                objective_li=listing[0]["article_objective"].split("|")
+                article_content_obj={}
+                article_content_obj["article_video"]= listing[0]["article_video_url"]
+                article_content_obj["article"]= front_content
+                article_content_obj["article_tag"]= listing[0]["article_tag"]
+                article_content_obj["title"]= listing[0]["article_title"]
+                article_content_obj["publish_detail"]= listing[0]["article_publish_detail"]
+                article_content_obj["date"]= str(listing[0]["article_publication_date"])
+                article_content_obj["id"]= str(article_id)
+                article_content_obj["article_level"]= listing[0]["article_level"]
+                article_content_obj["article_level_detail"]= listing[0]["article_level_detail"]
+                article_content_obj["article_objective1"]= objective_li[0]
+                article_content_obj["article_objective2"]= objective_li[1]
+                article_content_obj["article_image"]= str(listing[0]["article_image"].split('/')[4])
+                #.url.split('/')[4]
+                article_content.append(article_content_obj)
+                article_content=json.dumps(article_content,ensure_ascii=True)
+                data['question_list']=question_list
+                data['phrase_li']=phrase_li
+                data['content']=article_content
+                data['attempted_questions']=attempted_list
+                data['video']="0"
+                if request.user.id!=None:
+                    data['user']=str(request.user)
+                else:
+                    data['user']=""
+                return JsonResponse(data,safe=True)
             else:
-                data['user']=""
-            return JsonResponse(data,safe=True)
+                attempted_l=User_Performance.objects.filter(user=request.user.id)
+                attempted_list=[]
+                for attempted in attempted_l:
+                    attempted_data={}
+                    attempted_data['id']="que"+str(attempted.question_id)
+                    attempted_data['attempted_answer']=attempted.response
+                    attempted_data['answer_feeback']=attempted.question_feedback
+                    attempted_data['correct_answer']=attempted.correct_answer
+                    attempted_list.append(attempted_data)
+                attempted_list=json.dumps(attempted_list,ensure_ascii=True)
+                question_l=Article_Questions.objects.filter(article_id=article_id)
+                question_list=[]
+                question_number_list=[[] for i in question_l]
+                i=0
+                for question in question_l:
+                    question_data={}
+                    question_data['id']="que"+str(question.id)
+                    question_number_list[i].insert(0,"que"+str(question.id))
+                    question_number_list[i].insert(1,question.paragraph_pos)
+                    question_number_list[i].insert(2,question.sentence_pos)
+                    question_number_list[i].insert(3,question.word)
+                    question_number_list[i].insert(4,question.question_category)
+                    i=i+1
+                    question_data['question_instruction']=question.question_instruction
+                    question_data['question_text']=question.question_description
+                    question_data['type']=question.question_type
+                    question_data['point']=question.question_weight
+                    question_data['question_description_main']=question.question_description_main
+                    
+                    if question.question_type==1:
+                        question_data['option1']=question.choice1_description
+                        question_data['option2']=question.choice2_description
+                        question_data['option3']=question.choice3_description
+                        question_data['option4']=question.choice4_description
+                    if question.question_type==2:
+                        pass
+                    if question.question_type==3:
+                        pass
+                    if question.question_type==4:
+                        question_data['fill_blank_text']=question.fill_blank_description
+                    question_list.append(question_data)
+                question_list=json.dumps(question_list,ensure_ascii=True)
+                article_content = []
+                objective_li=listing[0]["article_objective"].split("|")
+                article_content_obj={}
+                article_content_obj["article_video"]= listing[0]["article_video_url"]
+                article_content_obj["article_tag"]= listing[0]["article_tag"]
+                article_content_obj["title"]= listing[0]["article_title"]
+                article_content_obj["publish_detail"]= listing[0]["article_publish_detail"]
+                article_content_obj["date"]= str(listing[0]["article_publication_date"])
+                article_content_obj["id"]= str(article_id)
+                article_content_obj["article_level"]= listing[0]["article_level"]
+                article_content_obj["article_level_detail"]= listing[0]["article_level_detail"]
+                article_content_obj["article_objective1"]= objective_li[0]
+                article_content_obj["article_objective2"]= objective_li[1]
+                article_content_obj["article_image"]= str(listing[0]["article_image"].split('/')[4])
+                article_content.append(article_content_obj)
+                article_content=json.dumps(article_content,ensure_ascii=True)
+                data['question_list']=question_list
+                data['content']=article_content
+                data['attempted_questions']=attempted_list
+                data['video']="1"
+                if request.user.id!=None:
+                    data['user']=str(request.user)
+                else:
+                    data['user']=""
+                return JsonResponse(data,safe=True)
+
 
 class Check_Question(View):
     def post(self,request):
