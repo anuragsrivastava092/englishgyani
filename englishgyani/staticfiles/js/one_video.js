@@ -58,10 +58,33 @@ $(document).ready(function(){
 
 	$("body").on("click",".submit_response",function(){ 
 		response_ans = $('input[name="answer"]:checked').val().toString();
-		correct_answer = "0";
-		answer_feeback ='answer_feeback answer_feeback answer_feeback answer_feebackSorry, its the other way around. We add the prefix "un-" to mean "not" or "the opposite of" something.';
+		//correct_answer = "0";
+		//answer_feeback ='answer_feeback answer_feeback answer_feeback answer_feebackSorry, its the other way around. We add the prefix "un-" to mean "not" or "the opposite of" something.';
 		
-	                if (response_ans===correct_answer){
+	               
+
+
+
+				///
+			formdata=new FormData();
+    		formdata.append("question_id",article_question[current_ques_tab].id);
+    		formdata.append("response",response_ans);
+			$.ajax({
+                 beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+                },
+				url: "/api/article_question_response/",
+				data:formdata,
+                cache: false,
+				type: "POST",
+                contentType:false,
+                processData: false,
+				success: function(response) { 
+					que_response = response;
+                   correct_answer=(que_response[0].right_choice-1).toString();
+                   answer_feeback=que_response[0].feedback;
+                   console.log(99);
+	                 if (response_ans===correct_answer){
 						$("#label_id"+response_ans).css({"background":"#7db956"});
 						}
 					else{
@@ -78,6 +101,11 @@ $(document).ready(function(){
 						attempt_json.correct_answer=correct_answer;
 						attempt_json.attempted_answer=response_ans;
 						question_attempt.push(attempt_json);
+					},
+				error: function(xhr) {
+                     console.log(88);
+				}
+			});
 						
 		
 		
