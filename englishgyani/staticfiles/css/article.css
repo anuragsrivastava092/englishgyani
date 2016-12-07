@@ -128,8 +128,8 @@
 }
 @media only screen and (max-width: 450px) {
 		.article{
-			width:100%;
-			margin-left:0%;
+			width:96%;
+			margin-left:2%;
 			
 	}
 }

@@ -3,6 +3,8 @@ $(document).ready(function(){
 		$("#article_date").text(article_content[0].date);
 		$(".article_head_text").text(article_content[0].title);
 		$("#video").attr("src",article_content[0].article_video)
+		$(".article_footer_time").append(article_content[0].publish_detail);
+		$(".article_tag").text(article_content[0].article_tag);
 		$(".article_level_detail").text(article_content[0].article_level_detail);
 		$(".article_level_no").text(article_content[0].article_level);
 		$(".list_obj1").text(article_content[0].article_objective1);

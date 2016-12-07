@@ -100,6 +100,18 @@ class Article_Questions(models.Model):
     right_choice=models.IntegerField(choices=choice_field)
     question_category=models.IntegerField(choices=type_field)
 
+class Play_Question(models.Model):
+    article=models.ForeignKey(Article)
+    sentence_pos=models.IntegerField()
+    paragraph_pos=models.IntegerField()
+    word_id_posi=models.IntegerField()
+    word=models.CharField(max_length=254)
+    modified_word=models.CharField(max_length=254)
+    question_concept=models.CharField(max_length=254)
+    question_example=models.CharField(max_length=254)
+    question_type=models.IntegerField()
+
+
 class Article_Phrase(models.Model):
     article=models.ForeignKey(Article)
     phrase=models.CharField(max_length=254)
@@ -117,12 +129,27 @@ class User_Performance(models.Model):
     response=models.CharField(max_length=254)
     correct_answer=models.CharField(max_length=254)
 
+class User_Play_Performance(models.Model):
+    user=models.IntegerField(User)
+    question_id=models.IntegerField(blank=True)
+    article_id=models.IntegerField()
+    word_id_pos=models.IntegerField()
+    word=models.CharField(max_length=254)
+    modified_word=models.CharField(max_length=254)
+    user_word=models.CharField(max_length=254)
+    question_concept=models.CharField(max_length=254)
+    question_example=models.CharField(max_length=254)
+    error_type=models.IntegerField()
+
 class User_Bookmark(models.Model):
     user=models.IntegerField(User)
     bookmark_word=models.CharField(max_length=254)
     bookmark_word_meaning=models.CharField(max_length=254)
     bookmark_word_example=models.CharField(max_length=254)
     source=models.CharField(max_length=254)
+
+
+
 
 class Vocab_List(models.Model):
     vocab=models.CharField(max_length=254)

@@ -665,3 +665,38 @@
 		margin-left:80px;
 		height:auto;
 	}
+
+	.article_footer{
+		margin-top: 100px;
+
+	}
+.article_footer_time{
+		font-family: 'Roboto', sans-serif;
+		font-size:17px;
+		line-height:22px;
+		color:#949494;
+		float:left;
+		margin-left:0%;
+		width:60%;
+		position:relative;
+	}
+	.article_footer_tags{
+		float:right;
+		margin-right:0%;
+		width:40%;
+		position:relative;
+	}
+	.tag_icon{
+		float:right;
+		font-size:17px;
+		
+	}
+@media only screen and (max-width: 450px) {
+	.article_footer{
+		padding-left:10px;
+		padding-right:10px;
+	}
+	.article_footer_time, .tag_icon{
+		font-size:14px;
+	}
+}
