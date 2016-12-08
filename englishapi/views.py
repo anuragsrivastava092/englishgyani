@@ -130,15 +130,11 @@ class Display_Article_LIst(View):
 class On_Open_Article(View):
     #@ensure_csrf_cookie
     def get(self,request):
-        print request.user
-        print 9999
-        print request.user.id
         if 'article_id' in request.GET:
             data={}
             article_id=request.GET.get("article_id")
-            listing=list(Article.objects.filter(id=article_id).values('article_video_url','article_objective','article_level_detail','article_level','article_title','article_summary','article_tag','article_publish_detail','article_publication_date','article_image'))
-            print len(listing[0]["article_video_url"])
-            if len(listing[0]["article_video_url"])==0:
+            listing=list(Article.objects.filter(id=article_id).values('errorcount','article_altered_content','article_content','article_type','article_video_url','article_objective','article_level_detail','article_level','article_title','article_summary','article_tag','article_publish_detail','article_publication_date','article_image'))
+            if listing[0]["article_type"]==1:
                 attempted_l=User_Performance.objects.filter(user=request.user.id)
                 attempted_list=[]
                 for attempted in attempted_l:
@@ -149,7 +145,7 @@ class On_Open_Article(View):
                     attempted_data['correct_answer']=attempted.correct_answer
                     attempted_list.append(attempted_data)
                 attempted_list=json.dumps(attempted_list,ensure_ascii=True)
-                question_l=Article_Questions.objects.filter(article_id=article_id)
+                question_l=Article_Question.objects.filter(article_id=article_id)
                 phrase_l=Article_Phrase.objects.filter(article_id=article_id)
                 content=question_l[0].article.article_content
                 article=open("englishapi/article.txt","w")
@@ -242,7 +238,7 @@ class On_Open_Article(View):
                 else:
                     data['user']=""
                 return JsonResponse(data,safe=True)
-            else:
+            elif listing[0]["article_type"]==3:
                 attempted_l=User_Performance.objects.filter(user=request.user.id)
                 attempted_list=[]
                 for attempted in attempted_l:
@@ -301,6 +297,7 @@ class On_Open_Article(View):
                 article_content_obj["article_image"]= str(listing[0]["article_image"].split('/')[4])
                 article_content.append(article_content_obj)
                 article_content=json.dumps(article_content,ensure_ascii=True)
+
                 data['question_list']=question_list
                 data['content']=article_content
                 data['attempted_questions']=attempted_list
@@ -310,6 +307,66 @@ class On_Open_Article(View):
                 else:
                     data['user']=""
                 return JsonResponse(data,safe=True)
+
+            #elif listing[0]["article_type"]==3:
+            else:
+                attempted_l=User_Play_Performance.objects.filter(user=request.user.id,article_id=article_id)
+                if len(attempted_l)==0:
+                    content=listing[0]["article_content"]
+                    article=open("englishapi/play_main_content.txt","w")
+                    article.write(content)
+                    article.close()
+                    originaltext=app_methods.play()
+                    
+                    article_altered_content=listing[0]["article_altered_content"]
+                    altered_text=open("englishapi/play_alter_content.txt","w")
+                    altered_text.write(article_altered_content)
+                    altered_text.close()
+                    alter_text=app_methods.play_alter()
+
+                    play_content=[]
+                    play_content_obj={}
+                    play_content_obj["originaltext"]=originaltext
+                    play_content_obj["alteredtext"]=alter_text
+                    play_content_obj["errorcount"]=int(listing[0]["errorcount"])
+                    play_content.append(play_content_obj)
+
+                    article_content = []
+                    objective_li=listing[0]["article_objective"].split("|")
+                    article_content_obj={}
+                    article_content_obj["article_tag"]= listing[0]["article_tag"]
+                    article_content_obj["title"]= listing[0]["article_title"]
+                    article_content_obj["publish_detail"]= listing[0]["article_publish_detail"]
+                    article_content_obj["date"]= str(listing[0]["article_publication_date"])
+                    article_content_obj["id"]= str(article_id)
+                    article_content_obj["article_level"]= listing[0]["article_level"]
+                    article_content_obj["article_level_detail"]= listing[0]["article_level_detail"]
+                    article_content_obj["article_objective1"]= objective_li[0]
+                    article_content_obj["article_objective2"]= objective_li[1]
+                    article_content_obj["article_image"]= str(listing[0]["article_image"].split('/')[4])
+                    article_content.append(article_content_obj)
+                    article_content=json.dumps(article_content,ensure_ascii=True)
+                    play_content=json.dumps(play_content,ensure_ascii=True)
+
+                    #
+                    Play_feedback=Play_Question.objects.filter(article=article_id)
+                    Play_feedback_arr=[]
+                    feed_data={}
+                    for qyes in Play_feedback:
+                        feed_data[qyes.modified_word]= qyes.question_concept
+                    feed_data=json.dumps(feed_data,ensure_ascii=True)
+                    print feed_data
+                data['content']=article_content
+                data['play_content']=play_content
+                data['topic_feed']=feed_data
+                if request.user.id!=None:
+                    data['user']=str(request.user)
+                else:
+                    data['user']=""
+                data['video']="2"
+                return JsonResponse(data,safe=True)
+        else:
+            dsdf=0
 
 
 class Check_Question(View):

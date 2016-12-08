@@ -121,3 +121,39 @@ def bookmark(word):
             return li
     except IOError:
         return li
+
+def play():
+    article=open("englishapi/play_main_content.txt","r")
+    tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+    par =[]
+    for i in article:
+            par.append(i)
+    para =[]
+    test=[]
+    count =0
+    for i in range(len(par)):
+        if par[i]!="\r\n":
+            if par[i][-2:] ==  "\r\n" :
+                param=par[i][:-2]
+                para.append(param)
+            else :
+                para.append(par[i])
+    return para
+
+def play_alter():
+    article=open("englishapi/play_alter_content.txt","r")
+    tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+    par =[]
+    for i in article:
+            par.append(i)
+    para =[]
+    test=[]
+    count =0
+    for i in range(len(par)):
+        if par[i]!="\r\n":
+            if par[i][-2:] ==  "\r\n" :
+                param=par[i][:-2]
+                para.append(param)
+            else :
+                para.append(par[i])
+    return para

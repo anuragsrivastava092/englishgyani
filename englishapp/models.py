@@ -40,6 +40,8 @@ class Article(models.Model):
     article_image=models.ImageField(upload_to='englishgyani/staticfiles/images/article_images', height_field=None, width_field=None, max_length=100)
     article_title=models.CharField(max_length=254)
     article_content=models.TextField(blank=True)
+    article_altered_content=models.TextField(blank=True)
+    errorcount=models.TextField(blank=True)
     article_video_url=models.URLField(blank=True)
     article_genre=models.IntegerField(choices=genre_field)
     article_type=models.IntegerField(choices=type_field)
@@ -56,7 +58,7 @@ class Article(models.Model):
 		return str("id")+str(":")+str(self.id)
 
 
-class Article_Questions(models.Model):
+class Article_Question(models.Model):
     mcq=1
     morethanonechoice=2
     truefalse=3
@@ -102,9 +104,6 @@ class Article_Questions(models.Model):
 
 class Play_Question(models.Model):
     article=models.ForeignKey(Article)
-    sentence_pos=models.IntegerField()
-    paragraph_pos=models.IntegerField()
-    word_id_posi=models.IntegerField()
     word=models.CharField(max_length=254)
     modified_word=models.CharField(max_length=254)
     question_concept=models.CharField(max_length=254)
@@ -131,15 +130,10 @@ class User_Performance(models.Model):
 
 class User_Play_Performance(models.Model):
     user=models.IntegerField(User)
-    question_id=models.IntegerField(blank=True)
     article_id=models.IntegerField()
-    word_id_pos=models.IntegerField()
-    word=models.CharField(max_length=254)
-    modified_word=models.CharField(max_length=254)
-    user_word=models.CharField(max_length=254)
-    question_concept=models.CharField(max_length=254)
-    question_example=models.CharField(max_length=254)
-    error_type=models.IntegerField()
+    no_error=models.IntegerField()
+    user_altered_content=models.TextField(blank=True)
+
 
 class User_Bookmark(models.Model):
     user=models.IntegerField(User)

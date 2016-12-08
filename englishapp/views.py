@@ -22,14 +22,14 @@ class Open_Article(View):
         request.GET["article_id"] =article_id
         request.GET._mutable = mutable
         question_list=englishapi_view.On_Open_Article.as_view()(self.request).content
-        print 1111
-        print type(question_list)
         question_list=json.loads(question_list)
         if question_list['video']=="0":
             return render(request,"article_content.html",{"question_list":question_list['question_list'],'content':question_list['content'],'user':question_list['user'],'phrase_li':question_list['phrase_li'],'attempted_questions':question_list['attempted_questions']})
-        else:
+        elif question_list['video']=="1":
             return render(request,"video_content.html",{"question_list":question_list['question_list'],'content':question_list['content'],'user':question_list['user'],'attempted_questions':question_list['attempted_questions']})
-        
+        elif question_list['video']=="2":
+            question_list['play_content']
+            return render(request,"play.html",{"content":question_list['content'],"play_content":question_list['play_content'],'user':question_list['user'],'topic_feed':question_list['topic_feed']})
 class Bookmark_Words(View):
     def get(self,request):
         if request.user.id!=None:

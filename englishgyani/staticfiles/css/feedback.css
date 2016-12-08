@@ -1,0 +1,173 @@
+
+	.feed_main{
+		background:#ada28a;
+		width:300px;
+		height:300px;
+		border-radius: 12px 12px 8px 8px;
+		display: none;
+		position: absolute;
+	}
+	.feed_head{
+		background:#e3a58a;
+		width:100%;
+		height:25%;
+		border-radius: 8px 8px 0px 0px;
+	
+	}
+	
+	
+	.feed_head_icon{
+	width:20%;
+	height:100%;
+	margin-left:0%;
+	float:left;
+	}
+	.head_icon_modal{
+	
+	color:#f6766d;
+	font-size:2em;
+	margin-left:20%;
+	margin-top:30%;
+	}
+	.feed_head_text{
+	width:80%;
+	height:100%;
+	margin-right:0%;
+	float:right;
+	
+	}
+	.head_text1{
+	
+	margin-left:2%;
+	margin-top:8%;
+	font-size:1.5em;
+	float:left;
+	}
+	.head_text2{
+	margin-right:2%;
+	margin-top:11%;
+	font-size:1.0em;
+	float:right;
+	color:brown;
+	}
+	.feed_body_content{
+	margin-left:0%;
+	padding-left:7%;
+	padding-top:5%;
+	}
+	.feed_body_content1{
+	font-weight: bold;
+	}
+	.feed_body_concept{
+	margin-left:0%;
+	padding-left:7%;
+	padding-top:5%;
+	}
+	.feed_body_concept1{
+	font-weight: bold;
+	}
+	.feed_body_navigation{
+		
+	}
+	
+	.feed_move_back{
+		margin-left:0%;
+		
+		width:50%;
+		float: left;
+	}
+	.feed_move_front{
+		position:relative;
+		margin-right:0%;
+		width:50%;
+		float: right;
+	}
+	
+	.feed_move_front_exe{
+		position:relative;
+		margin-right:0%;
+		width:50%;
+		float: right;
+	}
+	.feed_move_button_back{
+	margin-left:8%;
+	margin-right:4%;
+	width:88%;
+	
+	background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    
+	padding-top:15px;
+	padding-left:10px;
+	padding-bottom:15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+	border-radius: 8px;
+	}
+	
+	.feed_move_button_front{
+	margin-left:4%;
+	margin-right:8%;
+	width:88%;
+	
+	background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    
+	padding-top:15px;
+	padding-left:10px;
+	padding-bottom:15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+	border-radius: 8px;
+	}
+	.feed_move_button_front_exe{
+	margin-left:4%;
+	margin-right:8%;
+	width:88%;
+	
+	background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    
+	padding-top:15px;
+	padding-left:10px;
+	padding-bottom:15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+	border-radius: 8px;
+	}
+	
+	.feed_move_icon_back{
+		margin-right:4%;
+	
+	}
+	.feed_move_icon_front{
+		margin-left:4%;
+	
+	}
+	.feed_move_icon_front_exe{
+		margin-left:4%;
+	
+	}
+	
+	@media only screen and (max-width: 650px) {
+		
+		.feed_main{
+		position: absolute;
+		background:#ada28a;
+		width:300px;
+		height:300px;
+		border-radius: 12px 12px 8px 8px;
+	}
+		
+	
+}
+	
