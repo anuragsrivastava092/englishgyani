@@ -29,7 +29,7 @@ class Open_Article(View):
             return render(request,"video_content.html",{"question_list":question_list['question_list'],'content':question_list['content'],'user':question_list['user'],'attempted_questions':question_list['attempted_questions']})
         elif question_list['video']=="2":
             question_list['play_content']
-            return render(request,"play.html",{"content":question_list['content'],"play_content":question_list['play_content'],'user':question_list['user'],'topic_feed':question_list['topic_feed']})
+            return render(request,"play.html",{"question_attempt":question_list['question_attempt'],"content":question_list['content'],"play_content":question_list['play_content'],'user':question_list['user'],'topic_feed':question_list['topic_feed']})
 class Bookmark_Words(View):
     def get(self,request):
         if request.user.id!=None:

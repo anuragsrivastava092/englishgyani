@@ -19,6 +19,7 @@ $(document).ready(function(){
 		popup_arr_corr=[];
 		popup_arr_word=[];
 		popup_arr_word_wr=[];
+		send_arr_Pos=[];
 		outer_width = window.outerWidth;
 		
 
@@ -108,6 +109,7 @@ $(document).ready(function(){
 
 	$(".submit_button_pp").click(function(e){
 			submit();
+			send_user_response(modified_text,article_content[0].id,popup_arr.length)
 	});
 	//
 	current_feed_pos=1;
@@ -192,6 +194,7 @@ $(".feed_move_button_back").click(function(e){
 							$(paragraph_ele).append(second_span);
 
 					}
+					send_arr_Pos.push(word_obj_no);
 					word_no=word_no+len;
 					$(".question").append(paragraph_ele);
 
@@ -209,7 +212,16 @@ $(".feed_move_button_back").click(function(e){
 			span_original_text=alter_word_object[i];
 			span_original_correct_text=correct_word_object[i];
 			span_modif_text =$("#"+i).text();
-			modified_text+=span_modif_text;
+			modified_text+=span_modif_text+" ";
+
+			paragraph_number = send_arr_Pos.indexOf(i.toString());
+			if (paragraph_number!=-1) {
+				modified_text+="|"+" ";
+			}
+			else{
+				tt=0;
+			}
+
 			$("#"+i).attr('contenteditable', 'false');
 			if( (span_original_text=== span_original_correct_text) && (span_original_correct_text===span_modif_text)) {
 					aaa=0; //no change
@@ -255,6 +267,7 @@ $(".feed_move_button_back").click(function(e){
 				popup_arr_word_wr.push(span_original_text);
 			}
 		}
+		console.log(modified_text);
  		$('.modal_result_text').text("You have corrected "+edit_correct+" error out of "+play_content[0].errorcount+".");
  		x = popup_arr[0];
 		x_t=popup_arr_corr[0];
@@ -325,31 +338,28 @@ $(".feed_move_button_back").click(function(e){
     
  }
 
-	function send_user_response(user_response,id) {
-	var user_submission = { "modtext":user_response,
-							"id":id
-            };
-			
-		var xhr = new XMLHttpRequest();
-        var url = "/savetext/"; //path de api ka 
-        xhr.open("POST", url);
-        //xhr.setRequestHeader('Content-Type', "application/x-www-form-urlencoded",true);
-        
-        xhr.send(JSON.stringify(user_submission));
-      
-        xhr.onreadystatechange = function() {
-            
-             if (xhr.readyState == 4 && xhr.status == 200) {
-					//alert("response");
-					responsereply = xhr.responseText;
-					console.log("success");
-					
-             	}
-			else {
-				console.log("again");
-				
-			}
-			}
+	function send_user_response(user_response,id,errorcount) {
+	formdata=new FormData();
+    		formdata.append("user_response",user_response);
+    		formdata.append("id",id);
+    		formdata.append("errorcount",errorcount);
+			$.ajax({
+                 beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+                },
+				url: "/api/play_question_response/",
+				data:formdata,
+                cache: false,
+				type: "POST",
+                contentType:false,
+                processData: false,
+				success: function(response) { 
+					console.log(55);
+						},
+				error: function(xhr) {
+                     console.log(88);
+				}
+			});
 	};
 
 	function countProperties (obj) {

@@ -311,54 +311,68 @@ class On_Open_Article(View):
             #elif listing[0]["article_type"]==3:
             else:
                 attempted_l=User_Play_Performance.objects.filter(user=request.user.id,article_id=article_id)
+                content=listing[0]["article_content"]
+                article=open("englishapi/play_main_content.txt","w")
+                article.write(content)
+                article.close()
+                originaltext=app_methods.play()
+                
+                article_altered_content=listing[0]["article_altered_content"]
+                altered_text=open("englishapi/play_alter_content.txt","w")
+                altered_text.write(article_altered_content)
+                altered_text.close()
+                alter_text=app_methods.play_alter()
+
+                play_content=[]
+                play_content_obj={}
+                play_content_obj["originaltext"]=originaltext
+                play_content_obj["alteredtext"]=alter_text
+                play_content_obj["errorcount"]=int(listing[0]["errorcount"])
+                play_content.append(play_content_obj)
+
+                article_content = []
+                objective_li=listing[0]["article_objective"].split("|")
+                article_content_obj={}
+                article_content_obj["article_tag"]= listing[0]["article_tag"]
+                article_content_obj["title"]= listing[0]["article_title"]
+                article_content_obj["publish_detail"]= listing[0]["article_publish_detail"]
+                article_content_obj["date"]= str(listing[0]["article_publication_date"])
+                article_content_obj["id"]= str(article_id)
+                article_content_obj["article_level"]= listing[0]["article_level"]
+                article_content_obj["article_level_detail"]= listing[0]["article_level_detail"]
+                article_content_obj["article_objective1"]= objective_li[0]
+                article_content_obj["article_objective2"]= objective_li[1]
+                article_content_obj["article_image"]= str(listing[0]["article_image"].split('/')[4])
+                article_content.append(article_content_obj)
+                article_content=json.dumps(article_content,ensure_ascii=True)
+                play_content=json.dumps(play_content,ensure_ascii=True)
+
+                #
+                Play_feedback=Play_Question.objects.filter(article=article_id)
+                Play_feedback_arr=[]
+                feed_data={}
+                for qyes in Play_feedback:
+                    feed_data[qyes.modified_word]= qyes.question_concept
+                feed_data=json.dumps(feed_data,ensure_ascii=True)
+                print feed_data
+                question_attempt=[]
+                question_attempt_obj={};
                 if len(attempted_l)==0:
-                    content=listing[0]["article_content"]
-                    article=open("englishapi/play_main_content.txt","w")
-                    article.write(content)
-                    article.close()
-                    originaltext=app_methods.play()
-                    
-                    article_altered_content=listing[0]["article_altered_content"]
-                    altered_text=open("englishapi/play_alter_content.txt","w")
-                    altered_text.write(article_altered_content)
-                    altered_text.close()
-                    alter_text=app_methods.play_alter()
+                    question_attempt_obj["attempted_text"]=[]
+                    question_attempt_obj["change"]=0
+                else:
+                    for attempted in attempted_l:
+                        attem_li=app_methods.play_response(attempted.user_altered_content)
+                        change=attempted.no_error
+                    question_attempt_obj["attempted_text"]=attem_li
+                    question_attempt_obj["change"]=change
+                question_attempt.append(question_attempt_obj)
+                question_attempt=json.dumps(question_attempt,ensure_ascii=True)
 
-                    play_content=[]
-                    play_content_obj={}
-                    play_content_obj["originaltext"]=originaltext
-                    play_content_obj["alteredtext"]=alter_text
-                    play_content_obj["errorcount"]=int(listing[0]["errorcount"])
-                    play_content.append(play_content_obj)
-
-                    article_content = []
-                    objective_li=listing[0]["article_objective"].split("|")
-                    article_content_obj={}
-                    article_content_obj["article_tag"]= listing[0]["article_tag"]
-                    article_content_obj["title"]= listing[0]["article_title"]
-                    article_content_obj["publish_detail"]= listing[0]["article_publish_detail"]
-                    article_content_obj["date"]= str(listing[0]["article_publication_date"])
-                    article_content_obj["id"]= str(article_id)
-                    article_content_obj["article_level"]= listing[0]["article_level"]
-                    article_content_obj["article_level_detail"]= listing[0]["article_level_detail"]
-                    article_content_obj["article_objective1"]= objective_li[0]
-                    article_content_obj["article_objective2"]= objective_li[1]
-                    article_content_obj["article_image"]= str(listing[0]["article_image"].split('/')[4])
-                    article_content.append(article_content_obj)
-                    article_content=json.dumps(article_content,ensure_ascii=True)
-                    play_content=json.dumps(play_content,ensure_ascii=True)
-
-                    #
-                    Play_feedback=Play_Question.objects.filter(article=article_id)
-                    Play_feedback_arr=[]
-                    feed_data={}
-                    for qyes in Play_feedback:
-                        feed_data[qyes.modified_word]= qyes.question_concept
-                    feed_data=json.dumps(feed_data,ensure_ascii=True)
-                    print feed_data
                 data['content']=article_content
                 data['play_content']=play_content
                 data['topic_feed']=feed_data
+                data['question_attempt']=question_attempt
                 if request.user.id!=None:
                     data['user']=str(request.user)
                 else:
@@ -448,6 +462,14 @@ def article_question_response(request):
             print aa
             User_Performance.objects.create(user=int(request.user.id),question_id=question_id, article_id=listing[0]['article'],correct_answer=aa, response=response,question_feedback=listing[0]['feedback'])
     return JsonResponse([{'right_choice':listing[0]['right_choice'],'feedback':listing[0]['feedback']}],safe=False)
+
+def play_question_response(request):
+    id=int(request.POST["id"])
+    user_response=request.POST["user_response"]
+    errorcount=int(request.POST["errorcount"])
+    if (request.user.id!= None):
+        User_Play_Performance.objects.create(user=int(request.user.id),article_id=id, user_altered_content=user_response,no_error=errorcount)
+    return JsonResponse([{'feedback':"success"}],safe=False)
 
 def article_word_meaning(request):
     word=str(request.POST["word"])

@@ -225,10 +225,11 @@
 
 	play_content =  {{ play_content | safe}};
 	article_content =  {{ content | safe}};
+	question_attempt =  {{ question_attempt | safe}};
 	
 	topic_feed =  {{ topic_feed | safe}};
-	question_attempt =  [{ "attempted_text":[],"change":4}];
-	user_name="{{user | safe}}";//"margin-top";
+	
+	user_name="{{user | safe}}";
      
 </script>
 <script type="text/javascript" src="{% static 'js/play.js' %}"></script>
@@ -236,6 +237,7 @@
 	var play_content1=[{"errorcount": 5,"originaltext":["Tamil Nadu politics has been dominated by either the AIADMK or the DMK for the past five decades.","But the State could be on the cusp of a major political change, the contours of which are difficult to predict."],"alteredtext":["Tamil Nadu politics has been dominated by either the AIADMK or they DMK for the past five decades.","But the State could be on the cusp of an major political change, the contours of which are difficult too predict."]}];
 	article_content1 = [{"title": "Taxing Times for the Market\u2019s Global Elite", "article_video": "", "publish_detail": "Published:<strong>Wall Street Journal</strong> on 26 November 2016", "article_image": "art5.jpeg", "article_objective1": "find out some details surrounding Samsung's problems with its Note 7", "date": "2016-11-26","article_objective2": " practice some key business vocabulary", "article_tag": "Global", "id": "1", "article_level": 3, "article_level_detail": "B2, TOEIC 551\u2013668, TOEFL iBT 53\u201364, IELTS 5\u20136"}];
 	topic_feed1={"swim": "Correct Verb", "changed": "Correct Verb", "there": "their vs there", "an": "Article", "in": "Correct Preposition", "by": "Correct Preposition", "listen": "Correct Verb"};
+	question_attempt1 =  [{ "attempted_text":[],"change":4}];
 </script>
   </body>
   </html>

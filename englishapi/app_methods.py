@@ -157,3 +157,13 @@ def play_alter():
             else :
                 para.append(par[i])
     return para
+
+
+def play_response(text):
+    text_arr=text.split("|")
+    arr=[];
+    for i in text_arr:
+        par=i.strip()
+        if len(par)>0:
+            arr.append(par)
+    return arr
