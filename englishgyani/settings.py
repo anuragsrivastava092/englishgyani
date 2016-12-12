@@ -93,8 +93,15 @@ WSGI_APPLICATION = 'englishgyani.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'englishgyani.cyywjpbl5q1u.ap-southeast-1.rds.amazonaws.com',
+        'NAME': "englishgyani",
+        'USER': 'englishgyanidb',
+        'PASSWORD':'anurag9213',
+        'PORT': '3306',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
     }
 }
 
