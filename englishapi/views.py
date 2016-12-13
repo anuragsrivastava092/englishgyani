@@ -387,7 +387,7 @@ class Check_Question(View):
     def post(self,request):
         question_id=request.POST.get('question_id')
         response=request.POST.get('response')
-        intended_response=Article_Questions.objects.filter(id=question_id).right_choice
+        intended_response=Article_Question.objects.filter(id=question_id).right_choice
         if intended_response==response:
             res = exception_handler.set_server_response(200, "answer is correct")
             return HttpResponse(res, status=200)
@@ -401,7 +401,7 @@ class article_meaning(View):
     def get(self,request,article_id):
         article_id=int(article_id)
         if article_id>0 :
-            question_l=Article_Questions.objects.filter(article_id=article_id)
+            question_l=Article_Question.objects.filter(article_id=article_id)
             content=question_l[0].article.article_content
             article=open("englishapi/article_meaning.txt","w")
             article.write(content)
@@ -450,7 +450,7 @@ class Bookmark_Word(View):
 def article_question_response(request):
     question_id=int(request.POST["question_id"][3:])
     response=int(request.POST["response"])
-    listing=list(Article_Questions.objects.filter(id=question_id).values('feedback','right_choice','article'))
+    listing=list(Article_Question.objects.filter(id=question_id).values('feedback','right_choice','article'))
     print request.user.id, question_id, response
     if (request.user.id!=None):
         print 1
