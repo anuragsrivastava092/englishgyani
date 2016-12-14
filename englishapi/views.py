@@ -483,8 +483,8 @@ def article_word_meaning(request):
 def article_bookmark(request):
 	if request.user.id!=None:
 		word = str(request.POST["word"])
-		li_bookmark=User_Bookmark.objects.filter(user=request.user.id,bookmark_word=word)
-		print li_bookmark
+        word=word.lower()
+        li_bookmark=User_Bookmark.objects.filter(user=request.user.id,bookmark_word=word)
     	if len(li_bookmark)==0:
 	    	li=app_methods.bookmark(word)
 	        if len(li)==0:
@@ -499,6 +499,9 @@ def article_bookmark(request):
 def delete_bookmark(request):
     if request.method=='POST':
         print 999
+        print 8888
         word = str(request.POST["word"])
+        word=word.lower()
+        print word
         User_Bookmark.objects.filter(user=request.user.id,bookmark_word=word).delete()
         return JsonResponse("deleted",safe=False)
