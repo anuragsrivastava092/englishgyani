@@ -249,7 +249,7 @@ class On_Open_Article(View):
                     attempted_data['correct_answer']=attempted.correct_answer
                     attempted_list.append(attempted_data)
                 attempted_list=json.dumps(attempted_list,ensure_ascii=True)
-                question_l=Article_Questions.objects.filter(article_id=article_id)
+                question_l=Article_Question.objects.filter(article_id=article_id)
                 question_list=[]
                 question_number_list=[[] for i in question_l]
                 i=0
