@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,HttpResponseRedirect
 from django.views import View
 from englishapi import views as englishapi_view
 import json
@@ -48,3 +48,4 @@ class Default(View):
 class LogOut(View):
     def get(self,request):
         logout(request)
+        return HttpResponseRedirect('/article-list/')
