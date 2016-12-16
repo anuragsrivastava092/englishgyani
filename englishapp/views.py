@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from englishapi import views as englishapi_view
 import json
+from django.contrib.auth import logout
 
 # Create your views here.
 class List_Article(View):
@@ -44,3 +45,6 @@ class Default(View):
     def get(self,request):
         print 788666
         return redirect("http://englishgyani.com/article-list/")
+class LogOut(View):
+    def get(self,request):
+        logout(request)
