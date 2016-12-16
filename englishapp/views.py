@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from englishapi import views as englishapi_view
 import json
@@ -40,3 +40,7 @@ class Bookmark_Words(View):
             user=""
             bookmark_list=[]
         return render(request,"bookmark.html",{"bookmark_list":bookmark_list,"user":user})
+class Default(View):
+    def get(self,request):
+        print 788666
+        return redirect("http://englishgyani.com/article-list/")

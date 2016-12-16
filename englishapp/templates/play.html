@@ -16,6 +16,198 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/play.css' %}"> 
 
  <link rel="stylesheet" type="text/css" href="{% static 'css/feedback.css' %}">
+ <style>
+		#tooltip_bookmark, #tooltip_lookup{
+			background:#ABFFE3;
+			position:relative;
+			border-radius: 2px;
+			border-style:hidden;
+			display:none;
+
+		 }
+		#tooltip_lookup{
+			background:#ff751a;
+		}
+		  #tooltext_bookmark, #tooltext_lookup {
+			padding-top:10px;
+			padding-bottom:6px;
+			padding-left:10px;
+			padding-right:10px;
+			font-size: 16px;
+
+		 }
+
+		 #alert_bookmark{
+			display:none;
+		 }
+
+		 .login{
+		margin-top:120px;
+		width:300px;
+		padding-left:20px;
+		padding-right:20px;
+		text-align:center;
+		background:white;
+		margin-left:calc((100% - 300px)/2);
+		margin-right:calc((100% - 300px)/2);
+		padding-bottom:80px;
+	}
+	.card {
+	  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+	  border: 1px solid #e5e5e5;
+	  border-radius:100px;
+
+	}
+	.sign_text{
+		padding-top:20px;
+		font-size:24px;
+	}
+	.social_login_img{
+		margin-top:10px;
+		width:100%;
+
+	}
+	.social_login_img1{
+		margin-top:5px;
+		width:100%;
+	}
+	.close_modal_div{
+		margin-top:20px;
+		margin-left:80px;
+		height:auto;
+	}
+	</style>
+	<style>
+
+		.me{
+			display:none;
+			background:white;
+			width:450px;
+			height:400px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 4px;
+		}
+		.me_body{
+			height:340px;
+
+			border-bottom-style: solid;
+			border-width:1px;
+			border-color:#e5e5e5;
+		}
+		.me_foot{
+			height:60px;
+
+		}
+		.me_body_le{
+			margin-left:0px;
+			width:400px;
+			float:left;
+			position:relative;
+			height:340px;
+
+		}
+
+		.me_body_ri{
+			margin-right:0px;
+			width:50px;
+			float:right;
+			position:relative;
+			height:340px;
+
+		}
+		.me_body_ri{
+			text-align:center;
+			font-size:20px;
+
+		}
+		.close_icon{
+			padding:15px;
+			font-weight:50%;
+
+		}
+		.me_body_le_to{
+			height:60px;
+
+
+
+		}
+		.word_meaning_parent{
+			 padding-left:50px;
+
+			 margin-top:0px;
+			 padding-top:14px;
+			 font-weight:bold;
+			 font-size:22px;
+			 margin-left:0%;
+
+			 }
+		.me_body_le_bo{
+			height:260px;
+
+			overflow-y:scroll;
+			overflow-x:hidden;
+
+
+		}
+		.word_meaning_ans{
+			padding-left:50px;
+			margin-top:0px;
+			padding-top:14px;
+			font-size:16px;
+			margin-left:0%;
+
+
+		}
+
+	.me_foot_basic{
+		margin-left:50px;
+		width:280px;
+		background:red;
+		height:40px;
+		margin-top:10px;
+		margin-bottom:10px;
+	}
+	.me_foot_basic_le{
+			margin-left:0px;
+			width:50%;
+			float:left;
+			position:relative;
+			height:100%;
+			background-color: #e2461d;
+			color: white;
+	}
+	.me_foot_basic_ri{
+			margin-right:0px;
+			width:50%;
+			float:right;
+			position:relative;
+			height:100%;
+			background:white;
+			color:#e2461d;
+			font-family: 'Raleway', sans-serif;
+	}
+
+	.lan_ele {
+
+		border:solid;
+		border-color:#e2461d;
+		border-width:1px;
+
+		padding-top:5px;
+		padding-bottom:5px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 20px;
+
+		cursor: pointer;
+
+}
+	#hindi_content, #audio_div{
+		display:none;
+}
+  </style>
   </head>
   <body>
  <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -32,7 +224,7 @@
       <ul class="nav navbar-nav">
 		<li class="active kkk"><a href="#"><i class="fa fa-newspaper-o nav_icon_active" aria-hidden="true"></i> <span class="nav_icon_w_active"> News</span> </a></li>
       
-      <li><a href="#"><i class="fa fa-bookmark nav_icon" aria-hidden="true"></i><span class="nav_icon_w"> Bookmark</span> </a></li>
+      <li><a href="http://Englishgyani.com/bookmark"><i class="fa fa-bookmark nav_icon" aria-hidden="true"></i><span class="nav_icon_w"> Bookmark</span> </a></li>
 	  <li><a href="#"><i class="fa fa-question nav_icon" aria-hidden="true"></i><span class="nav_icon_w"> Practice</span> </a></li> 
 	  
       </ul>
@@ -118,7 +310,7 @@
 			</div>
 			<div class="reset reset_quiz_question">Reset</div>
 			<div class="submission">
-				<button class="btn btn-info btn-lg submit_button_pp" data-toggle="modal" data-target="#myModal"> Check work</button>
+				<button class="btn btn-info btn-lg submit_button_pp" data-toggle="modal" data-target="#myResult"> Check work</button>
 			</div>
 	</div>
 	<div class="article_footer">
@@ -157,7 +349,7 @@
 		<br>
 </div>
 
-<div class="modal fade" id="myModal" role="dialog">
+<div class="modal fade" id="myResult" role="dialog">
 		<div class="modal-dialog">
 		
 		  <!-- Modal content-->
@@ -176,6 +368,23 @@
 		  
 		</div>
 </div>
+
+<div class="modal fade" id="myModal" role="dialog">
+	<div class="login card">
+			<p class="sign_text"> Login to Englishgyani</p>
+			<a href="/accounts/google/login/?process=login">
+				<img alt= "google login image" class="social_login_img" src="https://englishbucket.s3.amazonaws.com/static/img/a.png">
+			</a>
+			<a href="/accounts/facebook/login/?process=login">
+				<img alt= "facebook login image" class="social_login_img1" src="https://englishbucket.s3.amazonaws.com/static/img/fb.png">
+			</a>
+			<div class="close_modal_div">
+				<button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+
+			</div>
+	</div>
+
+ </div>
 <div class="feed_main">
 		<div class="feed_head">
 		

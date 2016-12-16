@@ -4,6 +4,7 @@ englishapi/migrations/*
 .idea
 .idea/*
 *.pyc
+*.txt
 englishgyani/local_settings.py
 
 
