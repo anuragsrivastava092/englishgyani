@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import re 
 import nltk.data
 from bs4 import BeautifulSoup 
 import urllib
@@ -5,6 +8,30 @@ def ensure_str(s):
     if isinstance(s, unicode):
         s = s.encode('utf-8')
     return s
+
+def asc(txt):
+    a=["“","”","‘","’","—"]
+    correct_txt=""
+    pos_init=0
+    pos_s=0
+    arr=[m.start() for m in re.finditer('(“|”|‘|’|—)', txt)]
+    for i in range(len(arr)):#‘ 
+        pos = arr[i]
+        pos_s=arr[i]+3
+        if txt[pos:pos_s]=="—":
+            correct_txt+=txt[pos_init:pos]+"-"
+        elif txt[pos:pos_s]=="’":
+            correct_txt+=txt[pos_init:pos]+"'"
+        elif txt[pos:pos_s]=="‘":
+            correct_txt+=txt[pos_init:pos]+"'"
+        elif txt[pos:pos_s]=="”":
+            correct_txt+=txt[pos_init:pos]+'"'
+        else:
+            correct_txt+=txt[pos_init:pos]+'"'
+        pos_init=pos_s
+    correct_txt+=txt[pos_s:]
+    return correct_txt
+
 def final(question,phrase,content):
     article=open("englishapi/article.txt","r")
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
@@ -18,10 +45,12 @@ def final(question,phrase,content):
         if par[i]!="\r\n":
             if par[i][-2:] ==  "\r\n" :
                 param=par[i][:-2]
+                param=asc(param)
                 sent_token = tokenizer.tokenize(param)
                 para.append(sent_token)
             else :
-                sent_tokenm = tokenizer.tokenize(par[i])
+                param=asc(par[i])
+                sent_tokenm = tokenizer.tokenize(param)
                 para.append(sent_tokenm)
     for i in range(len(question)):
         if len(question[i])>3:
@@ -53,9 +82,8 @@ def final(question,phrase,content):
                 
             except ValueError:
                 d =0
+    return para 
 
-
-    return para
 def article_to_words():
     article_here=open("englishapi/article_meaning.txt","r")
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
