@@ -13,11 +13,12 @@ var last_d;
 //redirect_page
 $(".main_right").on("click",".redirect_page",function(){ 
 	present = this;
+	//console.log(present);
 	var present_class= $(present).attr("id")
 	present_id = present_class.slice(3);
 
-	console.log(present_id);
- window.location.assign("http://54.169.232.1:8000/article-content/"+present_id);
+	//console.log(present_id);
+ window.location.assign("http://englishgyani.com/article-content/"+present_id);
  
  
  });
