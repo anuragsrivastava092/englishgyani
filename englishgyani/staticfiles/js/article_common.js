@@ -2,7 +2,8 @@ $(document).ready(function(){
 	$(".navbar-nav li a").click(function(event) {
 		$(".navbar-collapse").collapse('hide');
 	  });
-    $("#eglogin").click(function(){
+    //$("#eglogin").click(function(){
+    	$("body").on("click","#eglogin",function(){ 
         $("#myModal").modal();
 		$(".sign_text").text("Login to Englishgyani");
     });
