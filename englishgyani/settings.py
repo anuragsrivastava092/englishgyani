@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'englishgyani.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
+'SET storage_engine=INNODB,character_set_connection=utf8,collation_connection=utf8_unicode_ci'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
