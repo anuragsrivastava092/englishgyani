@@ -420,7 +420,8 @@ class article_meaning(View):
                 if len(word_english_meaning) ==0:
                     word_english_actual_li.append(word)
 
-            #print word_actual_li
+            print word_hindi_actual_li
+            print word_english_actual_li
             for term in word_hindi_actual_li:
                 hindi_meaning = app_methods.hindi_meaning(term)
                 for mean in hindi_meaning:
