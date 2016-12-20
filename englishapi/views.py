@@ -8,6 +8,7 @@ from django.http import HttpResponse,JsonResponse
 import exception_handler,json
 from django.views.decorators.csrf import ensure_csrf_cookie
 import app_methods
+import codecs
 
 
 class Register(View):
@@ -150,7 +151,8 @@ class On_Open_Article(View):
                 question_l=Article_Question.objects.filter(article_id=article_id)
                 phrase_l=Article_Phrase.objects.filter(article_id=article_id)
                 content=question_l[0].article.article_content
-                article=open("englishapi/article.txt","w")
+                article=codecs.open("englishapi/article.txt","w","utf-8")
+                #article=open("englishapi/article.txt","w")
                 article.write(content)
                 article.close()
                 question_list=[]
@@ -314,13 +316,14 @@ class On_Open_Article(View):
             else:
                 attempted_l=User_Play_Performance.objects.filter(user=request.user.id,article_id=article_id)
                 content=listing[0]["article_content"]
-                article=open("englishapi/play_main_content.txt","w")
+                article=codecs.open("englishapi/article.txt","w","utf-8")
+                #article=open("englishapi/play_main_content.txt","w")
                 article.write(content)
                 article.close()
                 originaltext=app_methods.play()
 
                 article_altered_content=listing[0]["article_altered_content"]
-                altered_text=open("englishapi/play_alter_content.txt","w")
+                altered_text=codecs.open("englishapi/play_alter_content.txt","w","utf-8")
                 altered_text.write(article_altered_content)
                 altered_text.close()
                 alter_text=app_methods.play_alter()

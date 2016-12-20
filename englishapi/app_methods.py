@@ -163,9 +163,12 @@ def play():
         if par[i]!="\r\n":
             if par[i][-2:] ==  "\r\n" :
                 param=par[i][:-2]
+                #param=asc(param)
                 para.append(param)
             else :
-                para.append(par[i])
+                param=par[i]
+                #param=asc(param)
+                para.append(param)
     return para
 
 def play_alter():
