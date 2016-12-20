@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.views import View
 from englishapp.models import *
@@ -121,7 +123,7 @@ class Display_Article_LIst(View):
             art_list.append(art_data)
         art_list=json.dumps(art_list,ensure_ascii=True)
         print art_list
-        
+
         return JsonResponse(art_list,safe=False)
 
 
@@ -170,7 +172,7 @@ class On_Open_Article(View):
                     question_data['type']=question.question_type
                     question_data['point']=question.question_weight
                     question_data['question_description_main']=question.question_description_main
-                    
+
                     if question.question_type==1:
                         question_data['option1']=question.choice1_description
                         question_data['option2']=question.choice2_description
@@ -267,7 +269,7 @@ class On_Open_Article(View):
                     question_data['type']=question.question_type
                     question_data['point']=question.question_weight
                     question_data['question_description_main']=question.question_description_main
-                    
+
                     if question.question_type==1:
                         question_data['option1']=question.choice1_description
                         question_data['option2']=question.choice2_description
@@ -316,7 +318,7 @@ class On_Open_Article(View):
                 article.write(content)
                 article.close()
                 originaltext=app_methods.play()
-                
+
                 article_altered_content=listing[0]["article_altered_content"]
                 altered_text=open("englishapi/play_alter_content.txt","w")
                 altered_text.write(article_altered_content)
@@ -400,6 +402,7 @@ class article_meaning(View):
     #@ensure_csrf_cookie
     def get(self,request,article_id):
         article_id=int(article_id)
+        print 99999999999
         if article_id>0 :
             question_l=Article_Question.objects.filter(article_id=article_id)
             content=question_l[0].article.article_content
@@ -444,7 +447,7 @@ class Bookmark_Word(View):
             bookmark_list.append(book_data)
         bookmark_list=json.dumps(bookmark_list,ensure_ascii=True)
         print bookmark_list
-        
+
         return JsonResponse(bookmark_list,safe=False)
 
 def article_question_response(request):
