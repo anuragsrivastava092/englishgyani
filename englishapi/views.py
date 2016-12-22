@@ -316,7 +316,7 @@ class On_Open_Article(View):
             else:
                 attempted_l=User_Play_Performance.objects.filter(user=request.user.id,article_id=article_id)
                 content=listing[0]["article_content"]
-                article=codecs.open("englishapi/article.txt","w","utf-8")
+                article=codecs.open("englishapi/play_main_content.txt","w","utf-8")
                 #article=open("englishapi/play_main_content.txt","w")
                 article.write(content)
                 article.close()
