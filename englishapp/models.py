@@ -40,18 +40,18 @@ class Article(models.Model):
     article_image=models.ImageField(upload_to='englishgyani/staticfiles/images/article_images', height_field=None, width_field=None, max_length=100)
     article_title=models.CharField(max_length=254)
     article_content=models.TextField(blank=True)
-    article_altered_content=models.TextField(blank=True)
-    errorcount=models.TextField(blank=True)
+    #article_altered_content=models.TextField(blank=True)
+    #errorcount=models.TextField(blank=True)
     article_video_url=models.URLField(blank=True)
     article_genre=models.IntegerField(choices=genre_field)
     article_type=models.IntegerField(choices=type_field)
     article_level=models.IntegerField()
-    article_level_detail=models.CharField(max_length=254)
+    #article_level_detail=models.CharField(max_length=254)
     article_objective=models.CharField(max_length=254)# 2points seperated by pipe
     article_summary=models.CharField(max_length=254)
     article_publication_date=models.DateField()
     article_tag=models.CharField(max_length=254)
-    article_publish_detail=models.CharField(max_length=254)
+    #article_publish_detail=models.CharField(max_length=254)
     article_publication_source=models.CharField(max_length=254)
     article_publication_source_url=models.URLField()
     def __unicode__(self):
@@ -101,6 +101,11 @@ class Article_Question(models.Model):
     feedback=models.CharField(max_length=254)
     right_choice=models.IntegerField(choices=choice_field)
     question_category=models.IntegerField(choices=type_field)
+
+class Play_Content(models.Model):
+    article=models.ForeignKey(Article)
+    article_altered_content=models.TextField()
+    errorcount=models.TextField()
 
 class Play_Question(models.Model):
     article=models.ForeignKey(Article)

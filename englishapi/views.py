@@ -136,7 +136,7 @@ class On_Open_Article(View):
         if 'article_id' in request.GET:
             data={}
             article_id=request.GET.get("article_id")
-            listing=list(Article.objects.filter(id=article_id).values('errorcount','article_altered_content','article_content','article_type','article_video_url','article_objective','article_level_detail','article_level','article_title','article_summary','article_tag','article_publish_detail','article_publication_date','article_image'))
+            listing=list(Article.objects.filter(id=article_id).values('article_content','article_type','article_video_url','article_objective','article_level','article_title','article_summary','article_tag','article_publication_source','article_publication_date','article_image'))
             if listing[0]["article_type"]==1:
                 attempted_l=User_Performance.objects.filter(user=request.user.id)
                 attempted_list=[]
@@ -152,7 +152,6 @@ class On_Open_Article(View):
                 phrase_l=Article_Phrase.objects.filter(article_id=article_id)
                 content=question_l[0].article.article_content
                 article=codecs.open("englishapi/article.txt","w","utf-8")
-                #article=open("englishapi/article.txt","w")
                 article.write(content)
                 article.close()
                 question_list=[]
@@ -221,11 +220,13 @@ class On_Open_Article(View):
                 article_content_obj["article"]= front_content
                 article_content_obj["article_tag"]= listing[0]["article_tag"]
                 article_content_obj["title"]= listing[0]["article_title"]
-                article_content_obj["publish_detail"]= listing[0]["article_publish_detail"]
-                article_content_obj["date"]= str(listing[0]["article_publication_date"])
+                publish_detail= "Published:<strong>" +listing[0]["article_publication_source"]+"</strong> on "+str(listing[0]["article_publication_date"])
+                article_content_obj["publish_detail"]= publish_detail
+                
                 article_content_obj["id"]= str(article_id)
                 article_content_obj["article_level"]= listing[0]["article_level"]
-                article_content_obj["article_level_detail"]= listing[0]["article_level_detail"]
+                article_level_detail=app_methods.level_detail(listing[0]["article_level"])
+                article_content_obj["article_level_detail"]= article_level_detail#listing[0]["article_level_detail"]
                 article_content_obj["article_objective1"]= objective_li[0]
                 article_content_obj["article_objective2"]= objective_li[1]
                 article_content_obj["article_image"]= str(listing[0]["article_image"].split('/')[4])
@@ -291,11 +292,13 @@ class On_Open_Article(View):
                 article_content_obj["article_video"]= listing[0]["article_video_url"]
                 article_content_obj["article_tag"]= listing[0]["article_tag"]
                 article_content_obj["title"]= listing[0]["article_title"]
-                article_content_obj["publish_detail"]= listing[0]["article_publish_detail"]
+                publish_detail= "Published:<strong>" +listing[0]["article_publication_source"]+"</strong> on "+str(listing[0]["article_publication_date"])
+                article_content_obj["publish_detail"]= publish_detail
                 article_content_obj["date"]= str(listing[0]["article_publication_date"])
                 article_content_obj["id"]= str(article_id)
                 article_content_obj["article_level"]= listing[0]["article_level"]
-                article_content_obj["article_level_detail"]= listing[0]["article_level_detail"]
+                article_level_detail=app_methods.level_detail(listing[0]["article_level"])
+                article_content_obj["article_level_detail"]=article_level_detail 
                 article_content_obj["article_objective1"]= objective_li[0]
                 article_content_obj["article_objective2"]= objective_li[1]
                 article_content_obj["article_image"]= str(listing[0]["article_image"].split('/')[4])
@@ -315,14 +318,18 @@ class On_Open_Article(View):
             #elif listing[0]["article_type"]==3:
             else:
                 attempted_l=User_Play_Performance.objects.filter(user=request.user.id,article_id=article_id)
+                play_l=Play_Content.objects.filter(article_id=article_id)
+                for played in play_l:
+                	article_altered_content=played.article_altered_content
+                	errorcount=played.errorcount
+
                 content=listing[0]["article_content"]
                 article=codecs.open("englishapi/play_main_content.txt","w","utf-8")
                 #article=open("englishapi/play_main_content.txt","w")
                 article.write(content)
                 article.close()
                 originaltext=app_methods.play()
-
-                article_altered_content=listing[0]["article_altered_content"]
+                #article_altered_content=article_altered_content
                 altered_text=codecs.open("englishapi/play_alter_content.txt","w","utf-8")
                 altered_text.write(article_altered_content)
                 altered_text.close()
@@ -332,7 +339,8 @@ class On_Open_Article(View):
                 play_content_obj={}
                 play_content_obj["originaltext"]=originaltext
                 play_content_obj["alteredtext"]=alter_text
-                play_content_obj["errorcount"]=int(listing[0]["errorcount"])
+                
+                play_content_obj["errorcount"]=errorcount
                 play_content.append(play_content_obj)
 
                 article_content = []
@@ -340,19 +348,18 @@ class On_Open_Article(View):
                 article_content_obj={}
                 article_content_obj["article_tag"]= listing[0]["article_tag"]
                 article_content_obj["title"]= listing[0]["article_title"]
-                article_content_obj["publish_detail"]= listing[0]["article_publish_detail"]
-                article_content_obj["date"]= str(listing[0]["article_publication_date"])
+                publish_detail= "Published:<strong>" +listing[0]["article_publication_source"]+"</strong> on "+str(listing[0]["article_publication_date"])
+                article_content_obj["publish_detail"]= publish_detail
                 article_content_obj["id"]= str(article_id)
                 article_content_obj["article_level"]= listing[0]["article_level"]
-                article_content_obj["article_level_detail"]= listing[0]["article_level_detail"]
+                article_level_detail=app_methods.level_detail(listing[0]["article_level"])
+                article_content_obj["article_level_detail"]= article_level_detail
                 article_content_obj["article_objective1"]= objective_li[0]
                 article_content_obj["article_objective2"]= objective_li[1]
                 article_content_obj["article_image"]= str(listing[0]["article_image"].split('/')[4])
                 article_content.append(article_content_obj)
                 article_content=json.dumps(article_content,ensure_ascii=True)
                 play_content=json.dumps(play_content,ensure_ascii=True)
-
-                #
                 Play_feedback=Play_Question.objects.filter(article=article_id)
                 Play_feedback_arr=[]
                 feed_data={}

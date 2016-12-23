@@ -198,3 +198,19 @@ def play_response(text):
         if len(par)>0:
             arr.append(par)
     return arr
+
+def level_detail(a):
+    if int(a)==0:
+        return "CEFR A1, IELTS 0"
+    elif int(a)==1:
+        return "CEFR A2, IELTS 1-2"
+    elif int(a)==2:
+        return "CEFR B1, IELTS 3-4"
+    elif int(a)==3:
+        return "CEFR B2, IELTS 5-6"
+    elif int(a)==4:
+        return "CEFR C1, IELTS 7-8"
+    elif int(a)==5:
+        return "CEFR C2, IELTS 9"
+    else:
+        return "CEFR B2, IELTS 5-6"
