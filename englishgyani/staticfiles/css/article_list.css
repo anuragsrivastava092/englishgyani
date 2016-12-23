@@ -543,6 +543,12 @@ body, html {
 		
 }
 	@media only screen and (max-width: 700px) { 
+		.boxshadow {
+			
+			padding: 0px;
+			box-shadow: initial;
+			
+		}
 		.main_right{
 			width:100%;
 			margin-left:0%;
@@ -556,14 +562,16 @@ body, html {
 			margin-right:2%;
 		}
 		.list_container{
-			height:720px;
+			height:660px;
+			padding-left: 5%;
+			padding-right: 5%;
 		}
 		.main_right_left{
 			margin-left:0%;
 			width:100%;
 			float:left;
 			position:relative;
-			height:400px;
+			height:340px;
 		}
 		.main_right_right{
 			margin-right:0%;
@@ -578,10 +586,12 @@ body, html {
 }
 @media only screen and (max-width: 450px) { 
 		.list_container{
-			height:680px;
+			height:620px;
+			padding-left: 0%;
+			padding-right: 0%;
 		}
 		.main_right_left{
-			height:320px;
+			height:260px;
 		}
 		.main_right_right{
 			height:360px;
