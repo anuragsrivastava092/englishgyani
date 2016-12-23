@@ -220,6 +220,7 @@ class On_Open_Article(View):
                 article_content_obj["article"]= front_content
                 article_content_obj["article_tag"]= listing[0]["article_tag"]
                 article_content_obj["title"]= listing[0]["article_title"]
+                article_content_obj["date"]= str(listing[0]["article_publication_date"])
                 publish_detail= "Published:<strong>" +listing[0]["article_publication_source"]+"</strong> on "+str(listing[0]["article_publication_date"])
                 article_content_obj["publish_detail"]= publish_detail
                 
@@ -292,6 +293,7 @@ class On_Open_Article(View):
                 article_content_obj["article_video"]= listing[0]["article_video_url"]
                 article_content_obj["article_tag"]= listing[0]["article_tag"]
                 article_content_obj["title"]= listing[0]["article_title"]
+                article_content_obj["date"]= str(listing[0]["article_publication_date"])
                 publish_detail= "Published:<strong>" +listing[0]["article_publication_source"]+"</strong> on "+str(listing[0]["article_publication_date"])
                 article_content_obj["publish_detail"]= publish_detail
                 article_content_obj["date"]= str(listing[0]["article_publication_date"])
@@ -348,6 +350,7 @@ class On_Open_Article(View):
                 article_content_obj={}
                 article_content_obj["article_tag"]= listing[0]["article_tag"]
                 article_content_obj["title"]= listing[0]["article_title"]
+                article_content_obj["date"]= str(listing[0]["article_publication_date"])
                 publish_detail= "Published:<strong>" +listing[0]["article_publication_source"]+"</strong> on "+str(listing[0]["article_publication_date"])
                 article_content_obj["publish_detail"]= publish_detail
                 article_content_obj["id"]= str(article_id)
