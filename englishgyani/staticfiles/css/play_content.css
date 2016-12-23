@@ -240,6 +240,7 @@
 		.article_head_image_content{
 			width:100%;
 			height:380px;
+			margin-bottom: 20px;
 	}
 		.article_head_image_content_li{
 			margin-left:0%;
@@ -360,7 +361,7 @@
 @media only screen and (max-width: 766px) {
 		.article_head_image_content{
 			width:100%;
-			height:470px;
+			height:540px;
 	}
 		.article_head_image_content_li{
 			margin-left:0%;
@@ -390,7 +391,7 @@
 }
 @media only screen and (max-width: 450px) {
 		.article_head_image_content{
-			height:420px;
+			height:500px;
 	}
 		.article_head_image_content_li{
 			height:300px;
@@ -406,7 +407,7 @@
 }
 @media only screen and (max-width: 400px) {
 		.article_head_image_content{
-			height:380px;
+			height:480px;
 	}
 		.article_head_image_content_li{
 			height:260px;

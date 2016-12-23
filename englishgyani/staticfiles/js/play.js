@@ -3,7 +3,7 @@ $(document).ready(function(){
 		$("#article_date").text(article_content[0].date);
 		$(".article_head_text").text(article_content[0].title);
 		$("#article_image").attr("src","/static/images/article_images/"+article_content[0].article_image+"/");
-		$("#article_head_second_head").text(article_content[0].title);//
+		//$("#article_head_second_head").text(article_content[0].title);//
 		$("#js-article").append(article_content[0].article);
 		$(".article_footer_time").append(article_content[0].publish_detail);
 		$(".article_tag").text(article_content[0].article_tag);
