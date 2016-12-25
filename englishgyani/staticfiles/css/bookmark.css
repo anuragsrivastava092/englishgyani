@@ -279,6 +279,30 @@
 		color:#a0d1ef;
 		font-size: 16px;
 	}
+	.word_side > h2{
+		color:#a0d1ef;
+		font-size: 28px;
+	}
+	.word_side_head{
+		width: 100%;
+		height: 60px;
+	}
+	.word_side{
+		margin-left:0%;
+		width:60%;
+		float:left;
+		position:relative;
+		height: 100%;
+
+	}
+	.word_progress_side{ 
+		margin-right:0%;
+		width:40%;
+		float:right;
+		position:relative;
+		height: 100%;
+		padding-top: 30px;
+	}
 	.word_name > h3{
 		font-size:20px;
 	}
@@ -286,7 +310,7 @@
 		float:right;
 		font-size:20px;
 		padding-right:20%;
-		padding-top:15px;
+		padding-top:22px;
 	}
 	.word_remove_button{
 		margin-top:10%;

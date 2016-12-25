@@ -1,14 +1,5 @@
 $(document).ready(function(){
-
-	bookmark_list1 = [{"id":1,"word":"minute","meaning":"infinitely or immeasurably small",
-		"sentence":"The minute stain on the document was not visible to the naked eye."},
-		{"id":1,"word":"sec","meaning":"infinitely or immeasurably small",
-		"sentence":"The minute stain on the document was not visible to the naked eye."},
-		{"id":1,"word":"three","meaning":"infinitely or immeasurably small",
-		"sentence":"The minute stain on the document was not visible to the naked eye."},
-		{"id":2,"word":"Intimate","meaning":"closely acquainted; familiar",
-		"sentence":"In this week's Newsweek, Allison Pearson offers an intimate look at the unconventional royal couple."}
-]
+	
 	var delete_word=0;
 	//var bookmark_list= [];
 	function capitalizeFirstLetter(string) {
@@ -45,10 +36,43 @@ $(document).ready(function(){
 					$(word_name_div).addClass("word_name");
 					first_div_fi_child.appendChild(word_name_div);
 				//<h2 >Clarity</h2>
+				var word_side_head = document.createElement("div"); 
+					$(word_side_head).addClass("word_side_head");
+					word_name_div.appendChild(word_side_head);
+
+				var word_side = document.createElement("div"); 
+					$(word_side).addClass("word_side");
+					word_side_head.appendChild(word_side);
+
 				var word_h2 = document.createElement("h2");
-					$(word_h2).attr("id", "word"+bookmark_list[i].id);
-					$(word_h2).text(capitalizeFirstLetter(bookmark_list[i].word));
-					word_name_div.appendChild(word_h2);
+					$(word_h2).text(bookmark_list[i].word);
+					word_side.appendChild(word_h2);
+
+				var word_progress_side = document.createElement("div"); 
+					$(word_progress_side).addClass("word_progress_side");
+					word_side_head.appendChild(word_progress_side);
+					//progress
+				var progress = document.createElement("div"); 
+					$(progress).addClass("progress");
+					$(progress).attr("data-toggle", "tooltip");
+					$(progress).attr("title", "Word Strength");
+					word_progress_side.appendChild(progress);
+					//progress-bar
+				var progress_bar = document.createElement("div"); 
+					$(progress_bar).addClass("progress-bar progress-bar-success");
+					$(progress_bar).attr("role", "progressbar");
+					$(progress_bar).attr("aria-valuenow", "10");
+					$(progress_bar).attr("aria-valuemin", "0");
+					$(progress_bar).attr("aria-valuemax", "100");
+					$(progress_bar).css({"width": bookmark_list[i].strength+"%"});
+					
+					progress.appendChild(progress_bar);
+				//<span class="only">100% Memorize</span>
+				var only = document.createElement("span");
+					$(only).addClass("only");
+					$(only).css({"color": "black"});
+					$(only).text(bookmark_list[i].strength+"% Memorize");
+					progress_bar.appendChild(only);
 					//<h3 class="word_meaning">infinitely or immeasurably small</h3>
 				var meaning_h3 = document.createElement("h3");
 					$(meaning_h3).text(bookmark_list[i].meaning);
@@ -88,6 +112,16 @@ $(document).on('click', ".button", function() {
 			if(bookmark_list.length===delete_word){
 				$("#no_article").css({"display":"block"});
 			}
+});
+//
+
+$(document).on('click', ".see_all_art", function() {
+	console.log(this);
+	if(user_name.length===0) 
+	{
+		$("#myModal").modal();
+		$(".sign_text").text("Login to bookmark this 	list");
+	}
 });
 function delete_bookmark(word){
 		formdata=new FormData();

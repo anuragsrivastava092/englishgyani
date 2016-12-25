@@ -139,12 +139,19 @@ class User_Play_Performance(models.Model):
     no_error=models.IntegerField()
     user_altered_content=models.TextField(blank=True)
 
+class Bookmark_list(models.Model):
+    user=models.IntegerField(User)
+    Word=models.CharField(max_length=254)
+    Word_meaning=models.CharField(max_length=254)
+    Word_example=models.CharField(max_length=254)
+    list_type=models.IntegerField()
 
 class User_Bookmark(models.Model):
     user=models.IntegerField(User)
     bookmark_word=models.CharField(max_length=254)
     bookmark_word_meaning=models.CharField(max_length=254)
     bookmark_word_example=models.CharField(max_length=254)
+    strength=models.IntegerField()
     source=models.CharField(max_length=254)
 
 

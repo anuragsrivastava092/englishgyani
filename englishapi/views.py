@@ -458,6 +458,7 @@ class Bookmark_Word(View):
             book_data['word']=obj.bookmark_word
             book_data['meaning']=obj.bookmark_word_meaning
             book_data['sentence']=obj.bookmark_word_example
+            book_data['strength']=obj.strength
             bookmark_list.append(book_data)
         bookmark_list=json.dumps(bookmark_list,ensure_ascii=True)
         print bookmark_list
@@ -507,7 +508,7 @@ def article_bookmark(request):
 	        if len(li)==0:
 	            return JsonResponse("-1",safe=False)
 	        else:
-	            User_Bookmark.objects.create(user=request.user.id,bookmark_word=word,bookmark_word_meaning=li[0],bookmark_word_example=li[1],source="article")
+	            User_Bookmark.objects.create(user=request.user.id,bookmark_word=word,bookmark_word_meaning=li[0],bookmark_word_example=li[1],source="article",strength=40)
 	            return JsonResponse("1",safe=False)
 	   	return JsonResponse("0",safe=False)
 	else:

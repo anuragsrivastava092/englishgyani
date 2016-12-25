@@ -66,7 +66,7 @@ $(document).ready(function(){
 
 		$(".edit_no").text(change);
 		multi_factor = 100/(play_content[0].errorcount);
-		var progress_percent = change*multi_factor;
+		 progress_percent = change*multi_factor;
 		if (progress_percent<=100){
 			progress_percent=progress_percent.toFixed(2)
 			$(".progress-bar").css("width",progress_percent+"%");
