@@ -105,7 +105,7 @@ class Article_Question(models.Model):
 class Play_Content(models.Model):
     article=models.ForeignKey(Article)
     article_altered_content=models.TextField()
-    errorcount=models.TextField()
+    errorcount=models.CharField(max_length=2)
 
 class Play_Question(models.Model):
     article=models.ForeignKey(Article)
