@@ -1,9 +1,13 @@
 $(document).ready(function () {
 	bookmark_alert_div='<div class="alert alert-success fade in" id="alert_bookmark"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong id="bookmark_result">Success!</strong> <span id="bookmark_result_message">Word Bookmarked &nbsp;</span></div>';
 	  
-	//js-article
-	$('#js-article').mouseup(function (e) {
+	//js-articlea.substring(1);
+	$('.aricle_para').mouseup(function (e) {
 		e.preventDefault();
+		word_pos = $(this).attr('id');
+		word_pos= word_pos.substring(3);
+		console.log(word_pos);
+
 		$("#alert_bookmark").hide();
 		$("#tooltip_bookmark").hide();
 		$("#tooltip_lookup").hide();
@@ -13,7 +17,8 @@ $(document).ready(function () {
 		oRange = selected_area.getRangeAt(0); 
 		oRect = oRange.getBoundingClientRect();
 		//console.log(2223);
-		if (selected_text.length>1){ //bases on device
+		inde =selected_text.indexOf(" ");
+		if (selected_text.length>1 && inde===-1){ //bases on device
 			x = oRect.right +  window.pageXOffset+ 'px';
 			y = oRect.top -10 + window.pageYOffset+ 'px';
 			lef = oRect.left -100  + window.pageXOffset+ 'px';
@@ -128,9 +133,10 @@ $(document).ready(function () {
 			});
 			
 	}
-	function word_bookmark_api(word){
-		formdata=new FormData();
+	function word_bookmark_api(word,pos){
+		formdata=new FormData(); 
 		formdata.append("word",word);
+		formdata.append("pos",word_pos);
 			$.ajax({
                  beforeSend: function (xhr, settings) {
                     xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
@@ -165,7 +171,8 @@ function capitalizeFirstLetter(string) {
 	 	$("#tooltip_bookmark").click(function(){
 			//fail = 1;
 			$("body").append(bookmark_alert_div);
-			//console.log(selected_text);
+			
+			
 			$("#alert_bookmark").show();
 			placeAlert(lef, y);
 			if(user_name.length ===0){
@@ -175,7 +182,7 @@ function capitalizeFirstLetter(string) {
 
 			}
 			else{
-				word_bookmark_api(selected_text);
+				word_bookmark_api(selected_text,word_pos);
 				//console.log(book_response);
 				 wait(3000);
 				if(aaa===1){
