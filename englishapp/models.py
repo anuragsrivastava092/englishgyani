@@ -29,9 +29,13 @@ class Article(models.Model):
     nation=6
     environment=7
     businessandcommerce=8
-    genre_field=(('', '---------'),(politics,'politics'),
+    tech=9
+    lifestyle=10
+    others=11
+    genre_field=(('', '---------'),(politics,'politics'),(tech,'tech'),
+        (lifestyle,'lifestyle'),
         (sports,'sports'),
-        (science,'science'),(entertainment,'entertainment'),(world,'world'),(nation,'nation'),(environment,'environment'),(businessandcommerce,'businessandcommerce'),)
+        (science,'science'),(entertainment,'entertainment'),(world,'world'),(nation,'nation'),(environment,'environment'),(businessandcommerce,'businessandcommerce'),(others,'others'))
     text=1
     play=2
     video=3
