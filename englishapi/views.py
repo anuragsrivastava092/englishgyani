@@ -208,7 +208,7 @@ class On_Open_Article(View):
                     for j in range(len(content[i])):
                         tet+=" " + content[i][j]
                     new_id= "par"+str(i+1)
-                    tet = "<p id="+(new_id) +">"+tet+"</p>"
+                    tet = "<p id="+(new_id) +" class=aricle_para " +">"+tet+"</p>"
                     parag.append(tet)
                 front_content=""
                 for i in range(len(parag)):
