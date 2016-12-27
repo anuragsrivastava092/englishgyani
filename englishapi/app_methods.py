@@ -10,7 +10,7 @@ def ensure_str(s):
     return s
 
 def asc(txt):
-    a=["“","”","‘","’","—"]
+    a=["“","”","‘","’","—","–"]
     correct_txt=""
     pos_init=0
     pos_s=0
