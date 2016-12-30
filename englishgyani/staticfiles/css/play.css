@@ -76,3 +76,4 @@
 	 float:right;
 	 background:#008080;
 }
+button:focus { outline: none; }

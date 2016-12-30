@@ -136,7 +136,8 @@ $(document).ready(function () {
 	function word_bookmark_api(word,pos){
 		formdata=new FormData(); 
 		formdata.append("word",word);
-		formdata.append("pos",word_pos);
+		formdata.append("pos",word_pos); 
+		formdata.append("article_id",article_content[0].id);
 			$.ajax({
                  beforeSend: function (xhr, settings) {
                     xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
