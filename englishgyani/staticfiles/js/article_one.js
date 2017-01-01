@@ -18,7 +18,8 @@ $(document).ready(function(){
 	same_question=0; 
 	previous_question_id =0;
 		
-		$("body").on("click",".exercise-link",function(){ 
+		//$("body").on("click",".exercise-link",function(){ 
+			$("body").on("click","link",function(){
 			present = this;
 			question_id= $(present).attr("id");
 			console.log(question_id +"id");
@@ -86,7 +87,8 @@ $(document).ready(function(){
 	
 	});	
 		
-	$("body").on("click",".submit_response",function(){ 
+	//$("body").on("click",".submit_response",function(){ 
+		$("body").on("click","sub",function(){ 
 		present = this;
 		console.log(present);
 		response_ans = $('input[name="answer"]:checked').val();

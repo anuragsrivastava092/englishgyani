@@ -10,11 +10,11 @@ def ensure_str(s):
     return s
 
 def asc(txt):
-    a=["“","”","‘","’","—","–"]
+    a=["“","”","‘","’","—","–","…","á","í","é","ë","…"]
     correct_txt=""
     pos_init=0
     pos_s=0
-    arr=[m.start() for m in re.finditer('(“|”|‘|’|—)', txt)]
+    arr=[m.start() for m in re.finditer('(“|”|‘|’|—|–)', txt)]
     for i in range(len(arr)):#‘ 
         pos = arr[i]
         pos_s=arr[i]+3

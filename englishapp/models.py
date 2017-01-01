@@ -4,6 +4,8 @@ from django.db import models
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
+
 
 
 
@@ -83,25 +85,29 @@ class Article_Question(models.Model):
         (B,'choice2'),
         (C,'choice3'),(D,'choice4'),(E,'fill in the blank'),(F,'True'),(G,'False'),)
     vocabulary=1
-    grammar=2
+    vocabulary_context=2
     comprehension=3
-    type_field=((vocabulary,'vocabulary'),
-                (grammar,'grammar'),(comprehension,'comprehension'),)
+    comp_reorg=4
+    comp_infer=5
+    type_field=((vocabulary,'vocabulary'),(vocabulary_context,'vocabulary_context'),
+                (comprehension,'comprehension'),(comp_reorg,'comp_reorg'),
+                (comp_infer,'comp_infer')
+                )
     
     article=models.ForeignKey(Article)
     question_instruction=models.CharField(max_length=254)
     question_description=models.CharField(max_length=254)
     question_description_main=models.CharField(blank=True,max_length=254)
     question_weight=models.IntegerField()
-    question_type=models.IntegerField(choices=question_type_field)
+    question_type=models.IntegerField(choices=question_type_field,default=mcq)
     choice1_description=models.CharField(max_length=254,blank=True)
     choice2_description=models.CharField(max_length=254,blank=True)
     choice3_description=models.CharField(max_length=254,blank=True)
     choice4_description=models.CharField(max_length=254,blank=True)
     fill_blank_description=models.CharField(max_length=254,blank=True)
-    sentence_pos=models.IntegerField()
-    paragraph_pos=models.IntegerField()
-    word=models.CharField(max_length=254)
+    sentence_pos=models.IntegerField(default=0)
+    paragraph_pos=models.IntegerField(default=0)
+    word=models.CharField(default="o",max_length=254)
     feedback=models.CharField(max_length=254)
     right_choice=models.IntegerField(choices=choice_field)
     question_category=models.IntegerField(choices=type_field)
@@ -143,19 +149,15 @@ class User_Play_Performance(models.Model):
     no_error=models.IntegerField()
     user_altered_content=models.TextField(blank=True)
 
-class Bookmark_list(models.Model):
-    user=models.IntegerField(User)
-    Word=models.CharField(max_length=254)
-    Word_meaning=models.CharField(max_length=254)
-    Word_example=models.CharField(max_length=254)
-    list_type=models.IntegerField()
 
 class User_Bookmark(models.Model):
     user=models.IntegerField(User)
     bookmark_word=models.CharField(max_length=254)
     bookmark_word_meaning=models.CharField(max_length=254)
     bookmark_word_example=models.CharField(max_length=254)
+    #bookmark_source_example=models.CharField(max_length=254)
     strength=models.IntegerField()
+    date_created = models.DateTimeField(default=timezone.now)
     source=models.CharField(max_length=254)
 
 

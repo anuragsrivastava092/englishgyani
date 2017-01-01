@@ -15,6 +15,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
  <link rel="stylesheet" type="text/css" href="{% static 'css/article.css' %}">
+ <link rel="stylesheet" type="text/css" href="{% static 'css/question_article.css' %}">  
 	<style>
 		#tooltip_bookmark, #tooltip_lookup{
 			background:#ABFFE3;
@@ -281,7 +282,7 @@
 					<img alt="Super large gettyimages 82875339 1 "  id="article_image" src="">
 				</div>
 				<div class="article_head_image_content_ri">
-					<div class="toogle_div">
+					<div class="toogle_div" id="toggle_exercise1">
 						<span class="switch_text">Integrated Exercise </span>
 						<label class="switch">
 						  <input type="checkbox" id="int_checkbox" name="int_checkbox" value ="Exercise" checked>
@@ -327,6 +328,141 @@
 				</span>
 			</div>
 	</div>
+	<div class="question_list">
+		<div class="row">
+			<div class="col-md-4" id="col0">
+				<div class="panel panel-default ques_div ques1" id="tab0">
+					<div class="panel-body">
+						<span class="text-wrapper">
+							<span class="ex-name">
+								<strong class="ques_cat" id="question_category0">Question 1</strong>
+							</span>
+							<span class="timeline" id="timeline1"></span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4" id="col1">
+				<div class="panel panel-default ques_div" id="tab1">
+					<div class="panel-body">
+						<span class="text-wrapper">
+							<span class="ex-name">
+								<strong id="question_category2">Question 2</strong>
+							</span>
+							<span class="timeline" id="timeline2"></span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4" id="col2">
+				<div class="panel panel-default ques_div" id="tab2">
+					<div class="panel-body">
+						<span class="text-wrapper">
+							<span class="ex-name">
+								<strong id="question_category3">Question 3</strong>
+							</span>
+							<span class="timeline" id="timeline3"></span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4" id="col3">
+				<div class="panel panel-default ques_div" id="tab3">
+					<div class="panel-body">
+						<span class="text-wrapper">
+							<span class="ex-name">
+								<strong id="question_category3">Question 4</strong>
+							</span>
+							<span class="timeline" id="timeline3"></span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4" id="col4">
+				<div class="panel panel-default ques_div" id="tab4">
+					<div class="panel-body">
+						<span class="text-wrapper">
+							<span class="ex-name">
+								<strong id="question_category3">Question 5</strong>
+							</span>
+							<span class="timeline" id="timeline3"></span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4" id="col5">
+				<div class="panel panel-default ques_div" id="tab5">
+					<div class="panel-body">
+						<span class="text-wrapper">
+							<span class="ex-name">
+								<strong id="question_category3">Question 6</strong>
+							</span>
+							<span class="timeline" id="timeline3"></span>
+						</span>
+					</div>
+				</div>
+			</div>
+			
+			
+		</div>
+	</div>
+		<div class="question"> 
+			<div class="question_head">
+				<div class="question_head_le"> 
+				 	<span class="point_span">3 points</span>
+				 	<span class="type_inst">Select the correct option carefully.</span>
+				</div> 
+				<div class="question_head_ri"> 
+
+					<i aria-hidden="true" class="fa fa-times question_close"></i> 
+				</div>
+			</div> 
+			<div class="question_body"> 
+				<h4 class="question_body_text">
+					<span id="question_text_int">Which of these is necessary to be a good economist?</span>
+					<br> 
+					<br> 
+				 	<span id="question_text_main"></span>
+			    </h4>
+			   <div class="question_answer"> 
+				   <div class="answer">
+					    <label class="label_class" id="label_id0">
+						    <input id="answer-0" name="answer" type="radio" value="0">
+						    <label for="answer-0"></label> 
+						    <span class="label_option" id="label0_text">interdisciplinary studies</span>
+					    </label>
+					    <br> 
+					    <label class="label_class" id="label_id1">
+						    <input id="answer-1" name="answer" type="radio" value="1">
+						    <label for="answer-1"></label>
+						     <span class="label_option" id="label1_text">communication skills</span>
+					    </label>
+					    <br>
+					    <label class="label_class" id="label_id2">
+						      <input id="answer-2" name="answer" type="radio" value="2">
+						      <label for="answer-2"></label>
+						       <span class="label_option" id="label2_text">the study of branches of philosophy</span>
+					    </label>
+					       <br> 
+					       <label class="label_class" id="label_id3">
+					       <input id="answer-3" name="answer" type="radio" value="3"> 
+					       <label for="answer-3"></label> 
+					       <span class="label_option" id="label3_text">mathematical skills</span>
+					    </label> 
+			       </div> 
+				    <div class="answer_ri"> 
+				       <div class="ans_div"> 
+				    		<p class="answer_feeback"></p> 
+				       </div> 
+				    </div> 
+			    </div> 
+			    <div class="answer-footer"> 
+			       
+			        <span class="button check_buttton" id="cont_check">Check</span>
+					<span class="button next_question" id="next_que">Next Question</span>
+			    </div> 
+			</div> 
+		</div>
 </div>
 <div class="footer last" >
 		<div class="footer_ele foot_head">
@@ -496,11 +632,12 @@
 <script src="{% static 'js/article_common.js' %}"></script>
 <script src="{% static 'js/article_one.js' %}"></script>
 <script src="{% static 'js/article_boomark.js' %}"></script>
+<script src="{% static 'js/article_question.js' %}"></script>
  <script>
 
  	 article_phrase = {{ phrase_li | safe }};
      article_content = {{ content | safe }};
-     question_attempt =  {{ attempted_questions | safe}};
+     attempted_list =  {{ attempted_questions | safe}};
     article_question ={{ question_list | safe }};
     user_name ="{{ user | safe }}";
     

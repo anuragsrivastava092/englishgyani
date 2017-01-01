@@ -150,7 +150,8 @@ class On_Open_Article(View):
                 attempted_list=json.dumps(attempted_list,ensure_ascii=True)
                 question_l=Article_Question.objects.filter(article_id=article_id)
                 phrase_l=Article_Phrase.objects.filter(article_id=article_id)
-                content=question_l[0].article.article_content
+                #content=question_l[0].article.article_content
+                content = listing[0]["article_content"]
                 article=codecs.open("englishapi/article.txt","w","utf-8")
                 article.write(content)
                 article.close()
@@ -202,7 +203,8 @@ class On_Open_Article(View):
                 question_list=json.dumps(question_list,ensure_ascii=True)
                 phrase_li=json.dumps(phrase_list,ensure_ascii=True)
                 parag=[]
-                content=app_methods.final(question_number_list,phrase_number_list,content)
+                #content=app_methods.final(question_number_list,phrase_number_list,content)
+                content=app_methods.final([],phrase_number_list,content)
                 for i in range(len(content)):
                     tet=""
                     for j in range(len(content[i])):

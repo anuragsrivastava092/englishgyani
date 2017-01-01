@@ -1,0 +1,24 @@
+.question_list{
+	margin-top: 80px;
+	padding-top: 0px;
+}
+.ques_div{
+
+	color: #f15f22;
+	text-align: center;
+}
+.ques1{
+	background: #f15f22;
+	color: white;
+	
+}
+.ques_cat{
+
+}
+.question_close{
+	display: none;
+}
+#toggle_exercise1{
+
+	display: none;
+}
