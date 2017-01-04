@@ -52,7 +52,7 @@ class Article(models.Model):
     article_genre=models.IntegerField(choices=genre_field)
     article_type=models.IntegerField(choices=type_field)
     article_level=models.IntegerField()
-    #article_level_detail=models.CharField(max_length=254)
+    article_question_detail=models.CharField(default="4 Comprehesnion",max_length=254)
     article_objective=models.CharField(max_length=254)# 2points seperated by pipe
     article_summary=models.CharField(max_length=254)
     article_publication_date=models.DateField()
