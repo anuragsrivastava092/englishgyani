@@ -120,7 +120,7 @@ $(".main_right").on("click",".redirect_page",function(){
 			$(news_status).addClass("news_status");
 			$(news_status).attr("data-toggle","tooltip");
 			$(news_status).attr("title","You have attempted all the questions");
-			$(level_span).text("Completed");
+			$(news_status).text("Completed");
 			sec1_div.appendChild(news_status);
 		}
 		var level_span = document.createElement("span");
