@@ -24,6 +24,8 @@ $(document).ready(function(){
 			$("#egregister").attr("id", "eguser");
 			$("#eglogin").attr("id", "egsignout");
 			$("#egsignout").attr("href", "/logout/");
+			 $("#user_leaderboard").show();
+
 	}
     window.getCookie = function(name){
 	    var cookieValue = null;

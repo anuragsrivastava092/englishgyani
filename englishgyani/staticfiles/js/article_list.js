@@ -115,13 +115,21 @@ $(".main_right").on("click",".redirect_page",function(){
 			$(sec4_div).addClass("news_sum_foot");
 			first_div_se_child.appendChild(sec4_div);
 			//<p class="news_level_icon">5</p>
+		if(user_name.length!=0){
+		var news_status = document.createElement("span");
+			$(news_status).addClass("news_status");
+			$(news_status).attr("data-toggle","tooltip");
+			$(news_status).attr("title","You have attempted all the questions");
+			$(level_span).text("Completed");
+			sec1_div.appendChild(news_status);
+		}
 		var level_span = document.createElement("span");
 			$(level_span).addClass("news_level_icon");
 			$(level_span).attr("data-toggle","tooltip");
 			$(level_span).attr("title","Exercise Difficulty Level");
 			$(level_span).text(article_json[i].level);
 			sec1_div.appendChild(level_span);
-			//<h2>Manufacturers Lose Out on Tech Talent</h2>
+					//<h2>Manufacturers Lose Out on Tech Talent</h2>
 		var art_head = document.createElement("h2");
 			$(art_head).addClass("redirect_page");
 			$(art_head).text(article_json[i].head);
