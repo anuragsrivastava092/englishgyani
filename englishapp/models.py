@@ -108,7 +108,7 @@ class Article_Question(models.Model):
     sentence_pos=models.IntegerField(default=0)
     paragraph_pos=models.IntegerField(default=0)
     word=models.CharField(default="o",max_length=254)
-    feedback=models.CharField(max_length=254)
+    feedback=models.CharField()
     right_choice=models.IntegerField(choices=choice_field)
     question_category=models.IntegerField(choices=type_field)
 
