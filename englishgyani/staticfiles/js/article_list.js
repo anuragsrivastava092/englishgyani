@@ -182,9 +182,9 @@ $(".main_right").on("click",".redirect_page",function(){
 			sec4_div.appendChild(content_span);
 		// eg_filter
 		
-		$(".eg_filter").append(first_div);//after
+		$(".eg_filter").after(first_div);//
 		var space_br = document.createElement("br");
-		$(".eg_filter").append(space_br);
+		$(".eg_filter").after(space_br);
 		}
 
 
