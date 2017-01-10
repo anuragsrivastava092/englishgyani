@@ -104,6 +104,12 @@
 			font-size:25px;
 	}
 }
+	@media only screen and (max-width: 766px) {
+		.profile_nav_icon, .log_nav_icon{
+			display:block;
+	}
+
+}
 	@media only screen and (max-width: 330px) {
 		.brand_name2{
 			font-size:22px;
