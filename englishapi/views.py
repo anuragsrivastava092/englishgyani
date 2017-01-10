@@ -94,12 +94,16 @@ class Display_Article_LIst(View):
             #art_data['content']=article.article_content
             art_data['summary']=article.article_summary
             art_data['id']=article.id
+            if request.user.id!=None and len(list(User_Article_Attempt.objects.filter(article_id=article.id,user=int(request.user.id))))>0:
+                art_data['attempted']="y"
+            else:
+                art_data['attempted']="N"
             art_data['type']=article.article_type
             art_data['date']=str(article.article_publication_date)
             art_data['source_url']=article.article_publication_source_url
             art_data['source']=article.article_publication_source
             art_list.append(art_data)
-            print "kmal",art_list
+        print art_list
         art_list=json.dumps(art_list,ensure_ascii=True)
         return JsonResponse(art_list,safe=False)
 
@@ -120,6 +124,10 @@ class Display_Article_LIst(View):
             art_data['date']=str(article.article_publication_date)
             art_data['source_url']=article.article_publication_source_url
             art_data['source']=article.article_publication_source
+            if request.user.id!=None and len(list(User_Article_Attempt.objects.filter(article_id=article.id,user=int(request.user.id))))>0:
+                art_data['attempted']="y"
+            else:
+                art_data['attempted']="N"
 
             art_list.append(art_data)
         art_list=json.dumps(art_list,ensure_ascii=True)
@@ -481,6 +489,10 @@ def article_question_response(request):
             aa = str(int(listing[0]['right_choice'])-1)
             print aa
             User_Performance.objects.create(user=int(request.user.id),question_id=question_id, article_id=listing[0]['article'],correct_answer=aa, response=response,question_feedback=listing[0]['feedback'])
+            if len(list(User_Article_Attempt.objects.filter(article_id=listing[0]['article'],user=int(request.user.id))))>0:
+                print 7777
+            else:
+               User_Article_Attempt.objects.create(user=int(request.user.id),article_id=listing[0]['article']) 
     return JsonResponse([{'right_choice':listing[0]['right_choice'],'feedback':listing[0]['feedback']}],safe=False)
 
 def play_question_response(request):

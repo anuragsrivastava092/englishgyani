@@ -115,12 +115,12 @@ $(".main_right").on("click",".redirect_page",function(){
 			$(sec4_div).addClass("news_sum_foot");
 			first_div_se_child.appendChild(sec4_div);
 			//<p class="news_level_icon">5</p>
-		if(user_name.length!=0){
+		if(article_json[i].attempted==="y"){
 		var news_status = document.createElement("span");
 			$(news_status).addClass("news_status");
 			$(news_status).attr("data-toggle","tooltip");
 			$(news_status).attr("title","You have attempted all the questions");
-			$(news_status).text("Completed");
+			$(news_status).text("Attempted");
 			sec1_div.appendChild(news_status);
 		}
 		var level_span = document.createElement("span");
@@ -182,9 +182,9 @@ $(".main_right").on("click",".redirect_page",function(){
 			sec4_div.appendChild(content_span);
 		// eg_filter
 		
-		$(".eg_filter").after(first_div);
+		$(".eg_filter").append(first_div);//after
 		var space_br = document.createElement("br");
-		$(".eg_filter").after(space_br);
+		$(".eg_filter").append(space_br);
 		}
 
 

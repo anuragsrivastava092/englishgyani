@@ -143,6 +143,11 @@ class User_Performance(models.Model):
     response=models.CharField(max_length=254)
     correct_answer=models.CharField(max_length=254)
 
+class User_Article_Attempt(models.Model):
+    user=models.IntegerField(User)
+    article_id=models.IntegerField()
+
+
 class User_Play_Performance(models.Model):
     user=models.IntegerField(User)
     article_id=models.IntegerField()
