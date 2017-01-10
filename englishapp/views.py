@@ -45,6 +45,11 @@ class Default(View):
     def get(self,request):
         print 788666
         return redirect("http://englishgyani.com/article-list/")
+
+class Why(View):
+    def get(self,request):
+        print 788666
+        return render(request,"whyus.html")
 class LogOut(View):
     def get(self,request):
         logout(request)
