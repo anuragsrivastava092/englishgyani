@@ -50,6 +50,12 @@ class Why(View):
     def get(self,request):
         print 788666
         return render(request,"whyus.html")
+
+class Front(View):
+    def get(self,request):
+        print 788666
+        return render(request,"front_page.html")
+
 class LogOut(View):
     def get(self,request):
         logout(request)
