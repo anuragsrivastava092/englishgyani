@@ -43,18 +43,19 @@ class Bookmark_Words(View):
         return render(request,"bookmark.html",{"bookmark_list":bookmark_list,"user":user})
 class Default(View):
     def get(self,request):
-        print 788666
         return redirect("http://englishgyani.com/article-list/")
 
 class Why(View):
     def get(self,request):
-        print 788666
         return render(request,"whyus.html")
 
 class Front(View):
     def get(self,request):
-        print 788666
         return render(request,"front_page.html")
+
+class News_Test(View):
+    def get(self,request):
+        return render(request,"news_test.html")
 
 class LogOut(View):
     def get(self,request):
