@@ -181,7 +181,12 @@
 .home-card > p{
 	font-size: 17px;
 }
-
+.image_icon {
+	margin-left: 35%;
+	margin-right: 35%;
+	width: 30%;
+	height: 100px;
+}
 
 
 
@@ -246,7 +251,16 @@
 
 }
 
-
+.explore_button{
+	margin-top: 10px;
+}
+.image_publish_image{
+	height: 15%;
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
+	
+}
 
 
 
