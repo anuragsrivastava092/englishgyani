@@ -139,7 +139,7 @@ class User_Performance(models.Model):
     user=models.IntegerField(User)
     question_id=models.IntegerField()
     article_id=models.IntegerField()
-    question_feedback=models.CharField(max_length=254)
+    question_feedback=models.CharField(max_length=1000)
     response=models.CharField(max_length=254)
     correct_answer=models.CharField(max_length=254)
 
