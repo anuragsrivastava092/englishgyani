@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <title>EnglishGyani - Learn English with News</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">	
+  <link rel="icon" href="{% static 'images/col_lo.png' %}" type="image/png" >
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://use.fontawesome.com/578e02aff5.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700" rel="stylesheet">
+ 
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <style type="text/css">
+    
+    body, html {
+      height: 100%;
+      transition: background-color .5s;
+  }
+    * {
+      -webkit-border-radius: 0 !important;
+      -moz-border-radius: 0 !important;
+      border-radius: 0 !important;
+  }
+    .navbar-brand,.navbar-nav li a {
+      line-height: 60px;
+      height: 60px;
+      padding-top: 0;
+  }
+    .brand_logo{
+      height:50px;
+      padding-top:10px;
+      padding-left:15px;
+  }
+    .brand_name2{
+      font-family: 'Dancing Script', cursive;
+      font-size:30px;
+      color:#f15f22;
+      color:white;
+      padding-left:80px;
+      padding-right:20px;
+      margin-top:-35px;
+  }
+    .nav_bra{
+      font-size:32px;
+      font-weight:bold;
+  }
+    li > a{
+      font-size: 16px !important;
+      padding-left:40px !important;
+      padding-right:40px !important;
+  }
+    .hide_li{
+      visibility:hidden;
+  }
+    .dropdown{
+      margin-right:40px;
+  }
+    .nav_icon{
+      font-size:24px;
+      color:#f15f22;
+  }
+    .nav_icon_w{
+      font-size:16px;
+      color:#f15f22;
+      color:white;
+  }
+    .nav_icon_w_active{
+      font-size:16px;
+      color:white;
+  }
+    .nav_icon_active{
+      font-size:24px;
+      color:white;
+  }
+    .navbar .navbar-collapse {
+      text-align: center;
+  }
+  @media only screen and (max-width: 1110px) {
+    li > a{
+    font-size: 16px !important;
+      padding-left:35px !important;
+      padding-right:35px !important;
+  }
+    .dropdown{
+      margin-right:30px;
+  }
+    .brand_name{
+      font-family: 'Dancing Script', cursive;
+      font-size:30px;
+      color:#f15f22;
+      color:white;
+      padding-left:20px;
+      padding-right:20px;
+  }
+   
+}
+  @media only screen and (max-width: 1050px) {
+    li > a{
+      font-size: 15px !important;
+      padding-left:30px !important;
+      padding-right:30px !important;
+  }
+    .dropdown{
+      margin-right:0px;
+  }
+    .profile_nav_icon, .log_nav_icon{
+      display:none;
+  }
+   
+}
+  @media only screen and (max-width: 890px) {
+    li > a{
+      font-size: 13px !important;
+      padding-left:20px !important;
+      padding-right:20px !important;
+  }
+    .brand_name2{
+      font-size:25px;
+  }
+}
+  @media only screen and (max-width: 330px) {
+    .brand_name2{
+      font-size:22px;
+      padding-left:60px;
+      padding-right:10px;
+      margin-top:-40px;
+  }
+}
+
+.article{
+      margin-top:80px;
+  }
+
+
+  </style>
+
+  <style>
+
+  .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.5s;
+      margin-top: 60px;
+      padding-top: 60px;
+  }
+
+  .sidenav a {
+      padding: 8px 0px 8px 40px;
+      text-decoration: none;
+      font-size: 21px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+      
+      
+  }
+  .left_side_a{
+      background: #323232;
+      color: #9a9a9a;
+  }
+  .practice_home{
+    padding: 8px 0px 8px 40px;
+      text-decoration: none;
+      font-size: 28px;
+      color: white;
+      background: #666666;
+      display: block;
+      transition: 0.3s;
+     
+
+  }
+  .sidenav a:hover, .offcanvas a:focus{
+      color: #f1f1f1;
+  }
+  .sidenav_a_active{
+    background: #464646;
+    color: #d6d6d6;
+  }
+  .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+  }
+
+  #main {
+      transition: margin-left .5s;
+      padding-left: 16px;
+      padding-right: 16px;
+      margin-left: 0px;
+      margin-right: 0px;
+
+  }
+  .main_heading{
+    text-align: center;
+    padding-bottom: 20px;
+  }
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+
+    #main {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+  }
+  </style>
+  <style type="text/css">
+    .last{
+      width:100%;
+      padding-top:40px;
+    }
+    .footer_ele{
+      text-align:center;
+    
+    }
+    .bounceIn > i{
+      padding: 5px 10px;
+      display: inline-block;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      border-radius: 100px;
+      -moz-box-shadow: 0px 0px 2px #888;
+      -webkit-box-shadow: 0px 0px 2px #888;
+      box-shadow: 0px 0px 2px #888;
+      background:#323232;
+      color:white;
+  }
+  .bounceIn >   i:hover { 
+    background-color: #3b5998;
+  }
+  .bounceIn{
+    font-size:24px;
+  
+  }
+  .foot_head > h3{
+    padding-top:20px;
+    font-size:24px;
+    font-weight:bold;
+  
+  }
+  .foot_bottom{
+    padding-top:10px;
+  }
+@media only screen and (max-width: 766px) {
+  .foot_head > h3{
+    font-size:22px;
+
+  }
+  
+}
+@media only screen and (max-width: 450px) {
+  .foot_head > h3{
+    font-size:19px;
+
+  }
+  
+}
+  </style>
+  <style type="text/css">
+  .bookmark_quiz{
+        height: 600px;
+        background: #5f8fa0;
+        background: black;
+        padding-top: 50px;
+        padding-bottom: 30px;
+
+  }
+    .quiz_practice {
+      text-align: center;
+      padding-top:260px;
+      }
+    .quiz_home{
+      text-align: center;
+    }
+    .quiz_main{
+      height: 100%;
+      background:  #87abb8;
+      background: white;
+      width: 500px;
+      margin:0px calc((100% - 500px)/2);
+      border: 4px solid #606060;
+      padding: 30px 30px;
+      display: none;
+    }
+    .quiz_result{
+      height: 100%;
+      background:  #87abb8;
+      background: white;
+      width: 500px;
+      margin:0px calc((100% - 500px)/2);
+      border: 4px solid #606060;
+      padding: 30px 30px;
+      display: none;
+    }
+
+    .sentence{
+        font-size: 16px;
+    }
+    .instructions{
+      padding-top: 20px;
+      font-size: 18px;
+    }
+    .option{
+      
+      padding: 5px 20px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      color: white;
+      color: #32677b;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .hover_effect:hover{
+      background: black;
+      cursor:pointer; 
+
+    }
+    #option9{
+      background: green;
+      background: #cc0000;
+      color: white;
+    }
+    .correct_response{
+      background: green;
+      color: white;
+    }
+    .correct_response:hover{
+      background: green;
+    }
+    .wrong_response{
+      background: #cc0000;
+      color: white;
+    }
+    .wrong_response:hover{
+      background: #cc0000;
+    }
+    .next_button{
+      display: none;
+      margin-top: 10px;
+    }
+    .feedback{
+      font-family: 'Open Sans', sans-serif;
+      color: #666666;
+      display: none;
+    }
+    @media only screen and (max-width: 510px) {
+      .quiz_main{
+      width: 100%;
+      margin:0px 0px;
+      border: 4px solid #606060;
+      padding: 30px 30px;
+      display: none;
+    }
+  
+    }
+  </style>
+  <style>
+  .quiz_result_heading{
+    text-align: center;
+  }
+  .result_table{
+      margin-top:50px;
+      margin-left:10%;
+      margin-right:10%;
+      margin-bottom:50px;
+      
+    }
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+  }
+
+  tr:nth-child(even) {
+      background-color: #dddddd;
+  }
+
+  .get-start-button{
+    background: #329932;
+    color: white;
+    display: none;
+  }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand" href="#"><img src="{% static 'images/col_lo.png' %}" alt=" brand logo" class="brand_logo" ><h3 class="brand_name2">Englishgyani</h3></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+    <li class="kkk"><a href="#"><i class="fa fa-newspaper-o nav_icon" aria-hidden="true"></i> <span class="nav_icon_w"> News</span> </a></li>
+      
+      <li><a href="#"><i class="fa fa-bookmark nav_icon" aria-hidden="true"></i><span class="nav_icon_w"> Bookmark</span> </a></li>
+    <li class="active"><a href="#"><i class="fa fa-question nav_icon nav_icon_active" aria-hidden="true"></i><span class="nav_icon_w_active"> Practice</span> </a></li> 
+    
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+         <li ><a href="#" id="egregister"><span class="glyphicon glyphicon-user nav_icon"></span><span class="nav_icon_w profile_nav_icon"> Register</span> </a></li>
+        <li><a href="#" id="eglogin"><span class="glyphicon glyphicon-log-in nav_icon"></span><span class="nav_icon_w log_nav_icon"> Login</span> </a></li>
+      </ul>
+    </div>
+  </div>
+  </nav>
+
+  <div class="article">
+    <div id="mySidenav" class="sidenav">
+      <div class="practice_home">
+        Practice Home
+      </div>
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a class="sidenav_a_active left_side_a" href="#">Bookmark Quiz</a>
+      <a class="left_side_a" href="#">Comprehension Quiz</a>
+      <a class="left_side_a" href="#">Grammar Quiz</a>
+      <a class="left_side_a" href="#">Recommended Texts</a>
+      <a class="left_side_a" href="#">Word Games</a>
+      <a class="left_side_a" href="#">Other</a>
+    </div>
+    <div class="main" id="main">
+      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+      <div class ="main_bookmark">
+      <h2 class="main_heading">Practice Bookmarks Words </h2>
+
+        <div class="bookmark_quiz">
+          <div class="quiz_practice">
+            <span class="btn btn-default btn-lg" id="quiz_start">Get Started!</span>
+          </div>
+          <div class="quiz_main">
+                  <div class="sentence" id="sentence">
+                  </div>
+                  <div class="instructions" id="instructions"></div>
+                  <div class="option hover_effect" id="option1"></div>
+                  <div class="option hover_effect" id="option2"></div>
+                  <div class="option hover_effect" id="option3"></div>
+                  <div class="option hover_effect" id="option4"></div>
+                  <div class="feedback" id="feedback"> </div>
+                  <button type="button" class="btn btn-primary btn-lg next_button">Next Question</button>
+          </div>
+
+          <div class="quiz_result">
+                <h3 class="quiz_result_heading">Quiz Result </h3>
+                <div class="result_table">
+                  <table>
+                    <tr>
+                    <th>Category</th>
+                    <th>fraction</th>
+                    <th>Score</th>
+                    </tr>
+                    <tr>
+                    <td>Assessment Questions</td>
+                    <td id="12">0/0</td>
+                    <td id="13">0</td>
+                    </tr>
+                    <tr>
+                    <td>Review Questions</td>
+                    <td id="22">0/0</td>
+                    <td id="23">0</td>
+                    </tr>
+                    <tr>
+                    <td>Progress Questions</td>
+                    <td id="32">3/2</td>
+                    <td id="33">300</td>
+                    </tr>
+                    <tr>
+                    <td>Grand Total</td>
+                    <td id="42">4/10</td>
+                    <td id="43">375</td>
+                    </tr>
+                    
+                  </table>
+                </div>
+                <div class="quiz_home">
+                  <span class="btn btn-success btn-lg" id="quiz_home">Quiz Home
+                  </span>
+                </div>
+          </div>
+        </div>
+        
+      </div>
+      <div class="footer last" >
+          <div class="footer_ele foot_head">
+            <h3> Connect with EnglishGyani</h3>
+            </div>
+          <div class="footer_ele">
+            <a href="https://web.facebook.com/" class="fb bounceIn" data-delay="1400"><i class="fa fa-facebook"></i></a>
+            &nbsp;
+            <a href="https://www.instagram.com/" class="li bounceIn" data-delay="1400"><i class="fa fa-instagram"></i></a>
+          </div>
+          <div class="footer_ele foot_bottom">
+            © Copyright 2017, EnglishGyani Inc.
+          </div>
+          <br>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "280px";
+    document.getElementById("main").style.marginLeft = "280px";
+    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    //$("#main").css({"background": "rgba(0,0,0,0.4)"});
+    
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+    document.body.style.backgroundColor = "white";
+}
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+     question_json = [{"question_inst": "In this sentence, <strong>threw</strong> means:", "question_text" :"He grabbed me by my shirt and <strong>threw</strong> me across the room.", "category":"3",
+    "choice1":"darted", "choice2":"confounded", 
+    "choice3":"hurled", "choice4":"switched", "answer":"3",
+    "feedback":"When you <i>throw</i> a ball, you toss it using your hand. When you <i>throw</i> a party, you buy some food and drinks, then invite your friends over."
+    },
+    {"question_inst": "In this sentence, <strong>latter</strong> means:", "question_text" :"“You might think that the <strong>latter</strong> is the better choice because both children get more,” Bloom writes, in his book “Just Babies.”","category":"3","choice1":"something regarded with special favor or liking", "choice2":"something that is required in advance of something else", 
+    "choice3":"the second of two or the second mentioned of two", "choice4":"the action of allowing oneself to enjoy certain pleasures", "answer":"3",
+    "feedback":"When you are comparing two things, the first one is known as the former and the second as the latter. For example, George Bush and George W. Bush were both U. S. presidents. The latter was the son of the former."
+    }
+     ];
+
+
+        
+      //
+        question_no=0;
+        $("body").on("click","#quiz_start",function(){ 
+          $(".quiz_main").show();
+          $(".quiz_practice").hide();
+          update_questions(question_json[question_no]);
+        });
+        
+        $("body").on("click",".hover_effect",function(){ 
+           id_no=this.id;
+           select_option = id_no.substring(6);
+           correct_answ = question_json[question_no].answer;
+           if (select_option===correct_answ) {
+              $("#"+id_no).addClass("correct_response");
+           }
+            else{
+                
+                $("#option"+correct_answ).addClass("correct_response");
+                $("#"+id_no).addClass("wrong_response");
+            }
+           
+           $(".feedback").show();
+           $(".next_button").show();
+           $(".hover_effect").removeClass("hover_effect");
+           //$(".option").css({"cursor":"default"});
+           //$(".option:hover").css({"background":"white"});
+          question_no+=1;
+        
+        });
+
+          
+        $("body").on("click",".next_button",function(){
+          if (question_no<question_json.length){
+            update_questions(question_json[question_no]);
+          }
+          else{
+              $(".quiz_main").hide();
+              $(".quiz_result").show();
+          }
+        });
+        //
+        $("body").on("click","#quiz_home",function(){ 
+          question_no=0;
+          $(".quiz_main").hide();
+          $(".quiz_result").hide();
+          $(".quiz_practice").show();
+          update_questions(question_json[question_no]);
+        });
+  //update_questions
+  //.html
+  function update_questions(question_object) {
+          //option hover_effect
+    $(".option").attr("class", "option hover_effect");
+    $(".feedback").hide();
+    $(".next_button").hide();
+    $("#sentence").html(question_object.question_text);
+    $("#instructions").html(question_object.question_inst);
+    $("#option1").text(question_object.choice1);
+    $("#option2").text(question_object.choice2);
+    $("#option3").text(question_object.choice3);
+    $("#option4").text(question_object.choice4);  
+    $("#feedback").html(question_object.feedback); 
+        }      
+  });
+</script>
+</body>
+</html>

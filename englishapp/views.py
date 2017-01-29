@@ -57,6 +57,10 @@ class News_Test(View):
     def get(self,request):
         return render(request,"news_test.html")
 
+class Practice(View):
+    def get(self,request):
+        return render(request,"practice.html")
+
 class LogOut(View):
     def get(self,request):
         logout(request)
