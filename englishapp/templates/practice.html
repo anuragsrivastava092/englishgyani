@@ -542,9 +542,16 @@
 
 
 <script>
+screen_width = $('body').width();
 function openNav() {
+  if(screen_width>500){
     document.getElementById("mySidenav").style.width = "280px";
     document.getElementById("main").style.marginLeft = "280px";
+    }
+    else{
+    document.getElementById("mySidenav").style.width = "100%";
+    document.getElementById("main").style.marginLeft = "100%";
+    }
     document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
     //$("#main").css({"background": "rgba(0,0,0,0.4)"});
     
