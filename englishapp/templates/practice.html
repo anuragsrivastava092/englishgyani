@@ -4,7 +4,7 @@
 <head>
   <title>EnglishGyani - Learn English with News</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">	
+  <meta name="viewport" content="width=device-width, initial-scale=1">  
   <link rel="icon" href="{% static 'images/col_lo.png' %}" type="image/png" >
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -271,21 +271,24 @@
   <style type="text/css">
   .bookmark_quiz{
         height: 600px;
+        height: auto;
         background: #5f8fa0;
         background: black;
         padding-top: 50px;
-        padding-bottom: 30px;
+        padding-bottom: 50px;
 
   }
     .quiz_practice {
       text-align: center;
-      padding-top:260px;
+      padding-top:100px;
+      padding-bottom:100px;
       }
     .quiz_home{
       text-align: center;
     }
     .quiz_main{
       height: 100%;
+      height: auto;
       background:  #87abb8;
       background: white;
       width: 500px;
@@ -296,6 +299,7 @@
     }
     .quiz_result{
       height: 100%;
+      height: auto;
       background:  #87abb8;
       background: white;
       width: 500px;
@@ -355,14 +359,25 @@
       color: #666666;
       display: none;
     }
-    @media only screen and (max-width: 510px) {
+    @media only screen and (max-width: 600px) {
+      .bookmark_quiz{
+
+        padding-top: 0px;
+        padding-bottom: 0px;
+
+  }
       .quiz_main{
       width: 100%;
       margin:0px 0px;
-      border: 4px solid #606060;
-      padding: 30px 30px;
-      display: none;
+   
     }
+    .quiz_result{
+      width: 100%;
+      margin:0px 0px;
+
+    }
+
+    
   
     }
   </style>
@@ -397,6 +412,13 @@
     background: #329932;
     color: white;
     display: none;
+  }
+ @media only screen and (max-width: 600px) {
+   .result_table{
+      margin-left:0%;
+      margin-right:0%;
+      
+    }
   }
   </style>
 </head>
@@ -467,7 +489,7 @@
                   <table>
                     <tr>
                     <th>Category</th>
-                    <th>fraction</th>
+                    <th>On Mark</th>
                     <th>Score</th>
                     </tr>
                     <tr>
@@ -536,6 +558,11 @@ function closeNav() {
 </script>
 <script type="text/javascript">
   $(document).ready(function(){
+    // user_question_category 
+    // assessment_question(repetition) = 70| 1
+    // review_questions = 50 | 2
+    // progress(totally_new) = 100 | 3
+     performance_array = [0,0,0,0,0,0]; //correct,number
      question_json = [{"question_inst": "In this sentence, <strong>threw</strong> means:", "question_text" :"He grabbed me by my shirt and <strong>threw</strong> me across the room.", "category":"3",
     "choice1":"darted", "choice2":"confounded", 
     "choice3":"hurled", "choice4":"switched", "answer":"3",
@@ -563,7 +590,21 @@ function closeNav() {
            correct_answ = question_json[question_no].answer;
            if (select_option===correct_answ) {
               $("#"+id_no).addClass("correct_response");
-           }
+                if(question_json[question_no].category==="1"){
+                //
+                performance_array[0]+=1;
+
+                }
+              else if(question_json[question_no].category==="2" ) {
+
+                performance_array[2]+=1;
+
+              }
+              else  {
+                performance_array[4]+=1;
+
+              }
+          }
             else{
                 
                 $("#option"+correct_answ).addClass("correct_response");
@@ -583,10 +624,12 @@ function closeNav() {
         $("body").on("click",".next_button",function(){
           if (question_no<question_json.length){
             update_questions(question_json[question_no]);
+
           }
           else{
               $(".quiz_main").hide();
               $(".quiz_result").show();
+              update_result(performance_array);
           }
         });
         //
@@ -596,6 +639,7 @@ function closeNav() {
           $(".quiz_result").hide();
           $(".quiz_practice").show();
           update_questions(question_json[question_no]);
+          performance_array = [0,0,0,0,0,0]; 
         });
   //update_questions
   //.html
@@ -611,7 +655,43 @@ function closeNav() {
     $("#option3").text(question_object.choice3);
     $("#option4").text(question_object.choice4);  
     $("#feedback").html(question_object.feedback); 
-        }      
+      if(question_object.category==="1"){
+        //
+        performance_array[1]+=1;
+
+        }
+      else if(question_object.category==="2" ) {
+
+        performance_array[3]+=1;
+
+      }
+      else  {
+        performance_array[5]+=1;
+
+      }
+
+ }
+
+  function update_result(performance_array) {
+          // performance_array
+           $("#12").text(performance_array[0]+ "/" + performance_array[1]);
+           asses_score = performance_array[0]*50;
+           $("#13").text(asses_score);
+           $("#22").text(performance_array[2]+ "/" + performance_array[3]);
+           review_score = performance_array[2]*70;
+           $("#23").text(review_score);
+           $("#32").text(performance_array[4]+ "/" + performance_array[5]);
+           progress_score = performance_array[4]*100;
+           $("#33").text(progress_score);
+
+total_correct = performance_array[0]+performance_array[2]+performance_array[4];
+total_question = performance_array[1]+performance_array[3]+performance_array[5];
+           $("#42").text(total_correct+ "/" + total_question);
+           total_sum = asses_score + review_score + progress_score;
+           $("#43").text(total_sum);
+
+        }   
+
   });
 </script>
 </body>
