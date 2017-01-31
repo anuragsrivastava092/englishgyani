@@ -2,7 +2,7 @@
 {% load static %}
 <html lang="en">
 <head>
-  <title>EnglishGyani - Learn English with News</title>
+  <title>EnglishGyani - Practice unlimited Vocbulary | Read recommended readings | Play word games</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">  
   <link rel="icon" href="{% static 'images/col_lo.png' %}" type="image/png" >
@@ -421,6 +421,79 @@
     }
   }
   </style>
+
+  <style>
+    #tooltip_bookmark, #tooltip_lookup{
+      background:#ABFFE3;
+      position:relative;
+      border-radius: 2px;
+      border-style:hidden;
+      display:none;
+
+     }
+    #tooltip_lookup{
+      background:#ff751a;
+    }
+      #tooltext_bookmark, #tooltext_lookup {
+      padding-top:10px;
+      padding-bottom:6px;
+      padding-left:10px;
+      padding-right:10px;
+      font-size: 16px;
+
+     }
+
+     #alert_bookmark{
+      display:none;
+     }
+
+     .login{
+    margin-top:120px;
+    width:300px;
+    padding-left:20px;
+    padding-right:20px;
+    text-align:center;
+    background:white;
+    margin-left:calc((100% - 300px)/2);
+    margin-right:calc((100% - 300px)/2);
+    padding-bottom:80px;
+  }
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    border: 1px solid #e5e5e5;
+    border-radius:100px;
+
+  }
+  .sign_text{
+    padding-top:20px;
+    font-size:24px;
+  }
+  .social_login_img{
+    margin-top:10px;
+    width:100%;
+
+  }
+  .social_login_img1{
+    margin-top:5px;
+    width:100%;
+  }
+  .close_modal_div{
+    margin-top:20px;
+    margin-left:80px;
+    height:auto;
+  }
+  </style>
+      <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-89115995-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </head>
 <body>
   <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -541,8 +614,23 @@
       </div>
     </div>
   </div>
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="login card">
+      <p class="sign_text"> Login to Englishgyani</p>
+      <a href="/accounts/google/login/?process=login">
+        <img alt= "google login image" class="social_login_img" src="https://englishbucket.s3.amazonaws.com/static/img/a.png">
+      </a>
+      <a href="/accounts/facebook/login/?process=login">
+        <img alt= "facebook login image" class="social_login_img1" src="https://englishbucket.s3.amazonaws.com/static/img/fb.png">
+      </a>
+      <div class="close_modal_div">
+        <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
 
+      </div>
+  </div>
 
+ </div>
+<form action="" method="post">{% csrf_token %}</form>
 <script>
 screen_width = $('body').width();
 function openNav() {
@@ -580,7 +668,19 @@ function closeNav() {
     {"question_inst": "In this sentence, <strong>latter</strong> means:", "question_text" :"“You might think that the <strong>latter</strong> is the better choice because both children get more,” Bloom writes, in his book “Just Babies.”","category":"3","choice1":"something regarded with special favor or liking", "choice2":"something that is required in advance of something else", 
     "choice3":"the second of two or the second mentioned of two", "choice4":"the action of allowing oneself to enjoy certain pleasures", "answer":"3",
     "feedback":"When you are comparing two things, the first one is known as the former and the second as the latter. For example, George Bush and George W. Bush were both U. S. presidents. The latter was the son of the former."
-    }
+    },
+    {"question_inst": "", "question_text" :"<strong>mean</strong> means to","category":"3","choice1":"cast off", "choice2":"intend to express or convey", 
+    "choice3":"keep far away", "choice4":"perceive with eyes", "answer":"2",
+    "feedback":'If you got a fortune cookie with the message "Your future will contain many bananas," you might ask, "What on earth does that mean?" In other words, you wonder what the intention or meaning of the fortune might be'
+    },
+    {"question_inst": "", "question_text" :"The night was intense and quiet, a low hum of insects giving the ________ of a congestion of life.","category":"3","choice1":"style", "choice2":"effect", 
+    "choice3":"inequality", "choice4":"advantage", "answer":"2",
+    "feedback":'Effect is the result of an action, as in those “cause and effect” papers you might write in English class. Your topic could be how your late-night tuba playing (cause) has driven your roommate insane (effect).'
+    },
+    {"question_inst": "In this sentence, <strong>fabrication</strong> means:", "question_text" :"Even tiny faults in <strong> fabrication</strong can cause problems when energy is coursing through the reactor, heating up the coils.","category":"3","choice1":"the gradual process of acquiring knowledge", "choice2":"the act of constructing something, as a piece of machinery", 
+    "choice3":"the delivery of goods for sale or disposal", "choice4":"the act of expanding something in apparent size", "answer":"2",
+    "feedback":'A fabrication is something made up, like a lie. Telling your boss that the subway broke down when in fact you just forgot to set your alarm is a fabrication.'
+    },
      ];
 
 
@@ -702,6 +802,23 @@ total_question = performance_array[1]+performance_array[3]+performance_array[5];
         }   
 
   });
+
+</script>
+
+<script src="{% static 'js/article_common.js' %}"></script>
+<script type="text/javascript">
+  user_name ="";
+</script>
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/58598405634313168660211a/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
 </script>
 </body>
 </html>
