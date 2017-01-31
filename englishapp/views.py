@@ -43,11 +43,17 @@ class Bookmark_Words(View):
         return render(request,"bookmark.html",{"bookmark_list":bookmark_list,"user":user})
 class Default(View):
     def get(self,request):
-        return redirect("http://englishgyani.com/article-list/")
+        if request.user.id!=None:
+            return redirect("http://englishgyani.com/article-list/")
+        else:
+            return render(request,"front_page.html")
 
 class Why(View):
     def get(self,request):
-        return render(request,"whyus.html")
+        if request.user.id!=None:
+            return redirect("http://englishgyani.com/article-list/")
+        else:
+            return render(request,"whyus.html")
 
 class Front(View):
     def get(self,request):
