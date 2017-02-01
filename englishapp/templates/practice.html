@@ -631,6 +631,10 @@
 
  </div>
 <form action="" method="post">{% csrf_token %}</form>
+<script type="text/javascript">
+      question_json={{ question_json |safe }};
+      user_name ="{{ user | safe }}";
+</script>
 <script>
 screen_width = $('body').width();
 function openNav() {
@@ -660,7 +664,7 @@ function closeNav() {
     // review_questions = 50 | 2
     // progress(totally_new) = 100 | 3
      performance_array = [0,0,0,0,0,0]; //correct,number
-     question_json = [{"question_inst": "In this sentence, <strong>threw</strong> means:", "question_text" :"He grabbed me by my shirt and <strong>threw</strong> me across the room.", "category":"3",
+     question_arr = [{"question_inst": "In this sentence, <strong>threw</strong> means:", "question_text" :"He grabbed me by my shirt and <strong>threw</strong> me across the room.", "category":"3",
     "choice1":"darted", "choice2":"confounded", 
     "choice3":"hurled", "choice4":"switched", "answer":"3",
     "feedback":"When you <i>throw</i> a ball, you toss it using your hand. When you <i>throw</i> a party, you buy some food and drinks, then invite your friends over."
@@ -683,7 +687,9 @@ function closeNav() {
     },
      ];
 
-
+     if (question_json.length===0){
+      question_json=question_arr
+     }
         
       //
         question_no=0;
