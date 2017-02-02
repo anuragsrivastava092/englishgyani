@@ -542,13 +542,17 @@ def delete_bookmark(request):
 class Practice(View):
     #@ensure_csrf_cookie
     def get(self,request):
-        word_list=User_Bookmark.objects.all().order_by('-id')[:10]
+        #word_list=User_Bookmark.objects.all().order_by('-id')[:10]
         #art_list=[]
+        word_list = User_Bookmark.objects.filter(user=request.user.id).order_by('-id')[:10]
         ques_list = []
-        #print 77777
+        #print 77777 bookmark_word_meaning
         for bookmark in word_list:
             word = bookmark.bookmark_word
-            question_content = distractor.dest(word)
+            meaning = bookmark.bookmark_word_meaning
+            example = bookmark.bookmark_word_example
+            #print word
+            question_content = distractor.dest(word,meaning,example)
             if question_content!=-1:
                 question_data={}
                 question_data['category']= 3

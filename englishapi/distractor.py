@@ -4,6 +4,8 @@ from itertools import product
 import csv as csv 
 import random
 import numpy as np
+from nltk.stem.wordnet import WordNetLemmatizer
+
 #wordnet and numpy requires
 
 def arr_similar(word1,word2):
@@ -33,9 +35,10 @@ def word_best_example(word,word_arr1):
 			example = word_arr1[i].examples()[j]
 			try:
 				ind = example.index(word)
+				word_length = len(word)
 			except:
 				ind = -1
-			if ind > -1 and example[ind-1]==" " and len(example) > max_length:
+			if ind > -1 and example[ind-1]==" "  and len(example) > max_length:
 				max_length = len(example)
 				best_example = example[0:ind] + "______"+ example[ind+len(word):]
 				best_pos =(i,j)
@@ -49,36 +52,80 @@ def word_best_example(word,word_arr1):
 		#arr[1].capitalize()
 		return arr
 
+def add_blank(word,example):
+	best_example =-1
+	try:
+		ind = example.index(word)
+		word_length = len(word)
+	except:
+		ind = -1
+	if ind > -1 and example[ind-1]==" " and example[ind+word_length]==" " :
+		best_example = example[0:ind] + "______"+ example[ind+len(word):]
+	return best_example
 
-
-
-def dest(word):
+#lexme
+#while adding
+#question adding
+def dest(word,meaning,example):
+	lmtzr = WordNetLemmatizer()
+	word = lmtzr.lemmatize(word)
+	print "word"
+	print word
 	word_arr1 = wordnet.synsets(word)
 	numpy_arr = word_numpy_arr()
 	option_arr=[]
 	if len(word_arr1)<0:
-		return -1
-	else:
-		print word
-		print word_arr1
-		mean_example = word_best_example(word,word_arr1)
-		print mean_example
-		if type(mean_example)==int:
+		print "amit"
+		example = add_blank(word,example)
+		if example ==-1:
+			print "pos_db"
 			return -1
+		mean_example = [meaning,example]
 		i=0
-
 		while (i<3) :
 			rand = random.randint(1, 35808)
 			obstruction_word = numpy_arr[rand][0]
-			print 999
-			print obstruction_word
-			print 111
-			if 0.1 < arr_similar(obstruction_word,word) < 0.7:
-				option_arr.append(obstruction_word)
-				i+=1
-			#elif i>200:
-			#	return -1
+			option_arr.append(obstruction_word)
 		option_arr.append(word)
+	else:
+		mean_example = word_best_example(word,word_arr1)
+		if type(mean_example)==int: 
+			print "394"
+			example = add_blank(word,example)
+			if example==-1:
+				print "pos_wordnet"
+				example = add_blank(word,example)
+				if example==-1:
+					print "pos_db"
+					return -1
+				mean_example = [meaning,example]
+				i=0
+				while (i<3) :
+					rand = random.randint(1, 35808)
+					obstruction_word = numpy_arr[rand][0]
+					option_arr.append(obstruction_word)
+				option_arr.append(word)
+				#return -1
+			else:
+				mean_example = [meaning,example]
+				i=0
+				while (i<3) :
+					rand = random.randint(1, 35000)
+					obstruction_word = numpy_arr[rand][0]
+					option_arr.append(obstruction_word)
+				option_arr.append(word)
+		else:
+			i=0
+			while (i<3) :
+				rand = random.randint(1, 35808)
+				obstruction_word = numpy_arr[rand][0]
+				if 0.1 < arr_similar(obstruction_word,word) < 0.7:
+					option_arr.append(obstruction_word)
+					i+=1
+				elif i>200:
+					print 200
+					return -1
+			option_arr.append(word)
 	random.shuffle(option_arr)
 	answer = option_arr.index(word)
 	option_arr.append(answer)
