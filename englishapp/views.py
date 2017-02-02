@@ -50,7 +50,7 @@ class Practice(View):
             ques_list=json.loads(question_json)
             return render(request,"practice.html",{"question_json":ques_list,"user":user})
         else:
-            return render(request,"practice.html",{"question_json":"","user":""})
+            return render(request,"practice.html",{"question_json":"{}","user":""})
 
 class Default(View):
     def get(self,request):
