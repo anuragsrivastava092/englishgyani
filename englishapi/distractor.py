@@ -73,7 +73,7 @@ def dest(word):
 			print 999
 			print obstruction_word
 			print 111
-			if 0.3 < arr_similar(obstruction_word,word) < 0.6:
+			if 0.1 < arr_similar(obstruction_word,word) < 0.7:
 				option_arr.append(obstruction_word)
 				i+=1
 			#elif i>200:
