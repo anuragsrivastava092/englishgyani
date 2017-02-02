@@ -544,7 +544,7 @@ class Practice(View):
     def get(self,request):
         #word_list=User_Bookmark.objects.all().order_by('-id')[:10]
         #art_list=[]
-        word_list = User_Bookmark.objects.filter(user=request.user.id).order_by('-id')[:10]
+        word_list = User_Bookmark.objects.filter(user=request.user.id).order_by('-id')[:5]
         ques_list = []
         #print 77777 bookmark_word_meaning
         for bookmark in word_list:
