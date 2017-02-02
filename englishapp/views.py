@@ -41,6 +41,17 @@ class Bookmark_Words(View):
             user=""
             bookmark_list=[]
         return render(request,"bookmark.html",{"bookmark_list":bookmark_list,"user":user})
+
+class Practice(View):
+    def get(self,request):
+        if request.user.id!=None:
+            user=str(request.user)
+            question_json=englishapi_view.Practice.as_view()(self.request).content
+            ques_list=json.loads(question_json)
+            return render(request,"practice.html",{"question_json":ques_list,"user":user})
+        else:
+            return render(request,"practice.html",{"question_json":"","user":""})
+
 class Default(View):
     def get(self,request):
         if request.user.id!=None:
@@ -63,9 +74,7 @@ class News_Test(View):
     def get(self,request):
         return render(request,"news_test.html")
 
-class Practice(View):
-    def get(self,request):
-        return render(request,"practice.html")
+
 
 class LogOut(View):
     def get(self,request):

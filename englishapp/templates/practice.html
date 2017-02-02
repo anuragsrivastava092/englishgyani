@@ -702,7 +702,7 @@ function closeNav() {
         $("body").on("click",".hover_effect",function(){ 
            id_no=this.id;
            select_option = id_no.substring(6);
-           correct_answ = question_json[question_no].answer;
+           correct_answ = String(question_json[question_no].answer);
            if (select_option===correct_answ) {
               $("#"+id_no).addClass("correct_response");
                 if(question_json[question_no].category==="1"){

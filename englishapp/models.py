@@ -1,16 +1,8 @@
 from __future__ import unicode_literals
-
 from django.db import models
-
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-
-
-
-
-
-
 
 class Profile_User(models.Model):
     A='1'
@@ -155,25 +147,6 @@ class User_Play_Performance(models.Model):
     user_altered_content=models.TextField(blank=True)
 
 
-class User_Bookmark(models.Model):
-    user=models.IntegerField(User)
-    bookmark_word=models.CharField(max_length=254)
-    bookmark_word_meaning=models.CharField(max_length=254)
-    bookmark_word_example=models.CharField(max_length=254)
-    #bookmark_source_example=models.CharField(max_length=254)
-    strength=models.IntegerField()
-    date_created = models.DateTimeField(default=timezone.now)
-    source=models.CharField(max_length=254)
-
-
-
-
-class Vocab_List(models.Model):
-    vocab=models.CharField(max_length=254)
-    vocab_meaning=models.CharField(max_length=254)
-    vocab_example=models.CharField(max_length=254)
-    vocab_category=models.CharField(max_length=254)
-
 class Word_meaning_hindi(models.Model):
     word_name=models.CharField(max_length=99)
     word_meaning=models.CharField(max_length=254)
@@ -186,3 +159,50 @@ class Motivation_quote(models.Model):
     quote=models.CharField(max_length=254)
     quote_type=models.CharField(max_length=254)
 
+
+#
+
+class Bookmark_Word(models.Model):
+	bookmark_word=models.CharField(max_length=254)
+	bookmark_word_meaning=models.CharField(max_length=254)
+	bookmark_word_example=models.CharField(max_length=254)
+
+class User_Bookmark(models.Model):
+    user=models.IntegerField(User)
+    bookmark_word=models.CharField(max_length=254)
+    bookmark_word_meaning=models.CharField(max_length=254)
+    bookmark_word_example=models.CharField(max_length=254)
+    #bookmark_source_example=models.CharField(max_length=254)
+    strength=models.IntegerField()
+    date_created = models.DateTimeField(default=timezone.now)
+    source=models.CharField(max_length=254)
+
+class Vocab_Question(models.Model):
+	word_meaning=1
+	meaning_word=2
+	example_word=3
+	question_type_field=((word_meaning,'word given choose meaning'),(meaning_word,'meaning given choose word'),(example_word,'example given choose word'))
+	question_category=models.IntegerField(choices=question_type_field)
+	question_instruction=models.CharField(max_length=254)
+	question_description=models.CharField(max_length=1000)
+	choice1_description=models.CharField(max_length=254)
+	choice2_description=models.CharField(max_length=254)
+	choice3_description=models.CharField(max_length=254)
+	choice4_description=models.CharField(max_length=254)
+	word=models.CharField(max_length=254)
+	A=1
+	B=2
+	C=3
+	D=4
+	choice_field=((A,'choice1'),(B,'choice2'),(C,'choice3'),(D,'choice4'))
+	right_choice=models.IntegerField(choices=choice_field)
+	feedback=models.CharField(max_length=1000)
+    
+class Vocab_User_Practice(models.Model):
+	#article=models.ForeignKey(Article)
+	user=models.IntegerField(User)
+	vocab_question_id=models.IntegerField(Vocab_Question)
+	response_id=models.IntegerField()
+
+class Vocab_User_Performance(models.Model):
+	total_score=models.IntegerField()

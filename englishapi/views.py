@@ -9,6 +9,7 @@ import exception_handler,json
 from django.views.decorators.csrf import ensure_csrf_cookie
 import app_methods
 import codecs
+import distractor
 
 
 class Register(View):
@@ -537,3 +538,32 @@ def delete_bookmark(request):
         print word
         User_Bookmark.objects.filter(user=request.user.id,bookmark_word=word).delete()
         return JsonResponse("deleted",safe=False)
+
+class Practice(View):
+    #@ensure_csrf_cookie
+    def get(self,request):
+        word_list=User_Bookmark.objects.all().order_by('-id')[:10]
+        #art_list=[]
+        ques_list = []
+        #print 77777
+        for bookmark in word_list:
+            word = bookmark.bookmark_word
+            question_content = distractor.dest(word)
+            if question_content!=-1:
+                question_data={}
+                question_data['category']= 3
+                question_data['choice1']= question_content[0]
+                question_data['choice2'] =question_content[1]
+                question_data['choice3'] = question_content[2]
+                question_data['choice4'] = question_content[3]
+                print type(question_content[4])
+                question_data['answer']  = question_content[4] + 1
+                question_data['question_text']  = question_content[5]
+                question_data['question_inst']  = question_content[6]
+                question_data['feedback']  = question_content[7]
+            	ques_list.append(question_data)
+        ques_list=json.dumps(ques_list,ensure_ascii=True)
+        #print ques_list
+
+        return JsonResponse(ques_list,safe=False)
+
